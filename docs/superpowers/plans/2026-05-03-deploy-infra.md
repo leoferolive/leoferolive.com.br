@@ -852,6 +852,8 @@ concurrency:
 jobs:
   prepare-rc-tag:
     runs-on: [self-hosted, Linux, ARM64]
+    permissions:
+      contents: write
     outputs:
       rc_tag: ${{ steps.tag.outputs.rc_tag }}
     steps:
@@ -866,6 +868,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GHCR_PAT || github.token }}
         run: |
           set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Pega última stable tag, ou v0.0.0 se nenhuma
           LAST_STABLE="$(git tag -l 'v[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | grep -v '-rc\.' | head -1 || echo v0.0.0)"
           # Bump patch
@@ -1023,7 +1027,7 @@ on:
 
 jobs:
   tag-and-release:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' }}
     runs-on: [self-hosted, Linux, ARM64]
     permissions:
       contents: write
@@ -1032,12 +1036,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.workflow_run.head_sha }}
           fetch-depth: 0
 
       - name: Compute next stable tag
         id: tag
         run: |
           set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           LAST="$(git tag -l 'v[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | grep -v '-rc\.' | head -1 || echo v0.0.0)"
           MAJOR=$(echo "$LAST" | sed 's/v\([0-9]*\)\.[0-9]*\.[0-9]*/\1/')
           MINOR=$(echo "$LAST" | sed 's/v[0-9]*\.\([0-9]*\)\.[0-9]*/\1/')
