@@ -52,7 +52,7 @@ export function CareerEntryDetailed({ entry, lang, defaultExpandedMobile }: Prop
           <ChevronRight
             size={14}
             strokeWidth={1.5}
-            className={`shrink-0 transition-transform ${mobileExpanded ? 'rotate-90' : ''}`}
+            className={`shrink-0 motion-safe:transition-transform ${mobileExpanded ? 'rotate-90' : ''}`}
             aria-hidden="true"
           />
           <div className="flex-1">{Header}</div>
@@ -63,7 +63,7 @@ export function CareerEntryDetailed({ entry, lang, defaultExpandedMobile }: Prop
       <p className="mt-1 text-text-muted text-sm">{entry.summary[lang]}</p>
       <ul
         id={`career-${entry.id}-bullets`}
-        className={`mt-2 space-y-1 overflow-hidden transition-all ${
+        className={`mt-2 space-y-1 overflow-hidden motion-safe:transition-all ${
           showBullets ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
