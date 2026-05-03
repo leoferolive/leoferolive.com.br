@@ -1,3 +1,22 @@
 # Personal CV source — kept local; conteúdo curado vai pro site
 *.docx
 *:Zone.Identifier
+
+# Node
+node_modules/
+dist/
+*.log
+.env
+.env.local
+.env.*.local
+
+# TypeScript build artifacts
+*.tsbuildinfo
+vite.config.d.ts
+vite.config.js
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
