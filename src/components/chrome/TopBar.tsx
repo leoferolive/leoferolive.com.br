@@ -1,3 +1,5 @@
+import { LanguageToggle } from './LanguageToggle';
+
 type TopBarProps = { breadcrumb: string };
 
 export function TopBar({ breadcrumb }: TopBarProps) {
@@ -12,8 +14,11 @@ export function TopBar({ breadcrumb }: TopBarProps) {
         <span className="size-2.5 rounded-full bg-[#28c840] opacity-70" />
       </div>
       <div className="hidden text-text-muted text-xs sm:block">{breadcrumb}</div>
-      <div className="rounded border border-border px-2 py-0.5 text-text-faint text-[11px]">
-        ⌘K
+      <div className="flex items-center gap-2">
+        <LanguageToggle />
+        <div className="hidden md:block rounded border border-border px-2 py-0.5 text-text-faint text-[11px]">
+          ⌘K
+        </div>
       </div>
     </header>
   );
