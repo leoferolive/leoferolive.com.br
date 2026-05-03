@@ -49,6 +49,8 @@ Code-grep results from `grep -rn "aria-" src/components/` and `grep -rn "role=" 
 
 No gaps found. All interactive elements have appropriate aria-* attributes. No code changes required for 5.3.
 
+Keyboard navigation verified by code inspection: SkipLink renders first in DOM (before TopBar), ensuring Tab-key order is correct. Focus styles are present via `focus:not-sr-only focus:fixed focus:...` on SkipLink. All `<button>` elements are native buttons (keyboard-accessible by default). All `<a>` elements use `href` (keyboard-accessible).
+
 ## Manual audit follow-ups (require browser/device)
 
 - [ ] Real mobile device test: tap targets feel comfortable
