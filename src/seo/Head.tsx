@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useI18n } from '@/i18n/context';
+import { personJsonLd } from './jsonld';
 
 const SITE_URL = 'https://leoferolive.com.br';
 
@@ -37,6 +38,14 @@ export function Head() {
     setOrCreate('meta[property="og:locale"]', {
       property: 'og:locale', content: lang === 'pt' ? 'pt_BR' : 'en_US',
     });
+    let script = document.head.querySelector<HTMLScriptElement>('#jsonld-person');
+    if (!script) {
+      script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.id = 'jsonld-person';
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(personJsonLd);
   }, [lang, t]);
   return null;
 }
