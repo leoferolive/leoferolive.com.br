@@ -28,6 +28,8 @@ All tappable buttons and CTAs pass the 44×44 px minimum. No code changes requir
 
 Two positional/transform animations in CareerEntryDetailed were not guarded against prefers-reduced-motion. Both were patched with Tailwind's `motion-safe:` variant in this phase.
 
+All `transition-colors` usages (Hero CTAs, LanguageToggle, StackGroup, ProjectCard, CaseCard) are color-only transitions — these do not trigger vestibular symptoms and are acceptable without a reduced-motion guard per WCAG 2.3.3 guidance.
+
 ## 5.3 a11y attributes
 
 Code-grep results from `grep -rn "aria-" src/components/` and `grep -rn "role=" src/components/`:
