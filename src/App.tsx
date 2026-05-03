@@ -5,6 +5,7 @@ import { langFromPath } from '@/i18n/routing';
 import { PageShell } from '@/components/layout/PageShell';
 import { useT } from '@/i18n/useT';
 import { Hero } from '@/components/sections/Hero';
+import { Cases } from '@/components/sections/Cases';
 
 function LocalizedShell({ children }: { children: ReactNode }) {
   const t = useT();
@@ -53,7 +54,12 @@ function PersistedLangRedirect() {
   return null;
 }
 
-const Home = () => <Hero />;
+const Home = () => (
+  <>
+    <Hero />
+    <Cases />
+  </>
+);
 
 export default function App() {
   return (
