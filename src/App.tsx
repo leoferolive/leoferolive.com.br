@@ -4,6 +4,7 @@ import { I18nProvider } from '@/i18n/context';
 import { langFromPath } from '@/i18n/routing';
 import { PageShell } from '@/components/layout/PageShell';
 import { useT } from '@/i18n/useT';
+import { Head } from '@/seo/Head';
 import { Hero } from '@/components/sections/Hero';
 import { Cases } from '@/components/sections/Cases';
 import { Career } from '@/components/sections/Career';
@@ -27,21 +28,12 @@ function LocalizedShell({ children }: { children: ReactNode }) {
   );
 }
 
-function HtmlLangSync() {
-  const t = useT();
-  useEffect(() => {
-    document.documentElement.lang = t.meta.htmlLang;
-    document.title = t.meta.title;
-  }, [t]);
-  return null;
-}
-
 function LangApp({ children }: { children: ReactNode }) {
   const location = useLocation();
   const lang = langFromPath(location.pathname);
   return (
     <I18nProvider lang={lang}>
-      <HtmlLangSync />
+      <Head />
       <LocalizedShell>{children}</LocalizedShell>
     </I18nProvider>
   );
