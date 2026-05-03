@@ -4,6 +4,7 @@ import { I18nProvider } from '@/i18n/context';
 import { langFromPath } from '@/i18n/routing';
 import { PageShell } from '@/components/layout/PageShell';
 import { useT } from '@/i18n/useT';
+import { Hero } from '@/components/sections/Hero';
 
 function LocalizedShell({ children }: { children: ReactNode }) {
   const t = useT();
@@ -52,18 +53,16 @@ function PersistedLangRedirect() {
   return null;
 }
 
-const PlaceholderHome = () => (
-  <p className="py-12">conteúdo das seções aqui (vem em Phase 3)</p>
-);
+const Home = () => <Hero />;
 
 export default function App() {
   return (
     <>
       <PersistedLangRedirect />
       <Routes>
-        <Route path="/" element={<LangApp><PlaceholderHome /></LangApp>} />
-        <Route path="/en" element={<LangApp><PlaceholderHome /></LangApp>} />
-        <Route path="*" element={<LangApp><PlaceholderHome /></LangApp>} />
+        <Route path="/" element={<LangApp><Home /></LangApp>} />
+        <Route path="/en" element={<LangApp><Home /></LangApp>} />
+        <Route path="*" element={<LangApp><Home /></LangApp>} />
       </Routes>
     </>
   );
