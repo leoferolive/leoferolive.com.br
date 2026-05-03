@@ -59,6 +59,18 @@ dist/assets/index-CJFT3V7n.js                                   198.60 kB │ gz
 
 > Local Lighthouse run not part of this audit (would require headed browser env). To be done manually before go-live: `npm run build && npm run preview` then open `http://localhost:4173/` in Chrome → DevTools → Lighthouse → mobile + desktop, both `/` and `/en`. Confirm Performance/A11y/SEO/Best Practices ≥ 95.
 
+## Update — after font subset fix
+
+After switching `@fontsource/jetbrains-mono/{400,500,700,800}.css` → `latin-{400,500,700,800}.css`:
+
+| Bundle | Before | After |
+|---|---|---|
+| JS gz | 64.15 kB | 64.15 kB |
+| CSS gz | 31.48 kB | 4.77 kB |
+| CSS target (15 KB) | 16.48 kB over | PASS (10.23 kB under target) |
+
+The fix dropped the CSS bundle from 63.59 kB raw / 31.48 kB gz to 19.43 kB raw / 4.77 kB gz — a 85% reduction in gzipped CSS. Only the 4 woff/woff2 latin files are now bundled (no Greek, Cyrillic, Vietnamese, latin-ext subsets).
+
 ## Follow-ups
 
 - [ ] CSS bundle (31.48 kB gz) exceeds the 15 kB target by 16.48 kB. The overage is driven by Tailwind's base/reset styles plus the `@fontsource/jetbrains-mono` CSS being bundled in the single chunk. Investigate: (1) split font CSS from component CSS via Vite manualChunks, (2) subset JetBrains Mono to latin-only via `@fontsource-variable/jetbrains-mono`, (3) confirm that Tailwind's `content` glob is correctly excluding unused utilities — run `npx tailwindcss --minify` standalone to see purged size. The JS target (64.15 kB gz) is met comfortably.
