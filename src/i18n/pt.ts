@@ -14,6 +14,7 @@ export const pt: I18nDictionary = {
     status: '✓ deployed',
     lastCommit: 'hoje',
     languageToggleLabel: 'Trocar idioma para inglês',
+    languageChangedAnnouncement: 'Idioma alterado para português',
   },
   hero: {
     promptCommand: '~ $ whoami',
@@ -37,7 +38,7 @@ export const pt: I18nDictionary = {
     subtitle:
       'Dez anos de engenharia: de sustentação em sinistros a entrega de IA em produção.',
     inProgress: 'in progress',
-    yearsBadge: (n) => `${n} years`,
+    yearsBadge: (n) => `${n} anos`,
     expandLabel: 'Expandir detalhes',
   },
   workflow: {
@@ -79,6 +80,7 @@ export const pt: I18nDictionary = {
       languages: 'PT (nativo) · EN (profissional)',
     },
     copyEmailAria: 'Copiar email',
+    copyEmailLabel: 'copiar',
     copiedFeedback: 'Copiado',
     footerExit: '~ $ exit',
     footerNote:

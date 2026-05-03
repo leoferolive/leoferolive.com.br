@@ -13,6 +13,7 @@ export interface I18nDictionary {
     status: string;
     lastCommit: string;
     languageToggleLabel: string;
+    languageChangedAnnouncement: string;
   };
   hero: {
     promptCommand: string;
@@ -72,6 +73,7 @@ export interface I18nDictionary {
       languages: string;
     };
     copyEmailAria: string;
+    copyEmailLabel: string;
     copiedFeedback: string;
     footerExit: string;
     footerNote: string;

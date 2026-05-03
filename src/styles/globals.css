@@ -28,6 +28,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 2.5rem;
     background: var(--color-bg-base);
     color: var(--color-text-primary);
     font-family: var(--font-mono);

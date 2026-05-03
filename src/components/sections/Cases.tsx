@@ -9,7 +9,7 @@ export function Cases() {
   const { lang } = useI18n();
 
   return (
-    <section className="py-16 md:py-24">
+    <section id="cases" className="py-16 md:py-24">
       <SectionHeader
         id="cases-title"
         caption={t.cases.caption}

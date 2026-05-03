@@ -31,6 +31,7 @@ export function Head() {
       rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/`,
     });
     const ogImage = lang === 'pt' ? '/og-image-pt.png' : '/og-image-en.png';
+    setOrCreate('meta[property="og:type"]', { property: 'og:type', content: 'website' });
     setOrCreate('meta[property="og:title"]', { property: 'og:title', content: t.meta.title });
     setOrCreate('meta[property="og:description"]', { property: 'og:description', content: t.meta.description });
     setOrCreate('meta[property="og:image"]', { property: 'og:image', content: `${SITE_URL}${ogImage}` });

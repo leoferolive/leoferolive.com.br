@@ -1,9 +1,9 @@
 import { Copy, Check } from 'lucide-react';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 
-type Props = { value: string; ariaLabel: string; copiedLabel: string };
+type Props = { value: string; ariaLabel: string; copyLabel: string; copiedLabel: string };
 
-export function CopyButton({ value, ariaLabel, copiedLabel }: Props) {
+export function CopyButton({ value, ariaLabel, copyLabel, copiedLabel }: Props) {
   const { copied, copy } = useCopyToClipboard();
   return (
     <button
@@ -22,7 +22,7 @@ export function CopyButton({ value, ariaLabel, copiedLabel }: Props) {
       ) : (
         <>
           <Copy size={14} strokeWidth={1.5} aria-hidden="true" />
-          <span>copy</span>
+          <span>{copyLabel}</span>
         </>
       )}
     </button>

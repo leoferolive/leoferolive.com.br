@@ -23,7 +23,7 @@ export function Hero() {
       <p className="mt-2 text-lg text-text-muted md:text-xl">{t.hero.subtitle}</p>
       <p className="mt-6 text-base md:text-lg">
         <span className="text-accent">&gt;</span> {tagline}
-        <span className="cursor-blink ml-1 inline-block bg-text-primary text-text-primary">▊</span>
+        <span aria-hidden="true" className="cursor-blink ml-1 inline-block bg-text-primary text-text-primary">▊</span>
       </p>
       <p className="mt-4 text-text-muted">{t.hero.capabilities}</p>
       <p className="mt-1 text-text-faint text-sm">{t.hero.metaLine}</p>

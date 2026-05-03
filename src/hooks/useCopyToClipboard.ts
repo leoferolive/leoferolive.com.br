@@ -9,7 +9,11 @@ export function useCopyToClipboard() {
   }, []);
 
   const copy = useCallback(async (text: string) => {
-    await navigator.clipboard.writeText(text);
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      return;
+    }
     setCopied(true);
     if (timerRef.current) window.clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => setCopied(false), 2000);

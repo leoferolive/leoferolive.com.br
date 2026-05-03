@@ -14,6 +14,7 @@ export const en: I18nDictionary = {
     status: '✓ deployed',
     lastCommit: 'today',
     languageToggleLabel: 'Switch language to Portuguese',
+    languageChangedAnnouncement: 'Language changed to English',
   },
   hero: {
     promptCommand: '~ $ whoami',
@@ -79,6 +80,7 @@ export const en: I18nDictionary = {
       languages: 'PT (native) · EN (professional)',
     },
     copyEmailAria: 'Copy email',
+    copyEmailLabel: 'copy',
     copiedFeedback: 'Copied',
     footerExit: '~ $ exit',
     footerNote:

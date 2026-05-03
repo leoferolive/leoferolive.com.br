@@ -42,6 +42,7 @@ export function Contact() {
           <CopyButton
             value={EMAIL}
             ariaLabel={t.contact.copyEmailAria}
+            copyLabel={t.contact.copyEmailLabel}
             copiedLabel={t.contact.copiedFeedback}
           />
         </Row>
