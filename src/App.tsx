@@ -9,6 +9,7 @@ import { Cases } from '@/components/sections/Cases';
 import { Career } from '@/components/sections/Career';
 import { Workflow } from '@/components/sections/Workflow';
 import { Projects } from '@/components/sections/Projects';
+import { Stack } from '@/components/sections/Stack';
 
 function LocalizedShell({ children }: { children: ReactNode }) {
   const t = useT();
@@ -64,6 +65,7 @@ const Home = () => (
     <Career />
     <Workflow />
     <Projects />
+    <Stack />
   </>
 );
 
