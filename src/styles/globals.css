@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Cores (warm dark) — PRD §02-design.md §2 */
@@ -16,14 +16,13 @@
   --color-err: #ff6b6b;
 
   /* Família mono única */
-  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code",
-    "Source Code Pro", monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
 
   /* Breakpoints (override default — spec usa sm:480) */
-  --breakpoint-sm: 30rem;   /* 480 */
-  --breakpoint-md: 48rem;   /* 768 */
-  --breakpoint-lg: 64rem;   /* 1024 */
-  --breakpoint-xl: 90rem;   /* 1440 */
+  --breakpoint-sm: 30rem; /* 480 */
+  --breakpoint-md: 48rem; /* 768 */
+  --breakpoint-lg: 64rem; /* 1024 */
+  --breakpoint-xl: 90rem; /* 1440 */
 }
 
 @layer base {
@@ -32,7 +31,7 @@
     background: var(--color-bg-base);
     color: var(--color-text-primary);
     font-family: var(--font-mono);
-    font-feature-settings: "calt", "liga";
+    font-feature-settings: 'calt', 'liga';
   }
   body {
     margin: 0;
