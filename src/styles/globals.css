@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  /* Cores (warm dark) — PRD §02-design.md §2 */
+  --color-bg-base: #0a0908;
+  --color-bg-surface: #15110d;
+  --color-bg-elevated: #1f1813;
+  --color-border: #2a201a;
+  --color-border-hover: #3a2a1f;
+  --color-text-primary: #f4ede4;
+  --color-text-muted: #a89484;
+  --color-text-faint: #6b5d52;
+  --color-accent: #ff7a45;
+  --color-ok: #5fb56e;
+  --color-warn: #ffd166;
+  --color-err: #ff6b6b;
+
+  /* Família mono única */
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code",
+    "Source Code Pro", monospace;
+
+  /* Breakpoints (override default — spec usa sm:480) */
+  --breakpoint-sm: 30rem;   /* 480 */
+  --breakpoint-md: 48rem;   /* 768 */
+  --breakpoint-lg: 64rem;   /* 1024 */
+  --breakpoint-xl: 90rem;   /* 1440 */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-mono);
+    font-feature-settings: "calt", "liga";
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  :where(button) {
+    appearance: none;
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
+  }
+}
