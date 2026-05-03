@@ -6,6 +6,7 @@ import { PageShell } from '@/components/layout/PageShell';
 import { useT } from '@/i18n/useT';
 import { Hero } from '@/components/sections/Hero';
 import { Cases } from '@/components/sections/Cases';
+import { Career } from '@/components/sections/Career';
 
 function LocalizedShell({ children }: { children: ReactNode }) {
   const t = useT();
@@ -58,6 +59,7 @@ const Home = () => (
   <>
     <Hero />
     <Cases />
+    <Career />
   </>
 );
 
