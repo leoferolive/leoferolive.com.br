@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   prepare-rc-tag:
-    runs-on: [self-hosted, Linux, ARM64]
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     outputs:
@@ -61,7 +61,7 @@ jobs:
 
   cleanup:
     needs: deploy-dev
-    runs-on: [self-hosted, Linux, ARM64]
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       packages: write

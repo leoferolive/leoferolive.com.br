@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   validate-tag:
-    runs-on: [self-hosted, Linux, ARM64]
+    runs-on: ubuntu-latest
     steps:
       - name: Validar formato da tag estavel
         run: |
@@ -33,7 +33,7 @@ jobs:
 
   approve:
     needs: validate-tag
-    runs-on: [self-hosted, Linux, ARM64]
+    runs-on: ubuntu-latest
     environment: production
     steps:
       - run: echo "Aprovacao recebida para deploy da tag ${{ inputs.tag }} em producao."
