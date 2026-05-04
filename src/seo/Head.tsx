@@ -39,6 +39,14 @@ export function Head() {
     setOrCreate('meta[property="og:locale"]', {
       property: 'og:locale', content: lang === 'pt' ? 'pt_BR' : 'en_US',
     });
+    setOrCreate('meta[property="og:locale:alternate"]', {
+      property: 'og:locale:alternate',
+      content: lang === 'pt' ? 'en_US' : 'pt_BR',
+    });
+    // Twitter card — sync with current language (statically defaults to PT in index.html)
+    setOrCreate('meta[name="twitter:title"]', { name: 'twitter:title', content: t.meta.title });
+    setOrCreate('meta[name="twitter:description"]', { name: 'twitter:description', content: t.meta.description });
+    setOrCreate('meta[name="twitter:image"]', { name: 'twitter:image', content: `${SITE_URL}${ogImage}` });
     let script = document.head.querySelector<HTMLScriptElement>('#jsonld-person');
     if (!script) {
       script = document.createElement('script');
