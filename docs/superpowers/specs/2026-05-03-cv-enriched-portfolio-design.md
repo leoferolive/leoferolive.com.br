@@ -280,7 +280,7 @@ Mobile: grid 1 coluna (já estava no PRD).
 
 ### 4.6 Stack (`#stack`)
 
-**Mudança vs. PRD §3-content.md §5:** adiciona `ChatGPT` em `ai/`. Tudo o mais inalterado.
+**Mudança vs. PRD §3-content.md §5:** adiciona `ChatGPT` em `ai/`. **Atualizado 2026-05-02:** `Kafka` movido de `data/` para `backend/`; `Tailscale` adicionado em `devops/`.
 
 #### Grupo `ai/` final
 ```
@@ -295,6 +295,45 @@ ai/
 ├── Codex
 ├── BMAD
 └── RAG
+```
+
+#### Grupo `backend/` final
+```
+backend/
+├── Java 8–25
+├── Spring Boot 4
+├── Microservices
+├── BFF
+├── Event-driven
+├── Kafka
+├── REST + SSE
+└── OIDC
+```
+
+#### Grupo `data/` final
+```
+data/
+├── PostgreSQL
+├── MongoDB
+├── Redis
+├── SQL Server
+├── Oracle
+└── DB2
+```
+
+#### Grupo `devops/` final
+```
+devops/
+├── AWS EKS
+├── Kubernetes
+├── K3s
+├── Helm
+├── Docker
+├── GitHub Actions
+├── Jenkins
+├── Cloudflare Tunnel
+├── Tailscale
+└── Traefik
 ```
 
 EN headers/labels: traduzir caption/title/subtitle; nomes técnicos permanecem.
