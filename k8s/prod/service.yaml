@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: leoferolive-com-br
+  namespace: leoferolive-com-br
+spec:
+  selector:
+    app: leoferolive-com-br
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: ClusterIP
