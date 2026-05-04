@@ -78,8 +78,8 @@ export const career: readonly CareerEntry[] = [
     id: 'cityconnect',
     yearLabel: '2024',
     text: {
-      pt: 'City Connect · Tech Lead · TCE-PR (8 devs)',
-      en: 'City Connect · Tech Lead · TCE-PR (8 devs)',
+      pt: 'City Connect · Líder de Projetos · TCE-PR (8 devs)',
+      en: 'City Connect · Project Lead · TCE-PR (8 devs)',
     },
   },
   {
