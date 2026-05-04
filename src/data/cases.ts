@@ -33,22 +33,22 @@ export const cases: readonly CaseEntry[] = [
   },
   {
     id: '02',
-    filename: '02_rag_platform.case',
-    status: 'in production (MVP)',
+    filename: '02_agentic_workspace.case',
+    status: 'adopted by team',
     category: 'ai',
     problem: {
-      pt: 'informação de artigos espalhada em 5+ sistemas internos.',
-      en: 'article information scattered across 5+ internal systems.',
+      pt: 'onboarding lento e support duty manual.',
+      en: 'slow onboarding and manual support duty.',
     },
     solution: {
-      pt: 'Spring AI + Pgvector + Azure OpenAI integrando 5+ fontes. Interfaces de chat e servidor MCP para consultas em linguagem natural.',
-      en: 'Spring AI + Pgvector + Azure OpenAI integrating 5+ sources. Chat interfaces and MCP server for natural-language queries.',
+      pt: 'Workspace versionável: skills + AGENTS.md + MCPs (Jira, Kibana). Agente executa support duty E2E (issue → logs → fix → comentário no Jira).',
+      en: 'Versioned workspace: skills + AGENTS.md + MCPs (Jira, Kibana). Agent runs support duty E2E (issue → logs → fix → Jira comment).',
     },
     impact: {
-      pt: 'MVP em produção. Suporte e produto consultam por linguagem natural.',
-      en: 'MVP in production. Support and product query through natural language.',
+      pt: 'adotado pelo time. Disseminado via Conselho de IA Wiley Research BR.',
+      en: 'adopted by the team. Rolled out via the Wiley Research BR AI Council.',
     },
-    stack: ['Spring AI', 'Pgvector', 'Azure OpenAI', 'MCP', 'PostgreSQL'],
+    stack: ['Skills', 'AGENTS.md', 'MCP', 'Jira', 'Kibana'],
   },
   {
     id: '03',
@@ -71,26 +71,7 @@ export const cases: readonly CaseEntry[] = [
   },
   {
     id: '04',
-    filename: '04_agentic_workspace.case',
-    status: 'adopted by team',
-    category: 'ai',
-    problem: {
-      pt: 'onboarding lento e support duty manual.',
-      en: 'slow onboarding and manual support duty.',
-    },
-    solution: {
-      pt: 'Workspace versionável: skills + AGENTS.md + MCPs (Jira, Kibana). Agente executa support duty E2E (issue → logs → fix → comentário no Jira).',
-      en: 'Versioned workspace: skills + AGENTS.md + MCPs (Jira, Kibana). Agent runs support duty E2E (issue → logs → fix → Jira comment).',
-    },
-    impact: {
-      pt: 'adotado pelo time. Disseminado via Conselho de IA Wiley Research BR.',
-      en: 'adopted by the team. Rolled out via the Wiley Research BR AI Council.',
-    },
-    stack: ['Skills', 'AGENTS.md', 'MCP', 'Jira', 'Kibana'],
-  },
-  {
-    id: '05',
-    filename: '05_sse_at_scale.case',
+    filename: '04_sse_at_scale.case',
     status: 'in production',
     category: 'engineering',
     problem: {
@@ -106,5 +87,24 @@ export const cases: readonly CaseEntry[] = [
       en: "Consistent events across pods and significant reduction in backend connection load. In production on Wiley's submissions/publications platform.",
     },
     stack: ['Java 25', 'Spring Boot 4', 'Redis Pub/Sub', 'SSE', 'Kubernetes', 'BroadcastChannel API'],
+  },
+  {
+    id: '05',
+    filename: '05_rag_platform.case',
+    status: 'in production (MVP)',
+    category: 'ai',
+    problem: {
+      pt: 'informação de artigos espalhada em 5+ sistemas internos.',
+      en: 'article information scattered across 5+ internal systems.',
+    },
+    solution: {
+      pt: 'Spring AI + Pgvector + Azure OpenAI integrando 5+ fontes. Interfaces de chat e servidor MCP para consultas em linguagem natural.',
+      en: 'Spring AI + Pgvector + Azure OpenAI integrating 5+ sources. Chat interfaces and MCP server for natural-language queries.',
+    },
+    impact: {
+      pt: 'MVP em produção. Suporte e produto consultam por linguagem natural.',
+      en: 'MVP in production. Support and product query through natural language.',
+    },
+    stack: ['Spring AI', 'Pgvector', 'Azure OpenAI', 'MCP', 'PostgreSQL'],
   },
 ] as const;

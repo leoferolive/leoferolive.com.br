@@ -97,7 +97,14 @@ Curitiba/BR · 10+ years · @Wiley since 2024
 
 ### 4.2 Cases de IA + Engenharia em Escala (`#cases`)
 
-**Mudança vs. PRD §3-content.md §2:** passa de 4 → **5 cards**. Adiciona um case técnico não-IA (`05_sse_at_scale.case`). Header da seção atualizado para refletir a inclusão.
+**Mudança vs. PRD §3-content.md §2:** passa de 4 → **5 cards**. Adiciona um case técnico não-IA (`04_sse_at_scale.case`). Header da seção atualizado para refletir a inclusão.
+
+**Ordem dos cards (após reorder 2026-05-02):**
+1. `01_log_analyzer.case` — Log Analyzer (AI)
+2. `02_agentic_workspace.case` — Agentic Workspace (AI) — era id 04
+3. `03_revenue_tracking.case` — Revenue Tracking (AI)
+4. `04_sse_at_scale.case` — SSE em Escala (Engineering) — era id 05
+5. `05_rag_platform.case` — RAG Platform (AI) — era id 02
 
 #### Header
 
@@ -110,11 +117,30 @@ Curitiba/BR · 10+ years · @Wiley since 2024
 
 #### Cards
 
-Cards 01–04 mantidos como em `docs/prd/03-content.md` §2. **Pequenos ajustes** para PT (sem mudança de conteúdo, só consistência) e versões EN propostas. Card 05 é novo.
+##### 01 — Log Analyzer (AI)
 
-##### 05 — SSE em Escala (Redis Pub/Sub + BroadcastChannel)
+- **filename:** `01_log_analyzer.case`
+- **status:** `in production`
+- **category visual:** `ai`
+- **stack:** `Java 24` `Spring AI` `Azure OpenAI` `Elasticsearch` `Kibana`
 
-- **filename:** `05_sse_at_scale.case`
+##### 02 — Agentic Workspace (AI)
+
+- **filename:** `02_agentic_workspace.case`
+- **status:** `adopted by team`
+- **category visual:** `ai`
+- **stack:** `Skills` `AGENTS.md` `MCP` `Jira` `Kibana`
+
+##### 03 — Revenue Tracking (AI)
+
+- **filename:** `03_revenue_tracking.case`
+- **status:** `final testing`
+- **category visual:** `ai`
+- **stack:** `Cursor` `AGENTS.md` `Skills` `CI/CD`
+
+##### 04 — SSE em Escala (Redis Pub/Sub + BroadcastChannel)
+
+- **filename:** `04_sse_at_scale.case`
 - **status:** `in production`
 - **category visual:** `engineering` (badge alternativo, distinto dos cards AI — explorar tom mais frio na implementação se desejável; senão, manter `ok` igual)
 - **problem (PT):** `entrega de eventos em tempo real para o frontend em K8s com múltiplos pods — broadcast inconsistente entre instâncias e custo crescente de conexões por aba.`
@@ -124,6 +150,13 @@ Cards 01–04 mantidos como em `docs/prd/03-content.md` §2. **Pequenos ajustes*
 - **impact (PT):** `Eventos consistentes em ambiente multi-pod e redução significativa de carga de conexões no backend. Em produção na plataforma de submissões/publicações da Wiley.`
 - **impact (EN):** `Consistent events across pods and significant reduction in backend connection load. In production on Wiley's submissions/publications platform.`
 - **stack:** `Java 25` `Spring Boot 4` `Redis Pub/Sub` `SSE` `Kubernetes` `BroadcastChannel API`
+
+##### 05 — RAG Platform (AI)
+
+- **filename:** `05_rag_platform.case`
+- **status:** `in production (MVP)`
+- **category visual:** `ai`
+- **stack:** `Spring AI` `Pgvector` `Azure OpenAI` `MCP` `PostgreSQL`
 
 ---
 
