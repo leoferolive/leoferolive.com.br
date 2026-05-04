@@ -257,7 +257,16 @@ Header e pilares (skills/, AGENTS.md, MCPs, CI/CD ativo) **mantidos como no PRD*
 
 ### 4.5 Projetos Pessoais (`#projects`)
 
-**Sem mudanças de conteúdo** vs. PRD §3-content.md §4. Três cards: NossaLista, NossaGrana, Homelab.
+Três cards: NossaLista, NossaGrana, Homelab.
+
+**Demo links (adicionados 2026-05-02):**
+- NossaLista: `demo: 'https://nossalista.leoferolive.com.br'`
+- NossaGrana: `demo: 'https://nossagrana.leoferolive.com.br'`
+- Homelab: sem demo (o demo É o próprio leoferolive.com.br)
+
+**ProjectCard** renderiza dois links quando presentes:
+- `code · github.com/leoferolive/<repo> →`
+- `demo · <subdomain>.leoferolive.com.br →`
 
 EN headers/labels:
 - Caption: `// side-projects`
