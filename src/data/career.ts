@@ -29,13 +29,13 @@ export const career: readonly CareerEntry[] = [
     period: { pt: 'Dez 2024 → now', en: 'Dec 2024 → now' },
     badge: 'in_progress',
     summary: {
-      pt: 'AI-First leadership · UAXD platform · 10k+ autores · 5 países',
-      en: 'AI-First leadership · UAXD platform · 10k+ authors · 5 countries',
+      pt: 'UAXD platform · 10k+ autores globalmente · AI-First leadership',
+      en: 'UAXD platform · 10k+ authors globally · AI-First leadership',
     },
     bullets: [
       {
-        pt: 'Arquitetura SSE/Redis Pub/Sub em K8s + BroadcastChannel',
-        en: 'SSE/Redis Pub/Sub architecture in K8s + BroadcastChannel',
+        pt: 'Arquitetura SSE/Redis Pub/Sub em K8s com BroadcastChannel — updates assíncronos mantendo a plataforma em tempo real, com sincronia e confiabilidade dos dados',
+        en: 'SSE/Redis Pub/Sub architecture in K8s with BroadcastChannel — async updates keeping the platform real-time, with data sync and reliability',
       },
       {
         pt: '4 iniciativas de IA em produção (logs, RAG, revenue, workspace)',
@@ -68,8 +68,8 @@ export const career: readonly CareerEntry[] = [
         en: 'SAP integration · BFF over P8 FileNet · WebSphere 8 → 9 migration',
       },
       {
-        pt: 'Mentoria de 8+ devs juniores',
-        en: 'Mentored 8+ junior developers',
+        pt: 'Mentoria contínua do time — apoio a estagiários e devs juniores no crescimento técnico e arquitetural',
+        en: 'Ongoing team mentorship — supporting interns and junior devs in their technical and architectural growth',
       },
     ],
   },
