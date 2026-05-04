@@ -30,6 +30,7 @@ export const stack: readonly StackGroupData[] = [
       'Microservices',
       'BFF',
       'Event-driven',
+      'Kafka',
       'REST + SSE',
       'OIDC',
     ],
@@ -37,7 +38,7 @@ export const stack: readonly StackGroupData[] = [
   {
     id: 'data',
     name: 'data/',
-    items: ['PostgreSQL', 'MongoDB', 'Redis', 'SQL Server', 'Oracle', 'DB2', 'Kafka'],
+    items: ['PostgreSQL', 'MongoDB', 'Redis', 'SQL Server', 'Oracle', 'DB2'],
   },
   {
     id: 'devops',
@@ -51,6 +52,7 @@ export const stack: readonly StackGroupData[] = [
       'GitHub Actions',
       'Jenkins',
       'Cloudflare Tunnel',
+      'Tailscale',
       'Traefik',
     ],
   },
