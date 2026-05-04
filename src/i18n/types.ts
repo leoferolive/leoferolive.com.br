@@ -9,9 +9,7 @@ export interface I18nDictionary {
   chrome: {
     skipLabel: string;
     breadcrumb: string;
-    branch: string;
-    status: string;
-    lastCommit: string;
+    statusBarLeft: string;
     languageToggleLabel: string;
     languageChangedAnnouncement: string;
   };
