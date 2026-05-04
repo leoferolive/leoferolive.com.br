@@ -7,18 +7,14 @@ type PageShellProps = {
   children: ReactNode;
   skipLabel: string;
   breadcrumb: string;
-  branch: string;
-  status: string;
-  lastCommit: string;
+  statusBarLeft: string;
 };
 
 export function PageShell({
   children,
   skipLabel,
   breadcrumb,
-  branch,
-  status,
-  lastCommit,
+  statusBarLeft,
 }: PageShellProps) {
   return (
     <>
@@ -27,7 +23,7 @@ export function PageShell({
       <main id="main" className="mx-auto max-w-5xl px-6 pb-16 lg:px-8">
         {children}
       </main>
-      <StatusBar branch={branch} status={status} lastCommit={lastCommit} />
+      <StatusBar leftLabel={statusBarLeft} />
     </>
   );
 }

@@ -2,9 +2,8 @@ import { render, screen } from '@testing-library/react';
 import { StatusBar } from './StatusBar';
 
 describe('StatusBar', () => {
-  it('renderiza branch e status na esquerda', () => {
-    render(<StatusBar branch="main" status="✓ deployed" lastCommit="2h ago" />);
-    expect(screen.getByText(/main/)).toBeInTheDocument();
-    expect(screen.getByText(/deployed/)).toBeInTheDocument();
+  it('renderiza o leftLabel', () => {
+    render(<StatusBar leftLabel="✓ open to remote · UTC-3 office hours" />);
+    expect(screen.getByText('✓ open to remote · UTC-3 office hours')).toBeInTheDocument();
   });
 });

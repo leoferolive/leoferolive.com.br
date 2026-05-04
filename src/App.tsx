@@ -19,9 +19,7 @@ function LocalizedShell({ children }: { children: ReactNode }) {
     <PageShell
       skipLabel={t.chrome.skipLabel}
       breadcrumb={t.chrome.breadcrumb}
-      branch={t.chrome.branch}
-      status={t.chrome.status}
-      lastCommit={t.chrome.lastCommit}
+      statusBarLeft={t.chrome.statusBarLeft}
     >
       {children}
     </PageShell>

@@ -118,7 +118,7 @@ Mobile (≤480px): redimensionar `display-xl` para 44px.
 
 - Fundo `bg-surface`, border-top `border`.
 - Layout: `flex justify-between text-caption`.
-- Esquerda: `git:(main)`, `✓ deployed`, `last commit: <relative time>`.
+- Esquerda: linha localizada (i18n `chrome.statusBarLeft`) — sinal de disponibilidade do candidato. PT: `✓ aberto a remoto · horário UTC-3`. EN: `✓ open to remote · UTC-3 office hours`.
 - Direita: `Curitiba/BR`, `UTC-3`, `LF`, `UTF-8`.
 - Em mobile (<768px): esconder o lado direito, manter só git/status.
 - Respeitar `safe-area-inset-bottom` em iOS.

@@ -465,7 +465,7 @@ Projeto começa em `375 × 667` (iPhone SE / base segura). Tudo escala pra cima.
 | Projetos | grid 1 coluna |
 | Stack | 1 coluna empilhada (~30 itens scroll vertical — aceitável no MVP) |
 | Contato | coluna de chave em 70px; se < 360px empilhar chave/valor |
-| Status bar | mantém só esquerda (`git:(main)`, `✓ deployed`, `last commit`); esconde direita |
+| Status bar | mantém só esquerda (i18n `chrome.statusBarLeft` — PT: `✓ aberto a remoto · horário UTC-3` / EN: `✓ open to remote · UTC-3 office hours`); esconde direita |
 
 ### 6.4 Performance mobile (mais crítica)
 

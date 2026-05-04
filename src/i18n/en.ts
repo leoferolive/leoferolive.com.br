@@ -10,9 +10,7 @@ export const en: I18nDictionary = {
   chrome: {
     skipLabel: 'Skip to content',
     breadcrumb: '~/leoferolive/portfolio',
-    branch: 'main',
-    status: '✓ deployed',
-    lastCommit: 'today',
+    statusBarLeft: '✓ open to remote · UTC-3 office hours',
     languageToggleLabel: 'Switch language to Portuguese',
     languageChangedAnnouncement: 'Language changed to English',
   },
