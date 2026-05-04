@@ -27,10 +27,19 @@ export function ProjectCard({ project, lang }: { project: ProjectEntry; lang: La
       {project.builtWith && (
         <p className="mt-2 text-[11px] text-text-faint">built with: {project.builtWith}</p>
       )}
-      {project.link && (
-        <ExternalLink href={project.link} className="mt-3 inline-block text-sm text-accent">
-          {project.link.replace('https://', '')} →
-        </ExternalLink>
+      {(project.link || project.demo) && (
+        <div className="mt-3 flex flex-col gap-1 text-sm">
+          {project.link && (
+            <ExternalLink href={project.link} className="text-accent hover:underline">
+              code · {project.link.replace('https://', '')} →
+            </ExternalLink>
+          )}
+          {project.demo && (
+            <ExternalLink href={project.demo} className="text-accent hover:underline">
+              demo · {project.demo.replace('https://', '')} →
+            </ExternalLink>
+          )}
+        </div>
       )}
     </article>
   );

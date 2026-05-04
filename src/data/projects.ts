@@ -5,7 +5,8 @@ export type ProjectEntry = {
   description: { pt: string; en: string };
   stack: readonly string[];
   builtWith?: string;
-  link?: string;
+  link?: string;     // GitHub repo
+  demo?: string;     // Live URL
 };
 
 export const projects: readonly ProjectEntry[] = [
@@ -20,6 +21,7 @@ export const projects: readonly ProjectEntry[] = [
     stack: ['Java 25', 'Spring Boot 4', 'React/Vite', 'PostgreSQL', 'WebSocket'],
     builtWith: 'Claude Code + Codex via BMAD',
     link: 'https://github.com/leoferolive/nossalista',
+    demo: 'https://nossalista.leoferolive.com.br',
   },
   {
     id: 'nossagrana',
@@ -32,6 +34,7 @@ export const projects: readonly ProjectEntry[] = [
     stack: ['Node/TS', 'React/Vite', 'PostgreSQL'],
     builtWith: 'Claude Code + Codex',
     link: 'https://github.com/leoferolive/nossagrana',
+    demo: 'https://nossagrana.leoferolive.com.br',
   },
   {
     id: 'homelab',
