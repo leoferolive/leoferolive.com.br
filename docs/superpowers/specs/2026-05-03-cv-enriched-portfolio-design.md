@@ -179,8 +179,8 @@ Curitiba/BR · 10+ years · @Wiley since 2024
 ~/career/
 
 │ Wiley · Senior SE · Dez 2024 → now                    [in progress]
-│   AI-First leadership · UAXD platform · 10k+ autores · 5 países
-│   • Arquitetura SSE/Redis Pub/Sub em K8s + BroadcastChannel
+│   UAXD platform · 10k+ autores globalmente · AI-First leadership
+│   • Arquitetura SSE/Redis Pub/Sub em K8s com BroadcastChannel — updates assíncronos mantendo a plataforma em tempo real, com sincronia e confiabilidade dos dados
 │   • 4 iniciativas de IA em produção (logs, RAG, revenue, workspace)
 │   • Co-fundador, Conselho de IA Wiley Research BR
 │
@@ -188,7 +188,7 @@ Curitiba/BR · 10+ years · @Wiley since 2024
 │   Bradesco Seguros · Sinistros · alta criticidade
 │   • 500–1.000 sinistros/dia · valores individuais de até R$5M
 │   • Integração SAP · BFF P8 FileNet · WebSphere 8 → 9
-│   • Mentoria de 8+ devs juniores
+│   • Mentoria contínua do time — apoio a estagiários e devs juniores no crescimento técnico e arquitetural
 │
 ├── 2024          City Connect · Tech Lead · TCE-PR (8 devs)
 ├── 2018 → 2019   Lumis · SulAmérica · microsserviços OpenShift
@@ -200,8 +200,8 @@ Curitiba/BR · 10+ years · @Wiley since 2024
 ~/career/
 
 │ Wiley · Senior SE · Dec 2024 → now                    [in progress]
-│   AI-First leadership · UAXD platform · 10k+ authors · 5 countries
-│   • SSE/Redis Pub/Sub architecture in K8s + BroadcastChannel
+│   UAXD platform · 10k+ authors globally · AI-First leadership
+│   • SSE/Redis Pub/Sub architecture in K8s with BroadcastChannel — async updates keeping the platform real-time, with data sync and reliability
 │   • 4 AI initiatives in production (logs, RAG, revenue, workspace)
 │   • Co-founder, Wiley Research BR AI Council
 │
@@ -209,7 +209,7 @@ Curitiba/BR · 10+ years · @Wiley since 2024
 │   Bradesco Seguros · Claims · high financial criticality
 │   • 500–1,000 claims/day · individual values up to R$5M
 │   • SAP integration · BFF over P8 FileNet · WebSphere 8 → 9 migration
-│   • Mentored 8+ junior developers
+│   • Ongoing team mentorship — supporting interns and junior devs in their technical and architectural growth
 │
 ├── 2024          City Connect · Tech Lead · TCE-PR (8 devs)
 ├── 2018 → 2019   Lumis · SulAmérica · OpenShift microservices
