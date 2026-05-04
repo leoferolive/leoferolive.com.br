@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>OG Image Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #0a0908;
+      font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+      color: #f4ede4;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .container {
+      width: 1200px;
+      height: 630px;
+      display: flex;
+      flex-direction: column;
+      background: #0a0908;
+    }
+
+    /* Top bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 48px;
+      border-bottom: 1px solid #2a201a;
+      flex-shrink: 0;
+    }
+
+    .traffic-lights {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    .dot-red   { background: #ff5f57; }
+    .dot-yellow { background: #febc2e; }
+    .dot-green { background: #28c840; }
+
+    .breadcrumb {
+      font-size: 16px;
+      font-weight: 400;
+      color: #a89484;
+      letter-spacing: 0.02em;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 80px;
+    }
+
+    /* Prompt line */
+    .prompt-line {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-tilde {
+      color: #6b5d52;
+    }
+
+    .prompt-dollar {
+      color: #ff7a45;
+    }
+
+    .prompt-cmd {
+      color: #f4ede4;
+    }
+
+    /* Name */
+    .name {
+      font-size: 52px;
+      font-weight: 800;
+      color: #f4ede4;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      white-space: nowrap;
+      margin-bottom: 18px;
+    }
+
+    /* Subtitle */
+    .subtitle {
+      font-size: 24px;
+      font-weight: 500;
+      color: #a89484;
+      letter-spacing: 0.01em;
+      margin-bottom: 30px;
+    }
+
+    /* Tagline */
+    .tagline {
+      font-size: 26px;
+      font-weight: 400;
+      color: #f4ede4;
+      letter-spacing: 0.01em;
+      line-height: 1.45;
+      white-space: nowrap;
+    }
+
+    .tagline-gt {
+      color: #ff7a45;
+      margin-right: 4px;
+    }
+
+    .cursor {
+      color: #f4ede4;
+      animation: none;
+    }
+
+    /* Bottom bar */
+    .bottom-bar {
+      padding: 18px 48px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .site-url {
+      font-size: 22px;
+      font-weight: 400;
+      color: #ff7a45;
+      letter-spacing: 0.03em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Top bar: traffic lights + breadcrumb -->
+    <div class="top-bar">
+      <div class="traffic-lights">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <span class="breadcrumb">~/leoferolive/portfolio</span>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+      <div class="prompt-line">
+        <span class="prompt-tilde">~</span>
+        <span class="prompt-dollar">$</span>
+        <span class="prompt-cmd">whoami</span>
+      </div>
+
+      <div class="name">Leonardo Fernandes Oliveira</div>
+      <div class="subtitle">Senior Software Engineer · AI-First Engineer</div>
+
+      <div class="tagline" id="tagline-pt">
+        <span class="tagline-gt">&gt;</span>
+        Construo sistemas que usam IA, e uso IA pra construir sistemas.
+        <span class="cursor">▊</span>
+      </div>
+
+      <div class="tagline" id="tagline-en" style="display:none">
+        <span class="tagline-gt">&gt;</span>
+        I build with AI, and I build AI systems.
+        <span class="cursor">▊</span>
+      </div>
+    </div>
+
+    <!-- Bottom bar: site URL -->
+    <div class="bottom-bar">
+      <span class="site-url">leoferolive.com.br</span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var lang = params.get('lang') || 'pt';
+      var pt = document.getElementById('tagline-pt');
+      var en = document.getElementById('tagline-en');
+      if (lang === 'en') {
+        pt.style.display = 'none';
+        en.style.display = 'block';
+      } else {
+        pt.style.display = 'block';
+        en.style.display = 'none';
+      }
+    })();
+  </script>
+</body>
+</html>
