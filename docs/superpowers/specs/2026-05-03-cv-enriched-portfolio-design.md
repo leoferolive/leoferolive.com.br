@@ -190,7 +190,7 @@ Curitiba/BR · 10+ years · @Wiley since 2024
 │   • Integração SAP · BFF P8 FileNet · WebSphere 8 → 9
 │   • Mentoria contínua do time — apoio a estagiários e devs juniores no crescimento técnico e arquitetural
 │
-├── 2024          City Connect · Tech Lead · TCE-PR (8 devs)
+├── 2024          City Connect · Líder de Projetos · TCE-PR (8 devs)
 ├── 2018 → 2019   Lumis · SulAmérica · microsserviços OpenShift
 └── 2014 → 2018   Persist/Ebix · estágio → pleno
 ```
@@ -211,7 +211,7 @@ Curitiba/BR · 10+ years · @Wiley since 2024
 │   • SAP integration · BFF over P8 FileNet · WebSphere 8 → 9 migration
 │   • Ongoing team mentorship — supporting interns and junior devs in their technical and architectural growth
 │
-├── 2024          City Connect · Tech Lead · TCE-PR (8 devs)
+├── 2024          City Connect · Project Lead · TCE-PR (8 devs)
 ├── 2018 → 2019   Lumis · SulAmérica · OpenShift microservices
 └── 2014 → 2018   Persist/Ebix · intern → mid-level dev
 ```
