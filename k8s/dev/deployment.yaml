@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leoferolive-com-br-dev
+  namespace: leoferolive-com-br-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: leoferolive-com-br-dev
+  template:
+    metadata:
+      labels:
+        app: leoferolive-com-br-dev
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: leoferolive-com-br-dev
+          image: ghcr.io/leoferolive/leoferolive-com-br-dev:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 15
