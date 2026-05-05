@@ -11,7 +11,7 @@ export const en: I18nDictionary = {
     skipLabel: 'Skip to content',
     breadcrumb: '~/leoferolive/portfolio',
     statusBarLeft: '✓ open to remote · UTC-3 office hours',
-    languageToggleLabel: 'Switch language to Portuguese',
+    languageToggleLabel: 'PT EN — switch language to Portuguese',
     languageChangedAnnouncement: 'Language changed to English',
   },
   hero: {
