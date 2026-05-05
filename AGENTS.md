@@ -23,6 +23,8 @@ Site pessoal de portfólio. Single-page React + Vite + TS, bilíngue PT/EN, mobi
 | `npm run typecheck` | tsc -b |
 | `npm run test:run` | Vitest single-run |
 | `npm run format` | Prettier escreve |
+| `npm run og:generate` | regenera `public/og-image-{pt,en}.png` via Playwright (requer `npx playwright install chromium` na 1ª vez) |
+| `npm run lighthouse` | audita prod local headless (helper) |
 
 Antes de commitar: `npm run lint && npm run typecheck && npm run test:run`.
 
@@ -33,14 +35,22 @@ Antes de commitar: `npm run lint && npm run typecheck && npm run test:run`.
 - Dados estáticos tipados em `src/data/*.ts`.
 - Não importar de Google Fonts CDN — usa `@fontsource/jetbrains-mono/latin-{400,500,700,800}.css`.
 - Lucide icons em PascalCase (`{ Github, Mail, ... } from 'lucide-react'`).
+- SEO: meta estático em `index.html` (default PT — crawlers tipo LinkedIn não rodam JS); `src/seo/Head.tsx` atualiza dinamicamente per-rota no browser.
+- OG images em `public/og-image-{pt,en}.png` são geradas pelo template `scripts/og/template.html` + `npm run og:generate` — re-rode quando mudar identidade visual.
 
 ## Deploy
 
-- Self-hosted GitHub Actions runner no Pi (ARM64).
-- Branches: `main` é estável; trabalho em `impl/<topic>` worktrees.
-- CI/CD: pushes em `main` triggam dev deploy automático; prod via `gh workflow run deploy-prod.yml -f tag=vX.Y.Z`.
-- Manifests K8s em `k8s/{prod,dev}/`. Imagem em GHCR.
-- Cloudflare Tunnel termina TLS. Cluster usa HTTP plain.
+- **Runners:** GitHub-hosted (`ubuntu-latest` na maioria, `ubuntu-24.04-arm` no `build-and-push` pra Docker ARM64 nativo). Free pra repos públicos.
+- **Branches:** `main` é estável; trabalho em `impl/<topic>` worktrees.
+- **CI/CD:**
+  - `ci.yml` em PRs e pushes pra main (lint+typecheck+test+build)
+  - `release.yml` auto-tagua `vX.Y.Z` em main e dispara dev deploy
+  - `deploy-branch-dev.yml` (manual `gh workflow run -f ref=<branch>`) cria RC tag + dev deploy
+  - `deploy-prod.yml` (manual `gh workflow run -f tag=vX.Y.Z`) — exige approval no environment `production`
+  - `lighthouse.yml` (manual + cron semanal segunda 12 UTC) audita prod
+- **Manifests K8s** em `k8s/{prod,dev}/` (raw YAML, no Helm). Imagem em GHCR (`ghcr.io/leoferolive/leoferolive-com-br[-dev]`).
+- **Cloudflare Tunnel** termina TLS. Cluster usa HTTP plain. Tunnel já existe e roteia `*.leoferolive.com.br` → Traefik (não precisa adicionar hostname per-projeto).
+- **Setup detalhado:** `docs/deploy-guide/`.
 
 ## Definition of Done
 
