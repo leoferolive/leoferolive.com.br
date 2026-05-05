@@ -13,7 +13,8 @@
     "test": "vitest",
     "test:run": "vitest run",
     "format": "prettier --write .",
-    "og:generate": "node scripts/og/generate.mjs"
+    "og:generate": "node scripts/og/generate.mjs",
+    "lighthouse": "lighthouse https://leoferolive.com.br/ --view --form-factor=mobile --quiet --chrome-flags=\"--headless=new --no-sandbox\""
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.2.8",

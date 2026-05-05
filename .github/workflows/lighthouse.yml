@@ -1,0 +1,53 @@
+name: Lighthouse
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Base URL to audit (default: prod)'
+        required: false
+        default: 'https://leoferolive.com.br'
+  schedule:
+    - cron: '0 12 * * 1'  # Monday 12:00 UTC weekly
+
+concurrency:
+  group: lighthouse
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - name: 'PT mobile'
+            url-suffix: '/'
+            preset: ''
+          - name: 'PT desktop'
+            url-suffix: '/'
+            preset: '--preset=desktop'
+          - name: 'EN mobile'
+            url-suffix: '/en'
+            preset: ''
+          - name: 'EN desktop'
+            url-suffix: '/en'
+            preset: '--preset=desktop'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Lighthouse — ${{ matrix.config.name }}
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: ${{ inputs.url || 'https://leoferolive.com.br' }}${{ matrix.config.url-suffix }}
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          configPath: ./lighthouserc.json
+        continue-on-error: true
