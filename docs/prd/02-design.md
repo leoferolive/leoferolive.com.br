@@ -32,7 +32,7 @@ border        #2a201a
 border-hover  #3a2a1f
 text-primary  #f4ede4   (warm off-white)
 text-muted    #a89484
-text-faint    #6b5d52
+text-faint    #8c7c70   (lightened for WCAG AA — was #6b5d52)
 accent        #ff7a45   (warm orange)
 accent-soft   #ff7a4520 (com alpha, p/ glows)
 ok            #5fb56e   (badges "in production")
