@@ -76,4 +76,20 @@ export interface I18nDictionary {
     footerExit: string;
     footerNote: string;
   };
+  chat: {
+    fab_open: string;
+    drawer_title: string;
+    badge: string;
+    close: string;
+    placeholder: string;
+    send: string;
+    welcome: string;
+    disclaimer: string;
+    error_network: string;
+    error_rate_limit: string;
+    error_cost_gate: string;
+    error_generic: string;
+    loading: string;
+    closed_announce: string;
+  };
 }

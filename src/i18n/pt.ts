@@ -84,4 +84,25 @@ export const pt: I18nDictionary = {
     footerNote:
       'built with React + Vite, hosted on a Raspberry Pi.\n2026 · Leonardo Fernandes Oliveira',
   },
+  chat: {
+    fab_open: 'Abrir chat com IA sobre o Leonardo',
+    drawer_title: 'Chat com IA',
+    badge: 'IA · 3ª pessoa',
+    close: 'Fechar chat',
+    placeholder: 'Pergunte algo sobre a carreira do Leonardo…',
+    send: 'Enviar mensagem',
+    welcome:
+      'Oi! Sou um assistente de IA que conhece a carreira, projetos e stack do **Leonardo**. Posso resumir cases, comparar tecnologias ou indicar onde ele atuou. O que você quer saber?',
+    disclaimer:
+      'Respostas geradas por IA. Confira informações importantes antes de citar.',
+    error_network:
+      'Não consegui falar com o servidor agora. Tenta de novo em alguns instantes.',
+    error_rate_limit:
+      'Muitas mensagens em pouco tempo. Aguarda um minutinho e tenta de novo.',
+    error_cost_gate:
+      'O chat atingiu o limite diário de uso. Tenta de novo amanhã ou fala direto comigo pelo email no rodapé.',
+    error_generic: 'Algo deu errado por aqui. Tenta novamente em instantes.',
+    loading: 'Pensando…',
+    closed_announce: 'Chat fechado.',
+  },
 };
