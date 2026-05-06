@@ -50,11 +50,13 @@ export async function streamChat(
       if (done) break;
       buffer += decoder.decode(value, { stream: true });
 
-      // SSE messages separated by a blank line.
-      let sepIdx = buffer.indexOf('\n\n');
-      while (sepIdx !== -1) {
-        const rawEvent = buffer.slice(0, sepIdx);
-        buffer = buffer.slice(sepIdx + 2);
+      // SSE messages separated by a blank line. The spec uses CRLFCRLF but
+      // some servers emit LFLF, so accept both.
+      const sepRe = /\r?\n\r?\n/;
+      let match = buffer.match(sepRe);
+      while (match && typeof match.index === 'number') {
+        const rawEvent = buffer.slice(0, match.index);
+        buffer = buffer.slice(match.index + match[0].length);
         const parsed = parseSseEvent(rawEvent);
         if (parsed) {
           if (parsed.type === 'token') onToken(parsed.value);
@@ -66,7 +68,7 @@ export async function streamChat(
             return;
           }
         }
-        sepIdx = buffer.indexOf('\n\n');
+        match = buffer.match(sepRe);
       }
     }
   } catch (err) {
