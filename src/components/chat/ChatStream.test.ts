@@ -135,6 +135,27 @@ describe('streamChat', () => {
     expect(onError).toHaveBeenCalledWith('cost_gate');
   });
 
+  it('handles CRLF separators (sse-starlette default)', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      makeSseResponse([
+        'data: {"type":"token","value":"crlf"}\r\n\r\n',
+        'data: {"type":"token","value":"-ok"}\r\n\r\n',
+        'data: {"type":"done"}\r\n\r\n',
+      ]),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+
+    const tokens: string[] = [];
+    const onDone = vi.fn();
+    await streamChat(baseReq, {
+      onToken: (t) => tokens.push(t),
+      onDone,
+      onError: () => {},
+    });
+    expect(tokens).toEqual(['crlf', '-ok']);
+    expect(onDone).toHaveBeenCalledTimes(1);
+  });
+
   it('reports network errors when fetch throws', async () => {
     vi.stubGlobal(
       'fetch',
