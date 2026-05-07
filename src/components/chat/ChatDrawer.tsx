@@ -7,9 +7,12 @@ import { useChatSession, type ChatErrorCode } from './useChatSession';
 import { getTurnstileToken } from './TurnstileWidget';
 import type { ChatMessage as ChatMessageType } from './types';
 
+type Seed = { value: string; nonce: number } | null;
+
 type Props = {
   open: boolean;
   onClose: () => void;
+  seed?: Seed;
 };
 
 const FOCUSABLE_SELECTOR =
@@ -28,13 +31,42 @@ function errorKey(code: ChatErrorCode): keyof ReturnType<typeof useT>['chat'] {
   }
 }
 
-export function ChatDrawer({ open, onClose }: Props) {
+export function ChatDrawer({ open, onClose, seed }: Props) {
   const t = useT();
   const session = useChatSession();
   const [draft, setDraft] = useState('');
   const inputContainerRef = useRef<HTMLDivElement | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const lastAppliedNonceRef = useRef<number | null>(null);
+
+  // Apply a seed when its nonce changes, regardless of open transitions —
+  // this covers two cases:
+  //   1) drawer was closed and a handoff opens it with a seed
+  //   2) drawer is already open and a different handoff fires a new seed
+  // The nonce is stamped per dispatch in openChat() so the same seed string
+  // fired twice still triggers prefill.
+  useEffect(() => {
+    if (!open || !seed) return;
+    if (lastAppliedNonceRef.current === seed.nonce) return;
+    lastAppliedNonceRef.current = seed.nonce;
+    setDraft(seed.value);
+    // After applying, focus textarea and put caret at end so it reads as an
+    // editable suggestion, not a placeholder.
+    requestAnimationFrame(() => {
+      const ta = inputContainerRef.current?.querySelector('textarea');
+      if (!ta) return;
+      ta.focus();
+      const end = ta.value.length;
+      ta.setSelectionRange(end, end);
+    });
+  }, [open, seed]);
+
+  // Forget the last-applied nonce when the drawer closes so reopening with
+  // the same seed value (different nonce) still prefills.
+  useEffect(() => {
+    if (!open) lastAppliedNonceRef.current = null;
+  }, [open]);
 
   // ESC closes + Tab focus trap. The drawer claims aria-modal=true so we must
   // keep keyboard focus inside it while open.

@@ -1,13 +1,22 @@
 import type { CaseEntry } from '@/data/cases';
 import type { Lang } from '@/i18n/types';
+import { ExternalLink } from '@/components/ui/ExternalLink';
+import { BotHandoff } from '@/components/ui/BotHandoff';
+import { useT } from '@/i18n/useT';
 
 type Props = { caseEntry: CaseEntry; lang: Lang };
 
 export function CaseCard({ caseEntry, lang }: Props) {
+  const t = useT();
   return (
-    <article className="rounded border border-border bg-bg-surface p-5 transition-colors hover:border-border-hover hover:bg-bg-elevated">
+    <article
+      id={`case-${caseEntry.id}`}
+      className="rounded border border-border bg-bg-surface p-5 transition-colors hover:border-border-hover hover:bg-bg-elevated"
+    >
       <header className="mb-4 flex items-start justify-between gap-3">
-        <code className="text-sm text-text-muted">{caseEntry.filename}</code>
+        <h3 className="text-sm font-mono text-text-muted m-0 font-normal">
+          {caseEntry.filename}
+        </h3>
         <span className="shrink-0 rounded bg-bg-elevated px-2 py-0.5 text-[11px] text-ok">
           ✓ {caseEntry.status}
         </span>
@@ -34,6 +43,26 @@ export function CaseCard({ caseEntry, lang }: Props) {
           </li>
         ))}
       </ul>
+      {caseEntry.links && caseEntry.links.length > 0 && (
+        <ul className="mt-3 flex flex-col gap-1 text-[12px]">
+          {caseEntry.links.map((l) => (
+            <li key={l.href}>
+              <ExternalLink
+                href={l.href}
+                className="text-text-muted hover:text-accent transition-colors"
+              >
+                ↗ {l.label[lang]}
+              </ExternalLink>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="mt-4 border-t border-border pt-3">
+        <BotHandoff
+          label={t.botHandoff.caseLabel}
+          seed={t.botHandoff.caseSeedTpl(caseEntry.filename)}
+        />
+      </div>
     </article>
   );
 }
