@@ -1,10 +1,18 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# Build-time variables baked into the static bundle by Vite.
+# Override via `--build-arg` in CI; defaults work for a no-arg local build.
+ARG VITE_CHAT_API_URL=""
+ARG VITE_TURNSTILE_SITE_KEY="1x00000000000000000000AA"
+
 COPY package*.json ./
 RUN npm ci
 
 COPY . .
+
+ENV VITE_CHAT_API_URL=$VITE_CHAT_API_URL \
+    VITE_TURNSTILE_SITE_KEY=$VITE_TURNSTILE_SITE_KEY
 RUN npm run build
 
 FROM nginx:1.27-alpine AS runner

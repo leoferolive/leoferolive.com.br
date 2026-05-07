@@ -12,6 +12,7 @@ import { Workflow } from '@/components/sections/Workflow';
 import { Projects } from '@/components/sections/Projects';
 import { Stack } from '@/components/sections/Stack';
 import { Contact } from '@/components/sections/Contact';
+import { ChatFab } from '@/components/chat/ChatFab';
 
 function LocalizedShell({ children }: { children: ReactNode }) {
   const t = useT();
@@ -33,6 +34,7 @@ function LangApp({ children }: { children: ReactNode }) {
     <I18nProvider lang={lang}>
       <Head />
       <LocalizedShell>{children}</LocalizedShell>
+      <ChatFab />
     </I18nProvider>
   );
 }
