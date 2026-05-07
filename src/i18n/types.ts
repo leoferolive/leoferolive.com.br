@@ -89,6 +89,9 @@ export interface I18nDictionary {
     error_network: string;
     error_rate_limit: string;
     error_cost_gate: string;
+    error_session_limit: string;
+    error_ip_daily_limit: string;
+    error_bad_request: string;
     error_generic: string;
     loading: string;
     closed_announce: string;

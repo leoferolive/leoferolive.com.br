@@ -24,6 +24,12 @@ function errorKey(code: ChatErrorCode): keyof ReturnType<typeof useT>['chat'] {
       return 'error_rate_limit';
     case 'cost_gate':
       return 'error_cost_gate';
+    case 'session_limit':
+      return 'error_session_limit';
+    case 'ip_daily_limit':
+      return 'error_ip_daily_limit';
+    case 'bad_request':
+      return 'error_bad_request';
     case 'network':
       return 'error_network';
     default:
