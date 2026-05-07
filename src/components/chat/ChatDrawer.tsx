@@ -10,6 +10,7 @@ import type { ChatMessage as ChatMessageType } from './types';
 type Props = {
   open: boolean;
   onClose: () => void;
+  initialDraft?: string;
 };
 
 const FOCUSABLE_SELECTOR =
@@ -28,13 +29,24 @@ function errorKey(code: ChatErrorCode): keyof ReturnType<typeof useT>['chat'] {
   }
 }
 
-export function ChatDrawer({ open, onClose }: Props) {
+export function ChatDrawer({ open, onClose, initialDraft }: Props) {
   const t = useT();
   const session = useChatSession();
   const [draft, setDraft] = useState('');
   const inputContainerRef = useRef<HTMLDivElement | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const wasOpenRef = useRef(open);
+
+  // When the drawer transitions from closed to open with a seed, prefill the
+  // input. We only apply on the rising edge so user-typed drafts aren't
+  // clobbered if the drawer is reopened without a fresh seed.
+  useEffect(() => {
+    if (open && !wasOpenRef.current && initialDraft && initialDraft.length > 0) {
+      setDraft(initialDraft);
+    }
+    wasOpenRef.current = open;
+  }, [open, initialDraft]);
 
   // ESC closes + Tab focus trap. The drawer claims aria-modal=true so we must
   // keep keyboard focus inside it while open.

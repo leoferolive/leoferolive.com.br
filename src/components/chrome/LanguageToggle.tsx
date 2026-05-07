@@ -37,9 +37,19 @@ export function LanguageToggle() {
         className="rounded border border-border px-2 py-0.5 text-text-faint text-[11px] hover:border-border-hover hover:text-text-primary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
         onClick={onSwitch}
       >
-        <span className={lang === 'pt' ? 'text-accent' : ''}>PT</span>
+        <span
+          className={lang === 'pt' ? 'text-accent font-semibold' : ''}
+          aria-current={lang === 'pt' ? 'true' : undefined}
+        >
+          PT
+        </span>
         <span className="mx-1 text-text-faint">·</span>
-        <span className={lang === 'en' ? 'text-accent' : ''}>EN</span>
+        <span
+          className={lang === 'en' ? 'text-accent font-semibold' : ''}
+          aria-current={lang === 'en' ? 'true' : undefined}
+        >
+          EN
+        </span>
       </button>
       <span
         aria-live="polite"
