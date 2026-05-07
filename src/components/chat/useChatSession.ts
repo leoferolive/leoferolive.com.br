@@ -7,7 +7,9 @@ const SESSION_KEY = 'chat:sessionId';
 const FIRST_TOKEN_KEY = 'chat:firstTokenSent';
 export const USER_NAME_KEY = 'chat:userName';
 
-export const NAME_RE = /^[\p{L} '.-]{1,40}$/u;
+// Letters, spaces, ASCII apostrophe, curly apostrophe (U+2019, iOS
+// auto-corrects to this), period, hyphen. 1-40 chars.
+export const NAME_RE = /^[\p{L} '’.-]{1,40}$/u;
 
 export function loadUserName(): string | null {
   try {
