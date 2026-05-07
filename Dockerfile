@@ -13,7 +13,13 @@ COPY . .
 
 ENV VITE_CHAT_API_URL=$VITE_CHAT_API_URL \
     VITE_TURNSTILE_SITE_KEY=$VITE_TURNSTILE_SITE_KEY
-RUN npm run build
+
+# Bake the build args into .env.production so the RUN layer hash actually
+# tracks changes to those values (GHA buildx cache otherwise reuses the
+# previous `npm run build` layer regardless of ARG/ENV changes).
+RUN printf 'VITE_CHAT_API_URL=%s\nVITE_TURNSTILE_SITE_KEY=%s\n' \
+      "$VITE_CHAT_API_URL" "$VITE_TURNSTILE_SITE_KEY" > .env.production && \
+    npm run build
 
 FROM nginx:1.27-alpine AS runner
 COPY nginx.conf /etc/nginx/conf.d/default.conf
