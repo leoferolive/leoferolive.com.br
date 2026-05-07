@@ -21,8 +21,10 @@ export const pt: I18nDictionary = {
     tagline: 'Construo sistemas que usam IA, e uso IA pra construir sistemas.',
     capabilities:
       'sistemas distribuídos · features de IA em produção · fluxos AI-First',
-    metaLine: 'Curitiba/BR · 10+ anos · @Wiley desde 2024',
-    cta: { github: 'GitHub', linkedin: 'LinkedIn', email: 'Email' },
+    metaLine: 'Curitiba/BR · 10+ anos · @Wiley desde 2024 · aberto a conversas',
+    positioning:
+      'Útil pra quem precisa de IA aplicada em produção ou backend Java que escala em multi-pod. Para tudo que não couber aqui, o Leobot ali no canto responde.',
+    cta: { github: 'GitHub', linkedin: 'LinkedIn', email: 'Email', askBot: 'Falar com o Leobot' },
   },
   cases: {
     caption: '// production-cases',
@@ -57,12 +59,13 @@ export const pt: I18nDictionary = {
   stack: {
     caption: '// stack',
     title: 'Stack',
-    subtitle: 'Onde sou rápido. Onde sou perigoso.',
+    subtitle:
+      'Categorias por domínio. Curadoria, não enciclopédia — só o que uso no dia a dia.',
   },
   contact: {
     caption: '// contact',
     title: 'Vamos conversar',
-    subtitle: 'Curitiba/BR · aberto a remoto · disponibilidade para discutir.',
+    subtitle: '',
     promptCommand: '$ contact --leo',
     keys: {
       email: 'email',
@@ -85,14 +88,14 @@ export const pt: I18nDictionary = {
       'built with React + Vite, hosted on a Raspberry Pi.\n2026 · Leonardo Fernandes Oliveira',
   },
   chat: {
-    fab_open: 'Abrir chat com IA sobre o Leonardo',
-    drawer_title: 'Chat com IA',
+    fab_open: 'Abrir conversa com o Leobot',
+    drawer_title: 'Leobot',
     badge: 'IA · 3ª pessoa',
-    close: 'Fechar chat',
+    close: 'Fechar conversa',
     placeholder: 'Pergunte algo sobre a carreira do Leonardo…',
     send: 'Enviar mensagem',
     welcome:
-      'Oi! Sou um assistente de IA que conhece a carreira, projetos e stack do **Leonardo**. Posso resumir cases, comparar tecnologias ou indicar onde ele atuou. O que você quer saber?',
+      'Oi! Sou o **Leobot** — um assistente de IA que conhece a carreira, projetos e stack do Leonardo. Posso resumir cases, comparar tecnologias ou indicar onde ele atuou. O que você quer saber?',
     disclaimer:
       'Respostas geradas por IA. Confira informações importantes antes de citar.',
     error_network:
@@ -104,5 +107,37 @@ export const pt: I18nDictionary = {
     error_generic: 'Algo deu errado por aqui. Tenta novamente em instantes.',
     loading: 'Pensando…',
     closed_announce: 'Chat fechado.',
+  },
+  botHandoff: {
+    caseLabel: 'Se quiser mais detalhes sobre este caso, pergunta pro Leobot →',
+    caseSeedTpl: (filename) => `Me conta mais detalhes sobre o caso ${filename}.`,
+    careerCouncilLabel:
+      'Se quiser saber mais sobre o Conselho de IA Wiley Research BR, pergunta pro Leobot →',
+    careerCouncilSeed:
+      'Me explica o Conselho de IA Wiley Research BR: escopo, número de times envolvidos e o papel do Leonardo.',
+    careerEarlyLabel:
+      'Se quiser detalhes das fases pré-2024, pergunta pro Leobot →',
+    careerEarlySeed:
+      'Conta sobre a trajetória do Leonardo antes de 2024 (City Connect, Lumis, Persist/Ebix): o que ele fez, em qual stack e o que aprendeu.',
+    workflowLabel:
+      'Se quiser ver como o Leonardo aplica isso no dia a dia, pergunta pro Leobot →',
+    workflowSeed:
+      'Como o Leonardo aplica AI-First no dia a dia? Dá um exemplo concreto de issue → plano → PR → merge usando agentes.',
+    stackLabel:
+      'Se quiser saber em qual nível ele usa cada uma, pergunta pro Leobot →',
+    stackSeed:
+      'Em qual nível de profundidade o Leonardo usa cada uma das tecnologias do stack? O que é produção e o que é exploração?',
+  },
+  nav: {
+    label: 'Seções da página',
+    toggleLabel: 'Abrir menu de seções',
+    items: {
+      cases: 'cases',
+      career: 'trajetória',
+      workflow: 'workflow',
+      projects: 'projetos',
+      stack: 'stack',
+      contact: 'contato',
+    },
   },
 };

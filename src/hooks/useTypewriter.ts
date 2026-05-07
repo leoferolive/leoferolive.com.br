@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 type Options = { speedMs?: number; disabled?: boolean };
 
-export function useTypewriter(text: string, { speedMs = 30, disabled = false }: Options = {}) {
+export function useTypewriter(text: string, { speedMs = 50, disabled = false }: Options = {}) {
   const [displayed, setDisplayed] = useState(disabled ? text : '');
 
   useEffect(() => {
