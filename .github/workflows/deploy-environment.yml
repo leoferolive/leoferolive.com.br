@@ -87,8 +87,10 @@ jobs:
           file: ./Dockerfile
           platforms: linux/arm64
           push: true
+          # VITE_CHAT_API_URL is hardcoded per environment so a single deploy
+          # workflow never points dev at the prod backend by accident.
           build-args: |
-            VITE_CHAT_API_URL=${{ vars.VITE_CHAT_API_URL }}
+            VITE_CHAT_API_URL=${{ inputs.environment == 'prod' && 'https://chat.leoferolive.com.br' || 'https://chat-dev.leoferolive.com.br' }}
             VITE_TURNSTILE_SITE_KEY=${{ vars.VITE_TURNSTILE_SITE_KEY }}
           tags: |
             ${{ needs.prepare.outputs.image_repository }}:latest
