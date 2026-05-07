@@ -74,7 +74,13 @@ export async function streamChat(
   } catch (err) {
     if ((err as { name?: string } | null)?.name === 'AbortError') return;
     onError('network');
+    return;
   }
+
+  // Stream closed without an explicit `done` or `error` event (server hung
+  // up, proxy cut the connection, etc.). Surface it instead of leaving the
+  // assistant message stuck on `pending`.
+  onError('network');
 }
 
 function parseSseEvent(raw: string): StreamEvent | null {

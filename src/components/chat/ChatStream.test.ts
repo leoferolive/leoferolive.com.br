@@ -156,6 +156,26 @@ describe('streamChat', () => {
     expect(onDone).toHaveBeenCalledTimes(1);
   });
 
+  it('reports network error when stream closes without a done event', async () => {
+    // Backend hangs up after a few tokens — no `done`, no `error`.
+    const fetchMock = vi.fn().mockResolvedValue(
+      makeSseResponse([
+        'data: {"type":"token","value":"partial"}\n\n',
+      ]),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+
+    const onDone = vi.fn();
+    const onError = vi.fn();
+    await streamChat(baseReq, {
+      onToken: () => {},
+      onDone,
+      onError,
+    });
+    expect(onError).toHaveBeenCalledWith('network');
+    expect(onDone).not.toHaveBeenCalled();
+  });
+
   it('reports network errors when fetch throws', async () => {
     vi.stubGlobal(
       'fetch',
