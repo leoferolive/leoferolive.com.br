@@ -40,6 +40,11 @@ export function SectionNav() {
             <li key={it.id}>
               <a
                 href={`#${it.id}`}
+                onClick={(e) => {
+                  // Auto-collapse the mobile <details> after navigation so
+                  // the panel doesn't keep covering content.
+                  e.currentTarget.closest('details')?.removeAttribute('open');
+                }}
                 className="block py-2 text-text-muted hover:text-accent min-h-[44px] flex items-center"
               >
                 {it.label}

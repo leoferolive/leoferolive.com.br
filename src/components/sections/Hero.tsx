@@ -2,6 +2,7 @@ import { useT } from '@/i18n/useT';
 import { PromptLine } from '@/components/ui/PromptLine';
 import { ExternalLink } from '@/components/ui/ExternalLink';
 import { useTypewriter } from '@/hooks/useTypewriter';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { openChat } from '@/components/chat/openChat';
 import { Github, Linkedin, Mail, MessageSquare } from 'lucide-react';
 
@@ -11,9 +12,11 @@ const EMAIL = 'leoferolive@gmail.com';
 
 export function Hero() {
   const t = useT();
-  // Typing animation is information progression, not the kind of motion
-  // (parallax/spin/translation) that prefers-reduced-motion targets — keep on.
-  const tagline = useTypewriter(t.hero.tagline, { speedMs: 55 });
+  // Respect prefers-reduced-motion: it covers more than vestibular motion —
+  // also users with attention/cognitive needs who want the page to settle
+  // immediately. Reduced → tagline shown instantly. Otherwise, types at 55ms.
+  const reduced = useReducedMotion();
+  const tagline = useTypewriter(t.hero.tagline, { speedMs: 55, disabled: reduced });
 
   return (
     <section id="home" className="pt-12 pb-16 md:pt-20 md:pb-24">
@@ -53,6 +56,8 @@ export function Hero() {
         <button
           type="button"
           onClick={() => openChat()}
+          aria-haspopup="dialog"
+          aria-controls="chat-drawer"
           className="inline-flex items-center gap-2 rounded border border-accent/40 bg-accent/10 px-4 py-2 text-accent hover:bg-accent/20 transition-colors min-h-[44px]"
         >
           <MessageSquare size={20} strokeWidth={1.5} /> {t.hero.cta.askBot}

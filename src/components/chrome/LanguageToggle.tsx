@@ -37,19 +37,14 @@ export function LanguageToggle() {
         className="rounded border border-border px-2 py-0.5 text-text-faint text-[11px] hover:border-border-hover hover:text-text-primary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
         onClick={onSwitch}
       >
-        <span
-          className={lang === 'pt' ? 'text-accent font-semibold' : ''}
-          aria-current={lang === 'pt' ? 'true' : undefined}
-        >
-          PT
-        </span>
+        {/*
+          The aria-label already describes the action ("switch language to X").
+          The visual emphasis on the active language is decorative for sighted
+          users — no aria-current needed (this is a switch, not navigation).
+        */}
+        <span className={lang === 'pt' ? 'text-accent font-semibold' : ''}>PT</span>
         <span className="mx-1 text-text-faint">·</span>
-        <span
-          className={lang === 'en' ? 'text-accent font-semibold' : ''}
-          aria-current={lang === 'en' ? 'true' : undefined}
-        >
-          EN
-        </span>
+        <span className={lang === 'en' ? 'text-accent font-semibold' : ''}>EN</span>
       </button>
       <span
         aria-live="polite"
