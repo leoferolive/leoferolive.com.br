@@ -99,8 +99,11 @@ jobs:
             org.opencontainers.image.version=${{ inputs.tag }}
             org.opencontainers.image.revision=${{ needs.prepare.outputs.resolved_sha }}
             org.opencontainers.image.created=${{ needs.prepare.outputs.build_time }}
-          cache-from: type=gha,scope=${{ inputs.environment }}
-          cache-to: type=gha,mode=max,scope=${{ inputs.environment }}
+          # Cache scope keyed by tag so each release rebuilds fresh —
+          # the previous fixed `scope=${env}` was reusing the JS bundle
+          # across releases, ignoring changes to VITE_* build-args.
+          cache-from: type=gha,scope=${{ inputs.environment }}-${{ inputs.tag }}
+          cache-to: type=gha,mode=max,scope=${{ inputs.environment }}-${{ inputs.tag }}
 
   deploy:
     needs: [prepare, build-and-push]
