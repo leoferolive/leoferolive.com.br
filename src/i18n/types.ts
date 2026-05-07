@@ -20,7 +20,8 @@ export interface I18nDictionary {
     tagline: string;
     capabilities: string;
     metaLine: string;
-    cta: { github: string; linkedin: string; email: string };
+    positioning: string;
+    cta: { github: string; linkedin: string; email: string; askBot: string };
   };
   cases: {
     caption: string;
@@ -91,5 +92,29 @@ export interface I18nDictionary {
     error_generic: string;
     loading: string;
     closed_announce: string;
+  };
+  botHandoff: {
+    caseLabel: string;
+    caseSeedTpl: (filename: string) => string;
+    careerCouncilLabel: string;
+    careerCouncilSeed: string;
+    careerEarlyLabel: string;
+    careerEarlySeed: string;
+    workflowLabel: string;
+    workflowSeed: string;
+    stackLabel: string;
+    stackSeed: string;
+  };
+  nav: {
+    label: string;
+    toggleLabel: string;
+    items: {
+      cases: string;
+      career: string;
+      workflow: string;
+      projects: string;
+      stack: string;
+      contact: string;
+    };
   };
 }
