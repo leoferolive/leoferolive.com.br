@@ -33,9 +33,21 @@ export async function streamChat(
   }
 
   if (!response.ok || !response.body) {
-    if (response.status === 429) onError('rate_limit');
-    else if (response.status === 503) onError('cost_gate');
-    else onError('network');
+    // 429 from the backend can come as an SSE body with a specific reason
+    // (session_limit_reached / ip_daily_limit) or as a bare slowapi
+    // RateLimitExceeded. Try to read the body to disambiguate.
+    if (response.status === 429) {
+      const reason = await readErrorReason(response);
+      if (reason === 'session_limit_reached') onError('session_limit');
+      else if (reason === 'ip_daily_limit') onError('ip_daily_limit');
+      else onError('rate_limit');
+    } else if (response.status === 503) {
+      onError('cost_gate');
+    } else if (response.status === 422 || response.status === 400) {
+      onError('bad_request');
+    } else {
+      onError('network');
+    }
     return;
   }
 
@@ -81,6 +93,27 @@ export async function streamChat(
   // up, proxy cut the connection, etc.). Surface it instead of leaving the
   // assistant message stuck on `pending`.
   onError('network');
+}
+
+/**
+ * Read the body of a non-OK response and return the embedded reason, if any.
+ * The chat-api emits SSE `data: {"type":"error","message":"..."}` for the
+ * 429 limits with detail; bare slowapi 429s have a JSON body without that
+ * shape, so we just return null and let the caller fall back to `rate_limit`.
+ */
+async function readErrorReason(response: Response): Promise<string | null> {
+  try {
+    const text = await response.text();
+    if (!text) return null;
+    const sseMatch = text.match(/data:\s*(\{[^\n}]*"message"\s*:\s*"([^"]+)"[^}]*\})/);
+    if (sseMatch) return sseMatch[2];
+    const obj = JSON.parse(text);
+    if (typeof obj?.detail === 'string') return obj.detail;
+    if (typeof obj?.message === 'string') return obj.message;
+  } catch {
+    // ignore
+  }
+  return null;
 }
 
 function parseSseEvent(raw: string): StreamEvent | null {

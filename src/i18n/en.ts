@@ -104,6 +104,12 @@ export const en: I18nDictionary = {
       'Too many messages in a short time. Please wait a minute and try again.',
     error_cost_gate:
       'The chat hit its daily usage cap. Try again tomorrow, or reach me directly via the email in the footer.',
+    error_session_limit:
+      'This session reached its message cap. Reload the page to continue.',
+    error_ip_daily_limit:
+      'You reached your daily message cap. Come back tomorrow, or reach me directly via the email in the footer.',
+    error_bad_request:
+      'Invalid message. Check the length and try again.',
     error_generic:
       'Something went wrong on my side. Please try again shortly.',
     loading: 'Thinking…',

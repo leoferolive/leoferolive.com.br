@@ -104,6 +104,11 @@ export const pt: I18nDictionary = {
       'Muitas mensagens em pouco tempo. Aguarda um minutinho e tenta de novo.',
     error_cost_gate:
       'O chat atingiu o limite diário de uso. Tenta de novo amanhã ou fala direto comigo pelo email no rodapé.',
+    error_session_limit:
+      'Esta sessão atingiu o limite de mensagens. Recarregue a página para continuar.',
+    error_ip_daily_limit:
+      'Você atingiu o limite diário de mensagens. Volta amanhã ou fala direto comigo pelo email no rodapé.',
+    error_bad_request: 'Mensagem inválida. Confira o tamanho e tente novamente.',
     error_generic: 'Algo deu errado por aqui. Tenta novamente em instantes.',
     loading: 'Pensando…',
     closed_announce: 'Chat fechado.',

@@ -38,6 +38,9 @@ export type ChatErrorCode =
   | 'network'
   | 'rate_limit'
   | 'cost_gate'
+  | 'session_limit'
+  | 'ip_daily_limit'
+  | 'bad_request'
   | 'generic';
 
 export interface UseChatSession {
@@ -149,12 +152,16 @@ export function useChatSession(): UseChatSession {
             }
           },
           onError: (code) => {
+            const known: ChatErrorCode[] = [
+              'rate_limit',
+              'cost_gate',
+              'network',
+              'session_limit',
+              'ip_daily_limit',
+              'bad_request',
+            ];
             setError(
-              code === 'rate_limit' ||
-                code === 'cost_gate' ||
-                code === 'network'
-                ? code
-                : 'generic',
+              (known as string[]).includes(code) ? (code as ChatErrorCode) : 'generic',
             );
             setMessages((prev) =>
               prev.filter((m) => m.id !== assistantId),
