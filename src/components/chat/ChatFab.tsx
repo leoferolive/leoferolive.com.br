@@ -1,17 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MessageSquare } from 'lucide-react';
 import { useT } from '@/i18n/useT';
 import { ChatDrawer } from './ChatDrawer';
+import { CHAT_OPEN_EVENT, type OpenChatDetail } from './openChat';
 
 export function ChatFab() {
   const t = useT();
   const [open, setOpen] = useState(false);
+  const [initialDraft, setInitialDraft] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<OpenChatDetail>).detail;
+      setInitialDraft(detail?.seed);
+      setOpen(true);
+    };
+    window.addEventListener(CHAT_OPEN_EVENT, handler);
+    return () => window.removeEventListener(CHAT_OPEN_EVENT, handler);
+  }, []);
+
+  const handleClose = () => {
+    setOpen(false);
+    setInitialDraft(undefined);
+  };
 
   return (
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setInitialDraft(undefined);
+          setOpen(true);
+        }}
         aria-label={t.chat.fab_open}
         aria-expanded={open}
         aria-controls="chat-drawer"
@@ -27,7 +47,7 @@ export function ChatFab() {
         <MessageSquare size={22} strokeWidth={1.75} aria-hidden="true" />
       </button>
       <div id="chat-drawer">
-        <ChatDrawer open={open} onClose={() => setOpen(false)} />
+        <ChatDrawer open={open} onClose={handleClose} initialDraft={initialDraft} />
       </div>
     </>
   );

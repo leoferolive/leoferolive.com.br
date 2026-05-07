@@ -1,5 +1,10 @@
 export type CaseStatus = 'in production' | 'in production (MVP)' | 'final testing' | 'adopted by team';
 
+export type CaseLink = {
+  label: { pt: string; en: string };
+  href: string;
+};
+
 export type CaseEntry = {
   id: string;
   filename: string;
@@ -9,6 +14,7 @@ export type CaseEntry = {
   solution: { pt: string; en: string };
   impact: { pt: string; en: string };
   stack: readonly string[];
+  links?: readonly CaseLink[];
 };
 
 export const cases: readonly CaseEntry[] = [
@@ -22,8 +28,8 @@ export const cases: readonly CaseEntry[] = [
       en: 'incident investigations took days, often without root-cause identification.',
     },
     solution: {
-      pt: 'Java 24 + Spring Boot 3 + Spring AI + Azure OpenAI/GPT-4. Consulta Kibana/Elasticsearch por transactionId; LLM identifica sistema de origem e causa raiz.',
-      en: 'Java 24 + Spring Boot 3 + Spring AI + Azure OpenAI/GPT-4. Queries Kibana/Elasticsearch by transactionId; LLM identifies originating system and root cause.',
+      pt: 'Construí com Java 24 + Spring Boot 3 + Spring AI + Azure OpenAI/GPT-4. Consulta Kibana/Elasticsearch por transactionId; o LLM identifica o sistema de origem e a causa raiz.',
+      en: 'I built it with Java 24 + Spring Boot 3 + Spring AI + Azure OpenAI/GPT-4. It queries Kibana/Elasticsearch by transactionId; the LLM identifies the originating system and the root cause.',
     },
     impact: {
       pt: 'dias → minutos. Em produção, usado por engenharia e suporte.',
@@ -41,12 +47,12 @@ export const cases: readonly CaseEntry[] = [
       en: 'slow onboarding and manual support duty.',
     },
     solution: {
-      pt: 'Workspace versionável: skills + AGENTS.md + MCPs (Jira, Kibana). Agente executa support duty E2E (issue → logs → fix → comentário no Jira).',
-      en: 'Versioned workspace: skills + AGENTS.md + MCPs (Jira, Kibana). Agent runs support duty E2E (issue → logs → fix → Jira comment).',
+      pt: 'Estruturei o workspace versionável: skills + AGENTS.md + MCPs (Jira, Kibana). O agente executa support duty E2E (issue → logs → fix → comentário no Jira).',
+      en: 'I structured the versioned workspace: skills + AGENTS.md + MCPs (Jira, Kibana). The agent runs support duty E2E (issue → logs → fix → Jira comment).',
     },
     impact: {
-      pt: 'adotado pelo time. Disseminado via Conselho de IA Wiley Research BR.',
-      en: 'adopted by the team. Rolled out via the Wiley Research BR AI Council.',
+      pt: 'Adotado pelo time. Disseminei o padrão via Conselho de IA Wiley Research BR.',
+      en: 'Adopted by the team. I rolled the pattern out via the Wiley Research BR AI Council.',
     },
     stack: ['Skills', 'AGENTS.md', 'MCP', 'Jira', 'Kibana'],
   },
@@ -64,8 +70,8 @@ export const cases: readonly CaseEntry[] = [
       en: 'Led the AI track in a squad of 3. Custom skills, commands, AGENTS.md and CI/CD validating Cursor-generated code.',
     },
     impact: {
-      pt: 'core entregue em ~1 mês. Em testes finais.',
-      en: 'core delivered in ~1 month. In final testing.',
+      pt: 'core (validação de integrações + fluxo principal) entregue em ~1 mês, contra estimativa tradicional de 3+ meses. Em testes finais.',
+      en: 'core (integration validation + main flow) delivered in ~1 month vs. the traditional 3+ month estimate. In final testing.',
     },
     stack: ['Cursor', 'AGENTS.md', 'Skills', 'CI/CD'],
   },
@@ -83,8 +89,8 @@ export const cases: readonly CaseEntry[] = [
       en: 'Designed end-to-end SSE delivery with Redis Pub/Sub for cross-pod consistency, plus a BroadcastChannel layer on the frontend to deduplicate per-tab connections. Java 25, Spring Boot 4.',
     },
     impact: {
-      pt: 'Eventos consistentes em ambiente multi-pod e redução significativa de carga de conexões no backend. Em produção na plataforma de submissões/publicações da Wiley.',
-      en: "Consistent events across pods and significant reduction in backend connection load. In production on Wiley's submissions/publications platform.",
+      pt: 'Eventos consistentes em ambiente multi-pod. Conexões SSE deduplicadas por aba via BroadcastChannel — N abas abertas pelo mesmo usuário viram 1 conexão por backend, em vez de N. Em produção na plataforma de submissões/publicações da Wiley.',
+      en: "Consistent events across pods. SSE connections deduplicated per tab via BroadcastChannel — N tabs opened by the same user become 1 backend connection instead of N. In production on Wiley's submissions/publications platform.",
     },
     stack: ['Java 25', 'Spring Boot 4', 'Redis Pub/Sub', 'SSE', 'Kubernetes', 'BroadcastChannel API'],
   },
@@ -98,8 +104,8 @@ export const cases: readonly CaseEntry[] = [
       en: 'article information scattered across 5+ internal systems.',
     },
     solution: {
-      pt: 'Spring AI + Pgvector + Azure OpenAI integrando 5+ fontes. Interfaces de chat e servidor MCP para consultas em linguagem natural.',
-      en: 'Spring AI + Pgvector + Azure OpenAI integrating 5+ sources. Chat interfaces and MCP server for natural-language queries.',
+      pt: 'Construí com Spring AI + Pgvector + Azure OpenAI integrando 5+ fontes. Interfaces de chat e servidor MCP para consultas em linguagem natural.',
+      en: 'I built it with Spring AI + Pgvector + Azure OpenAI integrating 5+ sources. Chat interfaces and MCP server for natural-language queries.',
     },
     impact: {
       pt: 'MVP em produção. Suporte e produto consultam por linguagem natural.',
