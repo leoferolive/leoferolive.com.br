@@ -4,15 +4,21 @@ import { useT } from '@/i18n/useT';
 import { ChatDrawer } from './ChatDrawer';
 import { CHAT_OPEN_EVENT, type OpenChatDetail } from './openChat';
 
+type Seed = { value: string; nonce: number } | null;
+
 export function ChatFab() {
   const t = useT();
   const [open, setOpen] = useState(false);
-  const [initialDraft, setInitialDraft] = useState<string | undefined>(undefined);
+  const [seed, setSeed] = useState<Seed>(null);
 
   useEffect(() => {
     const handler = (e: Event) => {
       const detail = (e as CustomEvent<OpenChatDetail>).detail;
-      setInitialDraft(detail?.seed);
+      if (detail?.seed) {
+        setSeed({ value: detail.seed, nonce: detail.nonce });
+      } else {
+        setSeed(null);
+      }
       setOpen(true);
     };
     window.addEventListener(CHAT_OPEN_EVENT, handler);
@@ -21,7 +27,7 @@ export function ChatFab() {
 
   const handleClose = () => {
     setOpen(false);
-    setInitialDraft(undefined);
+    setSeed(null);
   };
 
   return (
@@ -29,7 +35,7 @@ export function ChatFab() {
       <button
         type="button"
         onClick={() => {
-          setInitialDraft(undefined);
+          setSeed(null);
           setOpen(true);
         }}
         aria-label={t.chat.fab_open}
@@ -47,7 +53,7 @@ export function ChatFab() {
         <MessageSquare size={22} strokeWidth={1.75} aria-hidden="true" />
       </button>
       <div id="chat-drawer">
-        <ChatDrawer open={open} onClose={handleClose} initialDraft={initialDraft} />
+        <ChatDrawer open={open} onClose={handleClose} seed={seed} />
       </div>
     </>
   );
