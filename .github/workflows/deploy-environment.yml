@@ -87,6 +87,9 @@ jobs:
           file: ./Dockerfile
           platforms: linux/arm64
           push: true
+          build-args: |
+            VITE_CHAT_API_URL=${{ vars.VITE_CHAT_API_URL }}
+            VITE_TURNSTILE_SITE_KEY=${{ vars.VITE_TURNSTILE_SITE_KEY }}
           tags: |
             ${{ needs.prepare.outputs.image_repository }}:latest
             ${{ needs.prepare.outputs.image_uri }}
