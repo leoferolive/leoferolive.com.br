@@ -29,11 +29,18 @@ type TurnstileApi = {
 declare global {
   interface Window {
     turnstile?: TurnstileApi;
+    __turnstileOnLoad?: () => void;
   }
 }
 
-const SCRIPT_SRC =
-  'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+// Cloudflare populates `window.turnstile` *after* the script's `load` event
+// fires, so the documented `?onload=<func>` callback is the only reliable
+// way to wait for the API. The previous `load`-event handler raced and
+// produced "turnstile.ready() would break if called *before* api.js is
+// loaded" warnings, which silently returned a null token.
+const ONLOAD_CB = '__turnstileOnLoad';
+const SCRIPT_BASE = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+const SCRIPT_SRC = `${SCRIPT_BASE}?render=explicit&onload=${ONLOAD_CB}`;
 let scriptPromise: Promise<void> | null = null;
 let widgetId: string | null = null;
 let hostEl: HTMLDivElement | null = null;
@@ -49,21 +56,21 @@ function loadScript(): Promise<void> {
       resolve();
       return;
     }
+    window[ONLOAD_CB] = () => resolve();
     const existing = document.querySelector<HTMLScriptElement>(
-      `script[src^="${SCRIPT_SRC}"]`,
+      `script[src^="${SCRIPT_BASE}"]`,
     );
     if (existing) {
-      existing.addEventListener('load', () => resolve());
-      existing.addEventListener('error', () =>
-        reject(new Error('turnstile-load-failed')),
-      );
+      // Script already injected by an earlier call. If turnstile is already
+      // populated, we're done; otherwise our just-hooked onload callback
+      // fires when the API finishes initializing.
+      if (window.turnstile) resolve();
       return;
     }
     const s = document.createElement('script');
     s.src = SCRIPT_SRC;
     s.async = true;
     s.defer = true;
-    s.addEventListener('load', () => resolve());
     s.addEventListener('error', () =>
       reject(new Error('turnstile-load-failed')),
     );
