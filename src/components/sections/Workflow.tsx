@@ -1,25 +1,26 @@
 import { useT } from '@/i18n/useT';
 import { useI18n } from '@/i18n/context';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { BotHandoff } from '@/components/ui/BotHandoff';
 
 const PILLARS = [
   {
-    name: 'skills/',
+    name: { pt: 'skills/', en: 'skills/' },
     pt: 'convenções reutilizáveis por domínio (REST endpoint, Kafka consumer, Spring Security, …)',
     en: 'reusable per-domain conventions (REST endpoint, Kafka consumer, Spring Security, …)',
   },
   {
-    name: 'AGENTS.md',
+    name: { pt: 'AGENTS.md', en: 'AGENTS.md' },
     pt: 'arquitetura, padrões e comandos do projeto — contexto que o agente lê primeiro',
     en: 'architecture, patterns and project commands — context the agent reads first',
   },
   {
-    name: 'MCPs',
+    name: { pt: 'MCPs', en: 'MCPs' },
     pt: 'integrações com Jira, Kibana, GitHub, banco — agente age, não só sugere',
     en: 'integrations with Jira, Kibana, GitHub, DB — the agent acts, not just suggests',
   },
   {
-    name: 'CI/CD ativo',
+    name: { pt: 'CI/CD ativo', en: 'CI/CD active' },
     pt: 'linters + testes + fitness functions + validação de contrato. CI vira o revisor automático do agente.',
     en: "linters + tests + fitness functions + contract validation. CI becomes the agent's automated reviewer.",
   },
@@ -39,8 +40,8 @@ export function Workflow() {
       />
       <div className="grid gap-4 md:grid-cols-2">
         {PILLARS.map((p) => (
-          <article key={p.name} className="rounded border border-border bg-bg-surface p-4">
-            <h3 className="font-bold text-accent">{p.name}</h3>
+          <article key={p.name.en} className="rounded border border-border bg-bg-surface p-4">
+            <h3 className="font-bold text-accent">{p.name[lang]}</h3>
             <p className="mt-2 text-sm text-text-muted">{p[lang]}</p>
           </article>
         ))}
@@ -49,6 +50,12 @@ export function Workflow() {
         {t.workflow.closing}
       </blockquote>
       <p className="mt-4 text-sm text-text-faint">{t.workflow.proof}</p>
+      <div className="mt-4">
+        <BotHandoff
+          label={t.botHandoff.workflowLabel}
+          seed={t.botHandoff.workflowSeed}
+        />
+      </div>
     </section>
   );
 }

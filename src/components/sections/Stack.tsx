@@ -1,6 +1,7 @@
 import { useT } from '@/i18n/useT';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { StackGroup } from '@/components/ui/StackGroup';
+import { BotHandoff } from '@/components/ui/BotHandoff';
 import { stack } from '@/data/stack';
 
 export function Stack() {
@@ -17,6 +18,9 @@ export function Stack() {
         {stack.map((g) => (
           <StackGroup key={g.id} group={g} />
         ))}
+      </div>
+      <div className="mt-6">
+        <BotHandoff label={t.botHandoff.stackLabel} seed={t.botHandoff.stackSeed} />
       </div>
     </section>
   );
