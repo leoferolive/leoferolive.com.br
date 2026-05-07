@@ -25,8 +25,8 @@ export const career: readonly CareerEntry[] = [
     kind: 'detailed',
     id: 'wiley',
     company: 'Wiley',
-    role: { pt: 'Senior SE', en: 'Senior SE' },
-    period: { pt: 'Dez 2024 → now', en: 'Dec 2024 → now' },
+    role: { pt: 'Senior Software Engineer', en: 'Senior Software Engineer' },
+    period: { pt: 'Dez 2024 → agora', en: 'Dec 2024 → now' },
     badge: 'in_progress',
     summary: {
       pt: 'UAXD platform · 10k+ autores globalmente · AI-First leadership',
@@ -42,8 +42,8 @@ export const career: readonly CareerEntry[] = [
         en: '4 AI initiatives in production (logs, RAG, revenue, workspace)',
       },
       {
-        pt: 'Co-fundador, Conselho de IA Wiley Research BR',
-        en: 'Co-founder, Wiley Research BR AI Council',
+        pt: 'Co-fundador do Conselho de IA Wiley Research BR — fórum interno que define padrões AI-First entre times de engenharia da Wiley no Brasil',
+        en: 'Co-founder of the Wiley Research BR AI Council — internal forum that defines AI-First standards across Wiley engineering teams in Brazil',
       },
     ],
   },
@@ -51,7 +51,7 @@ export const career: readonly CareerEntry[] = [
     kind: 'detailed',
     id: 'ebix',
     company: 'Ebix',
-    role: { pt: 'Ref. Técnica', en: 'Tech Lead' },
+    role: { pt: 'Analista de Sistemas Sênior', en: 'Senior Systems Analyst' },
     period: { pt: 'Jun 2019 → Jul 2024', en: 'Jun 2019 → Jul 2024' },
     badge: { years: 5 },
     summary: {
@@ -78,8 +78,8 @@ export const career: readonly CareerEntry[] = [
     id: 'cityconnect',
     yearLabel: '2024',
     text: {
-      pt: 'City Connect · Líder de Projetos · TCE-PR (8 devs)',
-      en: 'City Connect · Project Lead · TCE-PR (8 devs)',
+      pt: 'City Connect · Líder de Projetos · TCE-PR',
+      en: 'City Connect · Project Lead · TCE-PR',
     },
   },
   {
