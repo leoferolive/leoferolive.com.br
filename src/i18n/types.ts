@@ -95,6 +95,12 @@ export interface I18nDictionary {
     error_generic: string;
     loading: string;
     closed_announce: string;
+    name_prompt_title: string;
+    name_prompt_description: string;
+    name_prompt_placeholder: string;
+    name_prompt_cta: string;
+    name_prompt_invalid: string;
+    change_name: string;
   };
   botHandoff: {
     caseLabel: string;

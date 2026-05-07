@@ -112,6 +112,13 @@ export const pt: I18nDictionary = {
     error_generic: 'Algo deu errado por aqui. Tenta novamente em instantes.',
     loading: 'Pensando…',
     closed_announce: 'Chat fechado.',
+    name_prompt_title: 'Como posso te chamar?',
+    name_prompt_description:
+      'Só o primeiro nome já basta — uso pra personalizar a conversa.',
+    name_prompt_placeholder: 'Seu primeiro nome',
+    name_prompt_cta: 'Começar',
+    name_prompt_invalid: 'Use de 1 a 40 letras (sem números nem símbolos).',
+    change_name: 'Trocar nome',
   },
   botHandoff: {
     caseLabel: 'Se quiser mais detalhes sobre este caso, pergunta pro Leobot →',
