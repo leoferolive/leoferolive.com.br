@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: leoferolive-dev.local
+    - host: leoferolive-dev.leoferolive.com.br
       http:
         paths:
           - path: /
