@@ -27,11 +27,11 @@ describe('ChatFab + ChatDrawer', () => {
     renderApp();
 
     const fab = screen.getByRole('button', {
-      name: /abrir chat com ia/i,
+      name: /abrir conversa com o leobot/i,
     });
     await user.click(fab);
 
-    const dialog = screen.getByRole('dialog', { name: /chat com ia/i });
+    const dialog = screen.getByRole('dialog', { name: /leobot/i });
     expect(dialog).toHaveAttribute('aria-modal', 'true');
     // welcome message renders inside the dialog
     expect(within(dialog).getByText(/Leonardo/i)).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe('ChatFab + ChatDrawer', () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(
-      screen.getByRole('button', { name: /abrir chat com ia/i }),
+      screen.getByRole('button', { name: /abrir conversa com o leobot/i }),
     );
     const textarea = await screen.findByPlaceholderText(
       /pergunte algo sobre a carreira/i,
@@ -53,7 +53,7 @@ describe('ChatFab + ChatDrawer', () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(
-      screen.getByRole('button', { name: /abrir chat com ia/i }),
+      screen.getByRole('button', { name: /abrir conversa com o leobot/i }),
     );
     const dialog = screen.getByTestId('chat-drawer');
     expect(dialog).toHaveAttribute('aria-hidden', 'false');
@@ -66,10 +66,10 @@ describe('ChatFab + ChatDrawer', () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(
-      screen.getByRole('button', { name: /abrir chat com ia/i }),
+      screen.getByRole('button', { name: /abrir conversa com o leobot/i }),
     );
 
-    const closeBtn = screen.getByRole('button', { name: /fechar chat/i });
+    const closeBtn = screen.getByRole('button', { name: /fechar conversa/i });
     await user.click(closeBtn);
 
     const dialog = screen.getByTestId('chat-drawer');
@@ -87,7 +87,7 @@ describe('ChatFab + ChatDrawer', () => {
   it('restores focus to the FAB after the drawer is closed', async () => {
     const user = userEvent.setup();
     renderApp();
-    const fab = screen.getByRole('button', { name: /abrir chat com ia/i });
+    const fab = screen.getByRole('button', { name: /abrir conversa com o leobot/i });
     await user.click(fab);
     fireEvent.keyDown(window, { key: 'Escape' });
     expect(fab).toHaveFocus();
