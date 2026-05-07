@@ -116,7 +116,7 @@ export const en: I18nDictionary = {
     closed_announce: 'Chat closed.',
     name_prompt_title: 'What should I call you?',
     name_prompt_description:
-      'First name is enough — I use it to make the conversation feel a bit more personal.',
+      'First name is enough — I use it to make the conversation feel a bit more personal. Stored only in this browser.',
     name_prompt_placeholder: 'Your first name',
     name_prompt_cta: 'Start',
     name_prompt_invalid: 'Use 1 to 40 letters (no digits or symbols).',

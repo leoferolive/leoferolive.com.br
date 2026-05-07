@@ -168,10 +168,18 @@ export function ChatDrawer({ open, onClose, seed }: Props) {
   };
 
   const handleChangeName = () => {
-    session.reset();
+    // Clear the name first so the gate paints; reset the conversation
+    // afterwards. If reset() ever fails (storage quota), the gate is
+    // already showing — we never end up nameless-with-history.
     session.setUserName(null);
+    session.reset();
     setNameDraft('');
     setNameError(false);
+    // The "Trocar nome" button unmounts in the same commit, so explicit
+    // focus on the next paint avoids focus falling back to <body>.
+    requestAnimationFrame(() => {
+      nameInputRef.current?.focus();
+    });
   };
 
   return (
@@ -214,7 +222,7 @@ export function ChatDrawer({ open, onClose, seed }: Props) {
                 type="button"
                 onClick={handleChangeName}
                 className="ml-2 truncate rounded px-1.5 py-0.5 text-[11px] text-text-faint hover:bg-bg-elevated hover:text-text-primary"
-                title={t.chat.change_name}
+                aria-label={`${t.chat.change_name} (${session.userName})`}
               >
                 {session.userName} · {t.chat.change_name}
               </button>
@@ -242,8 +250,12 @@ export function ChatDrawer({ open, onClose, seed }: Props) {
             <p className="text-[13px] leading-snug text-text-muted">
               {t.chat.name_prompt_description}
             </p>
+            <label htmlFor="chat-name-input" className="sr-only">
+              {t.chat.name_prompt_placeholder}
+            </label>
             <input
               ref={nameInputRef}
+              id="chat-name-input"
               type="text"
               value={nameDraft}
               onChange={(e) => {

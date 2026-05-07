@@ -114,7 +114,7 @@ export const pt: I18nDictionary = {
     closed_announce: 'Chat fechado.',
     name_prompt_title: 'Como posso te chamar?',
     name_prompt_description:
-      'Só o primeiro nome já basta — uso pra personalizar a conversa.',
+      'Só o primeiro nome já basta — uso pra personalizar a conversa. Salvo só neste navegador.',
     name_prompt_placeholder: 'Seu primeiro nome',
     name_prompt_cta: 'Começar',
     name_prompt_invalid: 'Use de 1 a 40 letras (sem números nem símbolos).',
