@@ -12,5 +12,8 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/tests/setup.ts'],
     css: false,
+    // Stray git worktrees inside `.worktrees/` would otherwise drag broken
+    // tests (and conflicting React copies) into the run.
+    exclude: ['**/node_modules/**', '**/dist/**', '.worktrees/**'],
   },
 });
