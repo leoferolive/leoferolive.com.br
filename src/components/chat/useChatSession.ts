@@ -5,6 +5,37 @@ import type { ChatMessage } from './types';
 
 const SESSION_KEY = 'chat:sessionId';
 const FIRST_TOKEN_KEY = 'chat:firstTokenSent';
+export const USER_NAME_KEY = 'chat:userName';
+
+// Letters, spaces, ASCII apostrophe, curly apostrophe (U+2019, iOS
+// auto-corrects to this), period, hyphen. 1-40 chars.
+export const NAME_RE = /^[\p{L} '’.-]{1,40}$/u;
+
+export function loadUserName(): string | null {
+  try {
+    const stored = window.localStorage.getItem(USER_NAME_KEY);
+    if (stored && NAME_RE.test(stored)) return stored;
+  } catch {
+    // localStorage may be unavailable.
+  }
+  return null;
+}
+
+export function saveUserName(value: string): void {
+  try {
+    window.localStorage.setItem(USER_NAME_KEY, value);
+  } catch {
+    // ignore
+  }
+}
+
+export function clearUserName(): void {
+  try {
+    window.localStorage.removeItem(USER_NAME_KEY);
+  } catch {
+    // ignore
+  }
+}
 
 function genId(): string {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
@@ -48,6 +79,8 @@ export interface UseChatSession {
   messages: ChatMessage[];
   isStreaming: boolean;
   error: ChatErrorCode | null;
+  userName: string | null;
+  setUserName: (value: string | null) => void;
   send: (
     text: string,
     getTurnstileToken?: () => Promise<string | null>,
@@ -67,7 +100,20 @@ export function useChatSession(): UseChatSession {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<ChatErrorCode | null>(null);
+  const [userName, setUserNameState] = useState<string | null>(() => loadUserName());
   const abortRef = useRef<AbortController | null>(null);
+
+  const setUserName = useCallback((value: string | null) => {
+    if (value === null) {
+      clearUserName();
+      setUserNameState(null);
+      return;
+    }
+    const trimmed = value.trim();
+    if (!NAME_RE.test(trimmed)) return;
+    saveUserName(trimmed);
+    setUserNameState(trimmed);
+  }, []);
 
   const send = useCallback(
     async (
@@ -127,6 +173,7 @@ export function useChatSession(): UseChatSession {
           })),
           lang: langRef.current,
           turnstileToken,
+          userName,
         },
         {
           onToken: (value) => {
@@ -172,7 +219,7 @@ export function useChatSession(): UseChatSession {
         controller.signal,
       );
     },
-    [isStreaming, messages, sessionId],
+    [isStreaming, messages, sessionId, userName],
   );
 
   const reset = useCallback(() => {
@@ -198,7 +245,17 @@ export function useChatSession(): UseChatSession {
   }, []);
 
   return useMemo(
-    () => ({ sessionId, messages, isStreaming, error, send, reset, cancel }),
-    [sessionId, messages, isStreaming, error, send, reset, cancel],
+    () => ({
+      sessionId,
+      messages,
+      isStreaming,
+      error,
+      userName,
+      setUserName,
+      send,
+      reset,
+      cancel,
+    }),
+    [sessionId, messages, isStreaming, error, userName, setUserName, send, reset, cancel],
   );
 }

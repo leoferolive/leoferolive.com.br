@@ -15,6 +15,7 @@ export interface StreamRequest {
   messages: Array<Pick<ChatMessage, 'role' | 'content'>>;
   lang: Lang;
   turnstileToken: string | null;
+  userName?: string | null;
 }
 
 export type StreamEvent =
