@@ -75,4 +75,21 @@ describe('ChatFab + ChatDrawer', () => {
     const dialog = screen.getByTestId('chat-drawer');
     expect(dialog).toHaveAttribute('aria-hidden', 'true');
   });
+
+  it('marks the drawer as inert while closed so it is not tabbable', () => {
+    renderApp();
+    const dialog = screen.getByTestId('chat-drawer');
+    // closed by default
+    expect(dialog).toHaveAttribute('aria-hidden', 'true');
+    expect(dialog.hasAttribute('inert')).toBe(true);
+  });
+
+  it('restores focus to the FAB after the drawer is closed', async () => {
+    const user = userEvent.setup();
+    renderApp();
+    const fab = screen.getByRole('button', { name: /abrir chat com ia/i });
+    await user.click(fab);
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(fab).toHaveFocus();
+  });
 });

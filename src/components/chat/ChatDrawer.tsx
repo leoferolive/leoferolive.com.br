@@ -12,6 +12,9 @@ type Props = {
   onClose: () => void;
 };
 
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 function errorKey(code: ChatErrorCode): keyof ReturnType<typeof useT>['chat'] {
   switch (code) {
     case 'rate_limit':
@@ -33,21 +36,49 @@ export function ChatDrawer({ open, onClose }: Props) {
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
 
-  // ESC closes
+  // ESC closes + Tab focus trap. The drawer claims aria-modal=true so we must
+  // keep keyboard focus inside it while open.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const root = drawerRef.current;
+      if (!root) return;
+      const focusables = Array.from(
+        root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+      ).filter((el) => !el.hasAttribute('aria-hidden'));
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  // Focus the textarea when opened
+  // Focus the textarea when opened, and restore focus to the previously
+  // focused element (typically the FAB) when closed.
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
-    if (!open) return;
-    const ta = inputContainerRef.current?.querySelector('textarea');
-    ta?.focus();
+    if (open) {
+      lastFocusedRef.current = document.activeElement as HTMLElement | null;
+      const ta = inputContainerRef.current?.querySelector('textarea');
+      ta?.focus();
+    } else if (lastFocusedRef.current) {
+      lastFocusedRef.current.focus();
+      lastFocusedRef.current = null;
+    }
   }, [open]);
 
   // Autoscroll to bottom on new messages
@@ -94,6 +125,10 @@ export function ChatDrawer({ open, onClose }: Props) {
         aria-modal="true"
         aria-label={t.chat.drawer_title}
         aria-hidden={!open}
+        // `inert` prevents the closed drawer from being focusable via Tab
+        // and from being read by screen readers. Cast covers React 18 types
+        // that haven't added the attribute yet.
+        {...({ inert: !open ? '' : undefined } as { inert?: string })}
         data-testid="chat-drawer"
         className={`fixed right-0 top-0 z-50 flex h-[100dvh] w-full flex-col border-l border-border bg-bg-surface shadow-2xl transition-transform duration-[240ms] ease-out md:w-[420px] ${
           open ? 'translate-x-0' : 'translate-x-full'
