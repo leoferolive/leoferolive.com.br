@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { X } from 'lucide-react';
 import { useT } from '@/i18n/useT';
 import { ChatInput } from './ChatInput';
 import { ChatMessage } from './ChatMessage';
-import { useChatSession, type ChatErrorCode } from './useChatSession';
+import { NAME_RE, useChatSession, type ChatErrorCode } from './useChatSession';
 import { getTurnstileToken } from './TurnstileWidget';
 import type { ChatMessage as ChatMessageType } from './types';
 
@@ -41,10 +41,15 @@ export function ChatDrawer({ open, onClose, seed }: Props) {
   const t = useT();
   const session = useChatSession();
   const [draft, setDraft] = useState('');
+  const [nameDraft, setNameDraft] = useState('');
+  const [nameError, setNameError] = useState(false);
   const inputContainerRef = useRef<HTMLDivElement | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
   const lastAppliedNonceRef = useRef<number | null>(null);
+
+  const needsName = session.userName === null;
 
   // Apply a seed when its nonce changes, regardless of open transitions —
   // this covers two cases:
@@ -106,18 +111,23 @@ export function ChatDrawer({ open, onClose, seed }: Props) {
   }, [open, onClose]);
 
   // Focus the textarea when opened, and restore focus to the previously
-  // focused element (typically the FAB) when closed.
+  // focused element (typically the FAB) when closed. When the name gate is
+  // showing, focus the name input instead.
   const lastFocusedRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     if (open) {
       lastFocusedRef.current = document.activeElement as HTMLElement | null;
-      const ta = inputContainerRef.current?.querySelector('textarea');
-      ta?.focus();
+      if (needsName) {
+        nameInputRef.current?.focus();
+      } else {
+        const ta = inputContainerRef.current?.querySelector('textarea');
+        ta?.focus();
+      }
     } else if (lastFocusedRef.current) {
       lastFocusedRef.current.focus();
       lastFocusedRef.current = null;
     }
-  }, [open]);
+  }, [open, needsName]);
 
   // Autoscroll to bottom on new messages
   useEffect(() => {
@@ -143,6 +153,25 @@ export function ChatDrawer({ open, onClose, seed }: Props) {
     const text = draft;
     setDraft('');
     void session.send(text, getTurnstileToken);
+  };
+
+  const handleNameSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const trimmed = nameDraft.trim();
+    if (!NAME_RE.test(trimmed)) {
+      setNameError(true);
+      return;
+    }
+    setNameError(false);
+    session.setUserName(trimmed);
+    setNameDraft('');
+  };
+
+  const handleChangeName = () => {
+    session.reset();
+    session.setUserName(null);
+    setNameDraft('');
+    setNameError(false);
   };
 
   return (
@@ -180,6 +209,16 @@ export function ChatDrawer({ open, onClose, seed }: Props) {
             <span className="rounded border border-border px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-text-faint">
               {t.chat.badge}
             </span>
+            {session.userName && (
+              <button
+                type="button"
+                onClick={handleChangeName}
+                className="ml-2 truncate rounded px-1.5 py-0.5 text-[11px] text-text-faint hover:bg-bg-elevated hover:text-text-primary"
+                title={t.chat.change_name}
+              >
+                {session.userName} · {t.chat.change_name}
+              </button>
+            )}
           </div>
           <button
             type="button"
@@ -191,38 +230,85 @@ export function ChatDrawer({ open, onClose, seed }: Props) {
           </button>
         </header>
 
-        <div
-          ref={listRef}
-          className="flex-1 overflow-y-auto px-4 py-4 space-y-4"
-          aria-live="polite"
-          aria-relevant="additions"
-        >
-          {messages.map((m) => (
-            <ChatMessage key={m.id} message={m} />
-          ))}
-          {session.error && (
-            <div
-              role="alert"
-              className="rounded border border-err/40 bg-err/5 px-3 py-2 text-[13px] text-err"
+        {needsName ? (
+          <form
+            onSubmit={handleNameSubmit}
+            data-testid="chat-name-gate"
+            className="flex flex-1 flex-col items-stretch justify-center gap-3 px-6 py-8"
+          >
+            <h2 className="text-base font-semibold text-text-primary">
+              {t.chat.name_prompt_title}
+            </h2>
+            <p className="text-[13px] leading-snug text-text-muted">
+              {t.chat.name_prompt_description}
+            </p>
+            <input
+              ref={nameInputRef}
+              type="text"
+              value={nameDraft}
+              onChange={(e) => {
+                setNameDraft(e.target.value);
+                if (nameError) setNameError(false);
+              }}
+              maxLength={40}
+              autoComplete="given-name"
+              placeholder={t.chat.name_prompt_placeholder}
+              aria-invalid={nameError}
+              aria-describedby={nameError ? 'chat-name-error' : undefined}
+              className="rounded border border-border bg-bg-base px-3 py-2 text-sm text-text-primary outline-none focus:border-text-primary"
+            />
+            {nameError && (
+              <p
+                id="chat-name-error"
+                role="alert"
+                className="text-[12px] text-err"
+              >
+                {t.chat.name_prompt_invalid}
+              </p>
+            )}
+            <button
+              type="submit"
+              className="rounded bg-text-primary px-3 py-2 text-sm font-medium text-bg-base hover:opacity-90"
             >
-              {t.chat[errorKey(session.error)]}
+              {t.chat.name_prompt_cta}
+            </button>
+          </form>
+        ) : (
+          <>
+            <div
+              ref={listRef}
+              className="flex-1 overflow-y-auto px-4 py-4 space-y-4"
+              aria-live="polite"
+              aria-relevant="additions"
+            >
+              {messages.map((m) => (
+                <ChatMessage key={m.id} message={m} />
+              ))}
+              {session.error && (
+                <div
+                  role="alert"
+                  className="rounded border border-err/40 bg-err/5 px-3 py-2 text-[13px] text-err"
+                >
+                  {t.chat[errorKey(session.error)]}
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        <div ref={inputContainerRef}>
-          <ChatInput
-            value={draft}
-            onChange={setDraft}
-            onSubmit={handleSubmit}
-            disabled={session.isStreaming}
-            placeholder={t.chat.placeholder}
-            sendLabel={t.chat.send}
-          />
-          <p className="px-3 pb-3 pt-1 text-[11px] leading-snug text-text-faint">
-            {t.chat.disclaimer}
-          </p>
-        </div>
+            <div ref={inputContainerRef}>
+              <ChatInput
+                value={draft}
+                onChange={setDraft}
+                onSubmit={handleSubmit}
+                disabled={session.isStreaming}
+                placeholder={t.chat.placeholder}
+                sendLabel={t.chat.send}
+              />
+              <p className="px-3 pb-3 pt-1 text-[11px] leading-snug text-text-faint">
+                {t.chat.disclaimer}
+              </p>
+            </div>
+          </>
+        )}
       </aside>
     </>
   );
