@@ -89,8 +89,8 @@ export const cases: readonly CaseEntry[] = [
     },
     stack: ['Cursor', 'AGENTS.md', 'Skills', 'CI/CD'],
     botSeed: {
-      pt: 'Me conta sobre o caso de revenue tracking que o Leonardo entregou na Wiley com squad de 3 usando Cursor + skills + AGENTS.md.',
-      en: 'Tell me about the revenue tracking case Leonardo delivered at Wiley with a squad of 3 using Cursor + skills + AGENTS.md.',
+      pt: 'Me conta sobre o caso de revenue tracking na Wiley — squad de 3 usando Cursor + skills + AGENTS.md, entrega em ~1 mês.',
+      en: "Tell me about Wiley's revenue tracking case — squad of 3 using Cursor + skills + AGENTS.md, delivered in ~1 month.",
     },
   },
   {
