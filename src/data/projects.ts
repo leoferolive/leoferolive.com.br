@@ -7,6 +7,8 @@ export type ProjectEntry = {
   builtWith?: string;
   link?: string;     // GitHub repo
   demo?: string;     // Live URL
+  internalRoute?: { pt: string; en: string };
+  internalRouteLabel?: { pt: string; en: string };
 };
 
 export const projects: readonly ProjectEntry[] = [
@@ -45,5 +47,7 @@ export const projects: readonly ProjectEntry[] = [
       en: 'Everything on a Raspberry Pi 4B (8GB). K3s, Traefik, Cloudflare Tunnel. OpenClaw + Telegram for remote admin — I provision databases, deploy, and troubleshoot from chat.',
     },
     stack: ['Raspberry Pi 4B', 'K3s', 'Traefik', 'Cloudflare Tunnel', 'OpenClaw', 'Tailscale'],
+    internalRoute: { pt: '/arquitetura', en: '/en/architecture' },
+    internalRouteLabel: { pt: 'ver diagrama interativo', en: 'view interactive diagram' },
   },
 ] as const;
