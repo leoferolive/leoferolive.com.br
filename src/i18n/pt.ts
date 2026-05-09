@@ -145,4 +145,37 @@ export const pt: I18nDictionary = {
       contact: 'contato',
     },
   },
+  architecture: {
+    pageTitle: 'Arquitetura',
+    pageSubtitle:
+      'Tudo que sustenta este site rodando num Raspberry Pi 4B. Clique em um nó para ver detalhes técnicos e decisões de design.',
+    backToHome: '← voltar pro início',
+    legend: {
+      title: 'Legenda',
+      data: 'fluxo de dados',
+      control: 'controle / build',
+      observability: 'observabilidade',
+      animatedHint: 'linhas tracejadas: fluxo ativo em runtime',
+    },
+    drawer: {
+      close: 'Fechar painel',
+      descriptionLabel: 'Descrição',
+      technicalLabel: 'Detalhes técnicos',
+      decisionsLabel: 'Decisões',
+      linksLabel: 'Links',
+      kindLabel: 'Tipo',
+      namespaceLabel: 'Namespace',
+      versionLabel: 'Versão',
+      replicasLabel: 'Réplicas',
+      resourcesLabel: 'Recursos',
+      portLabel: 'Porta',
+      storageLabel: 'Armazenamento',
+    },
+    controls: {
+      zoomIn: 'Aproximar',
+      zoomOut: 'Afastar',
+      fitView: 'Centralizar',
+    },
+    canvasAria: (diagram) => `Diagrama interativo: ${diagram}`,
+  },
 };

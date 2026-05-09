@@ -1,13 +1,23 @@
 import { Menu } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { useT } from '@/i18n/useT';
+import { useI18n } from '@/i18n/context';
+import { langPathPrefix } from '@/i18n/routing';
 
 const SECTION_IDS = ['cases', 'career', 'workflow', 'projects', 'stack', 'contact'] as const;
 
 export function SectionNav() {
   const t = useT();
+  const { lang } = useI18n();
+  const { pathname } = useLocation();
+  const homePath = langPathPrefix(lang) || '/';
+  const archPath = lang === 'pt' ? '/arquitetura' : '/en/architecture';
+  const isHome = pathname === '/' || pathname === '/en';
+
   const items = SECTION_IDS.map((id) => ({
     id,
     label: t.nav.items[id],
+    href: isHome ? `#${id}` : `${homePath === '/' ? '' : homePath}/#${id}`,
   }));
 
   return (
@@ -19,13 +29,21 @@ export function SectionNav() {
         {items.map((it) => (
           <li key={it.id}>
             <a
-              href={`#${it.id}`}
+              href={it.href}
               className="text-text-muted transition-colors hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:rounded"
             >
               {it.label}
             </a>
           </li>
         ))}
+        <li>
+          <Link
+            to={archPath}
+            className="text-text-muted transition-colors hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:rounded"
+          >
+            {t.architecture.pageTitle.toLowerCase()}
+          </Link>
+        </li>
       </ul>
       <details className="md:hidden group">
         <summary
@@ -39,10 +57,8 @@ export function SectionNav() {
           {items.map((it) => (
             <li key={it.id}>
               <a
-                href={`#${it.id}`}
+                href={it.href}
                 onClick={(e) => {
-                  // Auto-collapse the mobile <details> after navigation so
-                  // the panel doesn't keep covering content.
                   e.currentTarget.closest('details')?.removeAttribute('open');
                 }}
                 className="block py-2 text-text-muted hover:text-accent min-h-[44px] flex items-center"
@@ -51,6 +67,17 @@ export function SectionNav() {
               </a>
             </li>
           ))}
+          <li>
+            <Link
+              to={archPath}
+              onClick={(e) => {
+                e.currentTarget.closest('details')?.removeAttribute('open');
+              }}
+              className="block py-2 text-text-muted hover:text-accent min-h-[44px] flex items-center"
+            >
+              {t.architecture.pageTitle.toLowerCase()}
+            </Link>
+          </li>
         </ul>
       </details>
     </nav>

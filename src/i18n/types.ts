@@ -120,4 +120,36 @@ export interface I18nDictionary {
       contact: string;
     };
   };
+  architecture: {
+    pageTitle: string;
+    pageSubtitle: string;
+    backToHome: string;
+    legend: {
+      title: string;
+      data: string;
+      control: string;
+      observability: string;
+      animatedHint: string;
+    };
+    drawer: {
+      close: string;
+      descriptionLabel: string;
+      technicalLabel: string;
+      decisionsLabel: string;
+      linksLabel: string;
+      kindLabel: string;
+      namespaceLabel: string;
+      versionLabel: string;
+      replicasLabel: string;
+      resourcesLabel: string;
+      portLabel: string;
+      storageLabel: string;
+    };
+    controls: {
+      zoomIn: string;
+      zoomOut: string;
+      fitView: string;
+    };
+    canvasAria: (diagram: string) => string;
+  };
 }

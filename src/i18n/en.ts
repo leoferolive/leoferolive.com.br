@@ -144,4 +144,37 @@ export const en: I18nDictionary = {
       contact: 'contact',
     },
   },
+  architecture: {
+    pageTitle: 'Architecture',
+    pageSubtitle:
+      'Everything that keeps this site alive on a single Raspberry Pi 4B. Click a node to see technical details and design decisions.',
+    backToHome: '← back to home',
+    legend: {
+      title: 'Legend',
+      data: 'data flow',
+      control: 'control / build',
+      observability: 'observability',
+      animatedHint: 'dashed lines: active runtime flow',
+    },
+    drawer: {
+      close: 'Close panel',
+      descriptionLabel: 'Description',
+      technicalLabel: 'Technical details',
+      decisionsLabel: 'Decisions',
+      linksLabel: 'Links',
+      kindLabel: 'Kind',
+      namespaceLabel: 'Namespace',
+      versionLabel: 'Version',
+      replicasLabel: 'Replicas',
+      resourcesLabel: 'Resources',
+      portLabel: 'Port',
+      storageLabel: 'Storage',
+    },
+    controls: {
+      zoomIn: 'Zoom in',
+      zoomOut: 'Zoom out',
+      fitView: 'Fit view',
+    },
+    canvasAria: (diagram) => `Interactive diagram: ${diagram}`,
+  },
 };
