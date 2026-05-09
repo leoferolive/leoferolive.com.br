@@ -15,6 +15,12 @@ export type CaseEntry = {
   impact: { pt: string; en: string };
   stack: readonly string[];
   links?: readonly CaseLink[];
+  // Question sent to Leobot when the user clicks the case CTA. Anchored on
+  // wiki vocabulary (Spring AI, Pgvector, MCP, etc.) so the LLM router can
+  // map the question to existing pages — using just the filename
+  // (`01_log_analyzer.case`) made the router refuse since that string isn't
+  // anywhere in the wiki index.
+  botSeed: { pt: string; en: string };
 };
 
 export const cases: readonly CaseEntry[] = [
@@ -36,6 +42,10 @@ export const cases: readonly CaseEntry[] = [
       en: 'days → minutes. In production, used by engineering and support.',
     },
     stack: ['Java 24', 'Spring AI', 'Azure OpenAI', 'Elasticsearch', 'Kibana'],
+    botSeed: {
+      pt: 'Me conta sobre o log analyzer da Wiley — o caso de uso de Spring AI + Azure OpenAI pra investigação de incidentes via Kibana/Elasticsearch.',
+      en: "Tell me about Wiley's log analyzer — the Spring AI + Azure OpenAI use case for incident investigation via Kibana/Elasticsearch.",
+    },
   },
   {
     id: '02',
@@ -55,6 +65,10 @@ export const cases: readonly CaseEntry[] = [
       en: 'Adopted by the team. I rolled the pattern out via the Wiley Research BR AI Council.',
     },
     stack: ['Skills', 'AGENTS.md', 'MCP', 'Jira', 'Kibana'],
+    botSeed: {
+      pt: 'Me conta sobre o agentic workspace de support duty na Wiley — skills, AGENTS.md, MCP com Jira e Kibana.',
+      en: "Tell me about Wiley's agentic support-duty workspace — skills, AGENTS.md, MCP with Jira and Kibana.",
+    },
   },
   {
     id: '03',
@@ -74,6 +88,10 @@ export const cases: readonly CaseEntry[] = [
       en: 'core (integration validation + main flow) delivered in ~1 month vs. the traditional 3+ month estimate. In final testing.',
     },
     stack: ['Cursor', 'AGENTS.md', 'Skills', 'CI/CD'],
+    botSeed: {
+      pt: 'Me conta sobre o caso de revenue tracking que o Leonardo entregou na Wiley com squad de 3 usando Cursor + skills + AGENTS.md.',
+      en: 'Tell me about the revenue tracking case Leonardo delivered at Wiley with a squad of 3 using Cursor + skills + AGENTS.md.',
+    },
   },
   {
     id: '04',
@@ -93,6 +111,10 @@ export const cases: readonly CaseEntry[] = [
       en: "Consistent events across pods. SSE connections deduplicated per tab via BroadcastChannel — N tabs opened by the same user become 1 backend connection instead of N. In production on Wiley's submissions/publications platform.",
     },
     stack: ['Java 25', 'Spring Boot 4', 'Redis Pub/Sub', 'SSE', 'Kubernetes', 'BroadcastChannel API'],
+    botSeed: {
+      pt: 'Me conta sobre o caso de SSE em escala na Wiley — Redis Pub/Sub multi-pod e BroadcastChannel no frontend.',
+      en: "Tell me about Wiley's SSE-at-scale case — multi-pod Redis Pub/Sub and BroadcastChannel on the frontend.",
+    },
   },
   {
     id: '05',
@@ -112,5 +134,9 @@ export const cases: readonly CaseEntry[] = [
       en: 'MVP in production. Support and product query through natural language.',
     },
     stack: ['Spring AI', 'Pgvector', 'Azure OpenAI', 'MCP', 'PostgreSQL'],
+    botSeed: {
+      pt: 'Me conta sobre a plataforma RAG da Wiley — Spring AI + Pgvector + Azure OpenAI integrando 5+ fontes de artigos.',
+      en: "Tell me about Wiley's RAG platform — Spring AI + Pgvector + Azure OpenAI integrating 5+ article sources.",
+    },
   },
 ] as const;

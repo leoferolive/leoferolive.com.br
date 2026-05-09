@@ -98,7 +98,6 @@ export interface I18nDictionary {
   };
   botHandoff: {
     caseLabel: string;
-    caseSeedTpl: (filename: string) => string;
     careerCouncilLabel: string;
     careerCouncilSeed: string;
     careerEarlyLabel: string;

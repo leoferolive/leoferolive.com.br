@@ -117,7 +117,6 @@ export const en: I18nDictionary = {
   },
   botHandoff: {
     caseLabel: 'Want more details about this case? Ask Leobot →',
-    caseSeedTpl: (filename) => `Tell me more about case ${filename}.`,
     careerCouncilLabel:
       'Want more on the Wiley Research BR AI Council? Ask Leobot →',
     careerCouncilSeed:
@@ -127,7 +126,7 @@ export const en: I18nDictionary = {
       'Tell me about Leonardo\'s career before 2024 (City Connect, Lumis, Persist/Ebix): what he did, the stack and what he learned.',
     workflowLabel: 'Want to see how Leonardo applies this day to day? Ask Leobot →',
     workflowSeed:
-      'How does Leonardo apply AI-First in his day to day? Walk me through a concrete issue → plan → PR → merge example using agents.',
+      'How does Leonardo work day to day with AI? Which tools, skills, custom commands and agents does he use to develop.',
     stackLabel: 'Want to know at what depth he uses each one? Ask Leobot →',
     stackSeed:
       'At what depth does Leonardo use each item in the stack? What is production and what is exploration?',

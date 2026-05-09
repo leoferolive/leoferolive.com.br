@@ -60,7 +60,7 @@ export function CaseCard({ caseEntry, lang }: Props) {
       <div className="mt-4 border-t border-border pt-3">
         <BotHandoff
           label={t.botHandoff.caseLabel}
-          seed={t.botHandoff.caseSeedTpl(caseEntry.filename)}
+          seed={caseEntry.botSeed[lang]}
         />
       </div>
     </article>

@@ -115,7 +115,6 @@ export const pt: I18nDictionary = {
   },
   botHandoff: {
     caseLabel: 'Se quiser mais detalhes sobre este caso, pergunta pro Leobot →',
-    caseSeedTpl: (filename) => `Me conta mais detalhes sobre o caso ${filename}.`,
     careerCouncilLabel:
       'Se quiser saber mais sobre o Conselho de IA Wiley Research BR, pergunta pro Leobot →',
     careerCouncilSeed:
@@ -127,7 +126,7 @@ export const pt: I18nDictionary = {
     workflowLabel:
       'Se quiser ver como o Leonardo aplica isso no dia a dia, pergunta pro Leobot →',
     workflowSeed:
-      'Como o Leonardo aplica AI-First no dia a dia? Dá um exemplo concreto de issue → plano → PR → merge usando agentes.',
+      'Como o Leonardo trabalha no dia a dia com IA? Quais ferramentas, skills, comandos customizados e agentes ele usa pra desenvolver.',
     stackLabel:
       'Se quiser saber em qual nível ele usa cada uma, pergunta pro Leobot →',
     stackSeed:
