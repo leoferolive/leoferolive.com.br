@@ -1,9 +1,13 @@
+import { Link } from 'react-router-dom';
 import type { ProjectEntry } from '@/data/projects';
 import type { Lang } from '@/i18n/types';
 import { ExternalLink } from './ExternalLink';
 import { Folder } from 'lucide-react';
 
 export function ProjectCard({ project, lang }: { project: ProjectEntry; lang: Lang }) {
+  const internalHref = project.internalRoute?.[lang];
+  const internalLabel = project.internalRouteLabel?.[lang] ?? 'ver →';
+
   return (
     <article className="rounded border border-border bg-bg-surface p-5 transition-colors hover:border-border-hover hover:bg-bg-elevated">
       <header className="mb-2 flex items-center gap-2">
@@ -27,7 +31,7 @@ export function ProjectCard({ project, lang }: { project: ProjectEntry; lang: La
       {project.builtWith && (
         <p className="mt-2 text-[11px] text-text-faint">built with: {project.builtWith}</p>
       )}
-      {(project.link || project.demo) && (
+      {(project.link || project.demo || internalHref) && (
         <div className="mt-3 flex flex-col gap-1 text-sm">
           {project.link && (
             <ExternalLink href={project.link} className="text-accent hover:underline">
@@ -38,6 +42,11 @@ export function ProjectCard({ project, lang }: { project: ProjectEntry; lang: La
             <ExternalLink href={project.demo} className="text-accent hover:underline">
               demo · {project.demo.replace('https://', '')} →
             </ExternalLink>
+          )}
+          {internalHref && (
+            <Link to={internalHref} className="text-accent hover:underline">
+              {internalLabel} →
+            </Link>
           )}
         </div>
       )}

@@ -13,6 +13,7 @@ import { Projects } from '@/components/sections/Projects';
 import { Stack } from '@/components/sections/Stack';
 import { Contact } from '@/components/sections/Contact';
 import { ChatFab } from '@/components/chat/ChatFab';
+import { Architecture } from '@/pages/Architecture';
 
 function LocalizedShell({ children }: { children: ReactNode }) {
   const t = useT();
@@ -70,6 +71,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LangApp><Home /></LangApp>} />
         <Route path="/en" element={<LangApp><Home /></LangApp>} />
+        <Route path="/arquitetura" element={<LangApp><Architecture /></LangApp>} />
+        <Route path="/en/architecture" element={<LangApp><Architecture /></LangApp>} />
         <Route path="*" element={<LangApp><Home /></LangApp>} />
       </Routes>
     </>
