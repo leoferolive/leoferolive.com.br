@@ -8,6 +8,7 @@ const API_BASE = (import.meta.env.VITE_CHAT_API_URL as string | undefined) ?? ''
  * We can't use `EventSource` here because it only supports GET; the chat-api
  * expects a POST body with messages, lang and the optional Turnstile token.
  */
+/* eslint-disable max-lines-per-function, complexity -- TODO(quality-gate): refatorar até 2026-08-11 */
 export async function streamChat(
   req: StreamRequest,
   callbacks: StreamCallbacks,
@@ -94,6 +95,7 @@ export async function streamChat(
   // assistant message stuck on `pending`.
   onError('network');
 }
+/* eslint-enable max-lines-per-function, complexity */
 
 /**
  * Read the body of a non-OK response and return the embedded reason, if any.

@@ -17,6 +17,21 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    complexity: ['error', { max: 10 }],
+    'max-lines-per-function': [
+      'error',
+      { max: 60, skipBlankLines: true, skipComments: true, IIFEs: true },
+    ],
+    'max-depth': ['error', 4],
   },
+  overrides: [
+    {
+      files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}', 'src/tests/**/*'],
+      rules: {
+        'max-lines-per-function': 'off',
+        complexity: 'off',
+      },
+    },
+  ],
   ignorePatterns: ['dist', 'node_modules'],
 };
