@@ -7,8 +7,8 @@ import { personJsonLd, websiteJsonLd } from './src/seo/jsonld';
 function jsonLdInject(): Plugin {
   const replace = (html: string) =>
     html
-      .replace('<!--%JSONLD_PERSON%-->', JSON.stringify(personJsonLd))
-      .replace('<!--%JSONLD_WEBSITE%-->', JSON.stringify(websiteJsonLd));
+      .replaceAll('<!--%JSONLD_PERSON%-->', JSON.stringify(personJsonLd))
+      .replaceAll('<!--%JSONLD_WEBSITE%-->', JSON.stringify(websiteJsonLd));
   return { name: 'jsonld-inject', transformIndexHtml: { order: 'pre', handler: replace } };
 }
 
