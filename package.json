@@ -3,6 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --max-warnings 0 --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,html,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -14,7 +23,8 @@
     "test:run": "vitest run",
     "format": "prettier --write .",
     "og:generate": "node scripts/og/generate.mjs",
-    "lighthouse": "lighthouse https://leoferolive.com.br/ --view --form-factor=mobile --quiet --chrome-flags=\"--headless=new --no-sandbox\""
+    "lighthouse": "lighthouse https://leoferolive.com.br/ --view --form-factor=mobile --quiet --chrome-flags=\"--headless=new --no-sandbox\"",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.2.8",
