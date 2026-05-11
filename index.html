@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
     <title>Leonardo Fernandes Oliveira — Senior Software Engineer · AI-First</title>
     <meta name="description" content="Senior Software Engineer com 10+ anos em Java/Spring e foco em engenharia AI-First. Construo sistemas que usam IA, e uso IA pra construir sistemas." />
 
@@ -27,9 +28,33 @@
     <meta name="twitter:title" content="Leonardo Fernandes Oliveira — Senior Software Engineer · AI-First" />
     <meta name="twitter:description" content="Senior Software Engineer com 10+ anos em Java/Spring e foco em engenharia AI-First. Construo sistemas que usam IA, e uso IA pra construir sistemas." />
     <meta name="twitter:image" content="https://leoferolive.com.br/og-image-pt.png" />
+
+    <!-- JSON-LD injetado em build-time pelo plugin jsonld-inject (vite.config.ts).
+         Fonte de verdade: src/seo/jsonld.ts. -->
+    <script type="application/ld+json" id="jsonld-person"><!--%JSONLD_PERSON%--></script>
+    <script type="application/ld+json" id="jsonld-website"><!--%JSONLD_WEBSITE%--></script>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- O React substitui o conteúdo de #root via createRoot().render() em src/main.tsx.
+         O markup abaixo serve só pra crawlers que não rodam JS (LinkedIn, Bing, Slack)
+         lerem heading, descrição e links na primeira passada. Não migrar para hydrateRoot. -->
+    <div id="root">
+      <main>
+        <h1>Leonardo Fernandes Oliveira</h1>
+        <p>Senior Software Engineer · AI-First Engineer · Curitiba/BR.</p>
+        <p>Construo sistemas que usam IA, e uso IA pra construir sistemas. 10+ anos em Java/Spring, sistemas distribuídos e features de IA em produção.</p>
+        <p lang="en">I build systems that use AI, and use AI to build systems. 10+ years in Java/Spring, distributed systems, and AI features in production.</p>
+        <ul>
+          <li><a href="https://github.com/leoferolive" rel="me">GitHub — github.com/leoferolive</a></li>
+          <li><a href="https://www.linkedin.com/in/leonardo-fer-oliveira/" rel="me">LinkedIn — linkedin.com/in/leonardo-fer-oliveira</a></li>
+          <li><a href="mailto:leoferolive@gmail.com">Email — leoferolive@gmail.com</a></li>
+          <li><a href="/en" hreflang="en">English version</a></li>
+        </ul>
+      </main>
+    </div>
+    <noscript>
+      <p>Este portfolio é uma SPA React. Habilite JavaScript para a experiência completa, ou acesse os perfis acima.</p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
