@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useI18n } from '@/i18n/context';
-import { personJsonLd } from './jsonld';
-
-const SITE_URL = 'https://leoferolive.com.br';
+import { SITE_URL } from './jsonld';
 
 function setOrCreate(selector: string, attrs: Record<string, string>) {
   let el = document.head.querySelector<HTMLElement>(selector);
@@ -62,14 +60,6 @@ export function Head() {
     setOrCreate('meta[name="twitter:title"]', { name: 'twitter:title', content: pageTitle });
     setOrCreate('meta[name="twitter:description"]', { name: 'twitter:description', content: pageDescription });
     setOrCreate('meta[name="twitter:image"]', { name: 'twitter:image', content: `${SITE_URL}${ogImage}` });
-    let script = document.head.querySelector<HTMLScriptElement>('#jsonld-person');
-    if (!script) {
-      script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.id = 'jsonld-person';
-      document.head.appendChild(script);
-    }
-    script.textContent = JSON.stringify(personJsonLd);
   }, [lang, t, isArchitecture]);
   return null;
 }
