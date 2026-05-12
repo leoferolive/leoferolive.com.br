@@ -11,20 +11,38 @@ const outPath = resolve(__dirname, '../dist/sitemap.xml');
 const lastmod = new Date().toISOString().slice(0, 10);
 
 const urls = [
-  { loc: 'https://leoferolive.com.br/' },
-  { loc: 'https://leoferolive.com.br/en' },
+  {
+    loc: 'https://leoferolive.com.br/',
+    alts: { pt: 'https://leoferolive.com.br/', en: 'https://leoferolive.com.br/en' },
+  },
+  {
+    loc: 'https://leoferolive.com.br/en',
+    alts: { pt: 'https://leoferolive.com.br/', en: 'https://leoferolive.com.br/en' },
+  },
+  {
+    loc: 'https://leoferolive.com.br/arquitetura',
+    alts: {
+      pt: 'https://leoferolive.com.br/arquitetura',
+      en: 'https://leoferolive.com.br/en/architecture',
+    },
+  },
+  {
+    loc: 'https://leoferolive.com.br/en/architecture',
+    alts: {
+      pt: 'https://leoferolive.com.br/arquitetura',
+      en: 'https://leoferolive.com.br/en/architecture',
+    },
+  },
 ];
-
-const alternates = `
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://leoferolive.com.br/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://leoferolive.com.br/en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leoferolive.com.br/" />`;
 
 const body = urls
   .map(
-    ({ loc }) => `  <url>
+    ({ loc, alts }) => `  <url>
     <loc>${loc}</loc>
-    <lastmod>${lastmod}</lastmod>${alternates}
+    <lastmod>${lastmod}</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="${alts.pt}" />
+    <xhtml:link rel="alternate" hreflang="en" href="${alts.en}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${alts.pt}" />
   </url>`,
   )
   .join('\n');
