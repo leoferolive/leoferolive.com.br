@@ -10,6 +10,7 @@ type NodeDrawerProps = {
   onClose: () => void;
 };
 
+// eslint-disable-next-line max-lines-per-function, complexity -- TODO(quality-gate): refatorar até 2026-08-11 (dívida herdada do PR #9 /arquitetura)
 export function NodeDrawer({ node, onClose }: NodeDrawerProps) {
   const t = useT();
   const { lang } = useI18n();
@@ -93,9 +94,7 @@ export function NodeDrawer({ node, onClose }: NodeDrawerProps) {
                 {t.architecture.drawer.technicalLabel}
               </h3>
               <dl className="grid grid-cols-[max-content_1fr] gap-x-3 gap-y-1.5 text-[13px]">
-                {tech.kind && (
-                  <DLRow label={t.architecture.drawer.kindLabel} value={tech.kind} />
-                )}
+                {tech.kind && <DLRow label={t.architecture.drawer.kindLabel} value={tech.kind} />}
                 {tech.namespace && (
                   <DLRow
                     label={t.architecture.drawer.namespaceLabel}
@@ -106,7 +105,10 @@ export function NodeDrawer({ node, onClose }: NodeDrawerProps) {
                   <DLRow label={t.architecture.drawer.versionLabel} value={tech.version} />
                 )}
                 {typeof tech.replicas === 'number' && (
-                  <DLRow label={t.architecture.drawer.replicasLabel} value={String(tech.replicas)} />
+                  <DLRow
+                    label={t.architecture.drawer.replicasLabel}
+                    value={String(tech.replicas)}
+                  />
                 )}
                 {tech.resources && (
                   <DLRow

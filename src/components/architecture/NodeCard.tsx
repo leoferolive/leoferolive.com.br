@@ -27,6 +27,7 @@ const HANDLE_POSITIONS: Record<HandlePos, Position> = {
   left: Position.Left,
 };
 
+// eslint-disable-next-line max-lines-per-function -- TODO(quality-gate): refatorar até 2026-08-11 (dívida herdada do PR #9 /arquitetura)
 function NodeCardImpl({ data, selected }: NodeProps) {
   const { archNode, lang } = data as NodeCardData;
   const icon = getIcon(archNode.iconSlug);
@@ -49,18 +50,8 @@ function NodeCardImpl({ data, selected }: NodeProps) {
     >
       {(['top', 'right', 'bottom', 'left'] as const).map((pos) => (
         <Fragment key={pos}>
-          <Handle
-            id={pos}
-            type="target"
-            position={HANDLE_POSITIONS[pos]}
-            style={HANDLE_STYLE}
-          />
-          <Handle
-            id={pos}
-            type="source"
-            position={HANDLE_POSITIONS[pos]}
-            style={HANDLE_STYLE}
-          />
+          <Handle id={pos} type="target" position={HANDLE_POSITIONS[pos]} style={HANDLE_STYLE} />
+          <Handle id={pos} type="source" position={HANDLE_POSITIONS[pos]} style={HANDLE_STYLE} />
         </Fragment>
       ))}
       <div
