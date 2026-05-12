@@ -23,3 +23,8 @@ vite.config.js
 
 # Worktrees
 .worktrees/
+
+# Lighthouse temp Chrome profiles (acidente WSL — caches do Chromium-CI vazaram)
+C:\\Users\\
+C:/Users/
+lighthouse.[0-9]*/
