@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/build-sitemap.mjs",
     "preview": "vite preview --port 4173",
     "lint": "eslint . --ext ts,tsx --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --fix",
@@ -18,10 +18,12 @@
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.2.8",
+    "@xyflow/react": "^12.10.2",
     "lucide-react": "^0.460.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.3"
+    "react-router-dom": "^6.30.3",
+    "simple-icons": "^16.18.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.4",
