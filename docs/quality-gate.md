@@ -14,7 +14,7 @@ Objetivo: medir, não revisar.
 | Test pass rate      | 100%      | `vitest run`                         |
 | Cobertura linhas    | ≥ 49%     | `vitest --coverage`                  |
 | Cobertura funções   | ≥ 41%     | `vitest --coverage`                  |
-| Cobertura state.    | ≥ 47%     | `vitest --coverage`                  |
+| Cobertura statements| ≥ 47%     | `vitest --coverage`                  |
 | Cobertura branches  | ≥ 36%     | `vitest --coverage`                  |
 | Build               | green     | `vite build`                         |
 
