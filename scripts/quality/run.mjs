@@ -23,6 +23,11 @@ for (const step of steps) {
   }
 }
 
+if (!results.length) {
+  console.log('Nenhum check configurado.');
+  process.exit(0);
+}
+
 const pad = (s, n) => s + ' '.repeat(Math.max(0, n - s.length));
 const width = Math.max(...results.map((r) => r.name.length)) + 2;
 
