@@ -128,9 +128,9 @@ export const en: I18nDictionary = {
       'Want more on the Wiley Research BR AI Council? Ask Leobot →',
     careerCouncilSeed:
       'Explain the Wiley Research BR AI Council: scope, number of teams involved, and Leonardo\'s role.',
-    careerEarlyLabel: 'Want details on the pre-2024 chapters? Ask Leobot →',
+    careerEarlyLabel: 'Want details on the chapters before Wiley? Ask Leobot →',
     careerEarlySeed:
-      'Tell me about Leonardo\'s career before 2024 (City Connect, Lumis, Persist/Ebix): what he did, the stack and what he learned.',
+      'Tell me about Leonardo\'s career before Wiley (City Connect, Lumis, Ebix, Capgemini/Persist): what he did, the stack and what he learned.',
     workflowLabel: 'Want to see how Leonardo applies this day to day? Ask Leobot →',
     workflowSeed:
       'How does Leonardo work day to day with AI? Which tools, skills, custom commands and agents does he use to develop.',

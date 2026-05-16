@@ -127,9 +127,9 @@ export const pt: I18nDictionary = {
     careerCouncilSeed:
       'Me explica o Conselho de IA Wiley Research BR: escopo, número de times envolvidos e o papel do Leonardo.',
     careerEarlyLabel:
-      'Se quiser detalhes das fases pré-2024, pergunta pro Leobot →',
+      'Se quiser detalhes das fases anteriores à Wiley, pergunta pro Leobot →',
     careerEarlySeed:
-      'Conta sobre a trajetória do Leonardo antes de 2024 (City Connect, Lumis, Persist/Ebix): o que ele fez, em qual stack e o que aprendeu.',
+      'Conta sobre a trajetória do Leonardo antes da Wiley (City Connect, Lumis, Ebix, Capgemini/Persist): o que ele fez, em qual stack e o que aprendeu.',
     workflowLabel:
       'Se quiser ver como o Leonardo aplica isso no dia a dia, pergunta pro Leobot →',
     workflowSeed:
