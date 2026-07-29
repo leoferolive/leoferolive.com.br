@@ -38,6 +38,23 @@ Antes de commitar: `npm run lint && npm run typecheck && npm run test:run`.
 - SEO: meta estático em `index.html` (default PT — crawlers tipo LinkedIn não rodam JS); `src/seo/Head.tsx` atualiza dinamicamente per-rota no browser.
 - OG images em `public/og-image-{pt,en}.png` são geradas pelo template `scripts/og/template.html` + `npm run og:generate` — re-rode quando mudar identidade visual.
 
+## Estilo de Código
+
+- **Tamanho:** componentes, hooks e funções utilitárias fazem uma coisa só — 4 a 20 linhas é o alvo pra lógica não-trivial; acima disso, considere quebrar. Arquivos de lógica ficam abaixo de 500 linhas; `src/components/chat/ChatDrawer.tsx` (327 linhas) é o mais próximo do limite hoje — watch item, não bloqueio. Dados estáticos tipados (ex. `src/data/architecture/unified-diagram.ts`, 468 linhas) são exceção legítima: são dado estruturado, não lógica, então o limite de 500 linhas não se aplica da mesma forma.
+- **Nomes:** específicos e únicos em hooks e funções — evite `data`, `handler`, `Manager` genéricos. Prefira nomes que retornem poucos resultados de grep no repo.
+- **Duplicação:** lógica repetida entre componentes vira hook (`src/hooks/`) ou util compartilhado, não copy-paste.
+- **Early return:** prefira retorno antecipado a `if` aninhado. Máx. 2 níveis de indentação em componentes e hooks.
+- **Erros:** mensagem de exceção inclui o valor recebido e o formato esperado, ex.:
+  ```ts
+  throw new Error(`Locale inválido: "${locale}" — esperado "pt" ou "en"`);
+  ```
+- **Comentários:** preserve os existentes em refactors — carregam intenção e proveniência. Escreva o PORQUÊ, não o QUÊ. Funções/hooks exportados publicamente levam JSDoc com intenção + exemplo de uso. Referencie issue/commit quando a linha existir por causa de um bug específico ou workaround.
+- **Testes:** comando em [Comandos](#comandos) (`npm run test:run`). Todo hook/função nova com lógica ganha teste (reforça "TDD para hooks com lógica" em Convenções); bugfix ganha teste de regressão. Mock de chamadas externas (fetch/API) com fake nomeado, não stub inline. Testes seguem F.I.R.S.T. (fast, independent, repeatable, self-validating, timely).
+- **Dependências:** componentes e hooks recebem dependências via props/parâmetros explícitos, não importam estado ou singleton direto. Se uma lib de terceiros virar peça central (ex. cliente HTTP), envolva-a numa camada fina própria do projeto em vez de espalhar o import direto pelo código.
+- **Estrutura:** segue a convenção do Vite/React já documentada em Convenções — sem padrão custom.
+- **Formatação:** Prettier (`npm run format`) e ESLint (`npm run lint`) são a fonte da verdade. Não reabra discussão de estilo além disso.
+- **Logging:** projeto é SPA estático sem backend — evite `console.log` solto em código de produção. Se surgir necessidade de log estruturado (ex. telemetria futura), prefira JSON estruturado. Texto plano só é aceitável em scripts de build/CLI do próprio projeto (ex. `scripts/og/`, que já rodam via Node).
+
 ## Deploy
 
 - **Runners:** GitHub-hosted (`ubuntu-latest` na maioria, `ubuntu-24.04-arm` no `build-and-push` pra Docker ARM64 nativo). Free pra repos públicos.
