@@ -7,11 +7,16 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 
+// No Windows, `npm` é um shim `.cmd`; com shell:false o Node não o resolve
+// e spawnSync falha com ENOENT. Selecionar o binário certo por plataforma
+// evita precisar de shell:true (que abriria espaço para injeção de shell).
+const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+
 const steps = [
-  { name: 'Lint (zero warnings)', cmd: 'npm', args: ['run', 'lint'] },
-  { name: 'Type-check (tsc)', cmd: 'npm', args: ['run', 'typecheck'] },
-  { name: 'Tests + Coverage', cmd: 'npm', args: ['run', 'test:run', '--', '--coverage'] },
-  { name: 'Build (vite)', cmd: 'npm', args: ['run', 'build'] },
+  { name: 'Lint (zero warnings)', cmd: npmCmd, args: ['run', 'lint'] },
+  { name: 'Type-check (tsc)', cmd: npmCmd, args: ['run', 'typecheck'] },
+  { name: 'Tests + Coverage', cmd: npmCmd, args: ['run', 'test:run', '--', '--coverage'] },
+  { name: 'Build (vite)', cmd: npmCmd, args: ['run', 'build'] },
 ];
 
 // Pisos provisórios espelhados de vitest.config.ts.
