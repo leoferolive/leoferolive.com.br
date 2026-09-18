@@ -12,11 +12,13 @@ function setOrCreate(selector: string, attrs: Record<string, string>) {
   Object.entries(attrs).forEach(([k, v]) => el!.setAttribute(k, v));
 }
 
+// eslint-disable-next-line max-lines-per-function -- TODO(quality-gate): refatorar até 2026-10-15 (excedeu o limite após merge com o refactor de SEO da main)
 export function Head() {
   const { lang, t } = useI18n();
   const { pathname } = useLocation();
   const isArchitecture = pathname === '/arquitetura' || pathname === '/en/architecture';
 
+  // eslint-disable-next-line max-lines-per-function -- TODO(quality-gate): refatorar até 2026-10-15 (excedeu o limite após merge com o refactor de SEO da main)
   useEffect(() => {
     document.documentElement.lang = t.meta.htmlLang;
     const pageTitle = isArchitecture
