@@ -28,6 +28,9 @@ src/seo/jsonld.js
 # Worktrees
 .worktrees/
 
+# Test coverage
+coverage/
+
 # Lighthouse temp Chrome profiles (acidente WSL — caches do Chromium-CI vazaram)
 C:\\Users\\
 C:/Users/

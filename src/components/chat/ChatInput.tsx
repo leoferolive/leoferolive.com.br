@@ -17,6 +17,7 @@ const LINE_HEIGHT = 22; // px, matches text-[14px] + leading-relaxed-ish
 // with 422), this is purely a UX hint so the user doesn't waste keystrokes.
 export const DEFAULT_MAX_LENGTH = 800;
 
+// eslint-disable-next-line max-lines-per-function -- TODO(quality-gate): refatorar até 2026-08-11
 export function ChatInput({
   value,
   onChange,

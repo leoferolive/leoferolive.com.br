@@ -14,17 +14,17 @@ Site pessoal de portfólio. Single-page React + Vite + TS, bilíngue PT/EN, mobi
 
 ## Comandos
 
-| Comando | Quando |
-|---|---|
-| `npm run dev` | desenvolvimento (porta 5173) |
-| `npm run build` | build de produção (`dist/`) |
-| `npm run preview` | preview do build (porta 4173) |
-| `npm run lint` | ESLint, zero warnings antes de commit |
-| `npm run typecheck` | tsc -b |
-| `npm run test:run` | Vitest single-run |
-| `npm run format` | Prettier escreve |
+| Comando               | Quando                                                                                                     |
+| --------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `npm run dev`         | desenvolvimento (porta 5173)                                                                               |
+| `npm run build`       | build de produção (`dist/`)                                                                                |
+| `npm run preview`     | preview do build (porta 4173)                                                                              |
+| `npm run lint`        | ESLint, zero warnings antes de commit                                                                      |
+| `npm run typecheck`   | tsc -b                                                                                                     |
+| `npm run test:run`    | Vitest single-run                                                                                          |
+| `npm run format`      | Prettier escreve                                                                                           |
 | `npm run og:generate` | regenera `public/og-image-{pt,en}.png` via Playwright (requer `npx playwright install chromium` na 1ª vez) |
-| `npm run lighthouse` | audita prod local headless (helper) |
+| `npm run lighthouse`  | audita prod local headless (helper)                                                                        |
 
 Antes de commitar: `npm run lint && npm run typecheck && npm run test:run`.
 

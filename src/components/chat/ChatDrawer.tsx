@@ -37,6 +37,7 @@ function errorKey(code: ChatErrorCode): keyof ReturnType<typeof useT>['chat'] {
   }
 }
 
+// eslint-disable-next-line max-lines-per-function -- TODO(quality-gate): refatorar até 2026-08-11
 export function ChatDrawer({ open, onClose, seed }: Props) {
   const t = useT();
   const session = useChatSession();

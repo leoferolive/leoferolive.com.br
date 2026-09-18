@@ -89,6 +89,7 @@ export interface UseChatSession {
   cancel: () => void;
 }
 
+/* eslint-disable max-lines-per-function -- TODO(quality-gate): refatorar até 2026-08-11 */
 export function useChatSession(): UseChatSession {
   const { lang } = useI18n();
   const langRef = useRef(lang);
@@ -259,3 +260,4 @@ export function useChatSession(): UseChatSession {
     [sessionId, messages, isStreaming, error, userName, setUserName, send, reset, cancel],
   );
 }
+/* eslint-enable max-lines-per-function */

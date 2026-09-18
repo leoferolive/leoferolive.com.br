@@ -11,10 +11,7 @@ export const personJsonLd = {
     'Senior Software Engineer com 10+ anos em Java/Spring e foco em engenharia AI-First.',
   url: SITE_URL,
   email: 'mailto:leoferolive@gmail.com',
-  sameAs: [
-    'https://github.com/leoferolive',
-    'https://www.linkedin.com/in/leonardo-fer-oliveira/',
-  ],
+  sameAs: ['https://github.com/leoferolive', 'https://www.linkedin.com/in/leonardo-fer-oliveira/'],
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Curitiba',

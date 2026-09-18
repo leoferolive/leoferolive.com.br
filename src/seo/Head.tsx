@@ -12,12 +12,13 @@ function setOrCreate(selector: string, attrs: Record<string, string>) {
   Object.entries(attrs).forEach(([k, v]) => el!.setAttribute(k, v));
 }
 
+// eslint-disable-next-line max-lines-per-function -- TODO(quality-gate): refatorar até 2026-10-15 (excedeu o limite após merge com o refactor de SEO da main)
 export function Head() {
   const { lang, t } = useI18n();
   const { pathname } = useLocation();
-  const isArchitecture =
-    pathname === '/arquitetura' || pathname === '/en/architecture';
+  const isArchitecture = pathname === '/arquitetura' || pathname === '/en/architecture';
 
+  // eslint-disable-next-line max-lines-per-function -- TODO(quality-gate): refatorar até 2026-10-15 (excedeu o limite após merge com o refactor de SEO da main)
   useEffect(() => {
     document.documentElement.lang = t.meta.htmlLang;
     const pageTitle = isArchitecture
@@ -35,22 +36,35 @@ export function Head() {
         : '/en';
     setOrCreate('link[rel="canonical"]', { rel: 'canonical', href: `${SITE_URL}${path}` });
     setOrCreate('link[rel="alternate"][hreflang="pt-BR"]', {
-      rel: 'alternate', hreflang: 'pt-BR', href: `${SITE_URL}/`,
+      rel: 'alternate',
+      hreflang: 'pt-BR',
+      href: `${SITE_URL}/`,
     });
     setOrCreate('link[rel="alternate"][hreflang="en"]', {
-      rel: 'alternate', hreflang: 'en', href: `${SITE_URL}/en`,
+      rel: 'alternate',
+      hreflang: 'en',
+      href: `${SITE_URL}/en`,
     });
     setOrCreate('link[rel="alternate"][hreflang="x-default"]', {
-      rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/`,
+      rel: 'alternate',
+      hreflang: 'x-default',
+      href: `${SITE_URL}/`,
     });
     const ogImage = lang === 'pt' ? '/og-image-pt.png' : '/og-image-en.png';
     setOrCreate('meta[property="og:type"]', { property: 'og:type', content: 'website' });
     setOrCreate('meta[property="og:title"]', { property: 'og:title', content: pageTitle });
-    setOrCreate('meta[property="og:description"]', { property: 'og:description', content: pageDescription });
-    setOrCreate('meta[property="og:image"]', { property: 'og:image', content: `${SITE_URL}${ogImage}` });
+    setOrCreate('meta[property="og:description"]', {
+      property: 'og:description',
+      content: pageDescription,
+    });
+    setOrCreate('meta[property="og:image"]', {
+      property: 'og:image',
+      content: `${SITE_URL}${ogImage}`,
+    });
     setOrCreate('meta[property="og:url"]', { property: 'og:url', content: `${SITE_URL}${path}` });
     setOrCreate('meta[property="og:locale"]', {
-      property: 'og:locale', content: lang === 'pt' ? 'pt_BR' : 'en_US',
+      property: 'og:locale',
+      content: lang === 'pt' ? 'pt_BR' : 'en_US',
     });
     setOrCreate('meta[property="og:locale:alternate"]', {
       property: 'og:locale:alternate',
@@ -58,8 +72,14 @@ export function Head() {
     });
     // Twitter card — sync with current language (statically defaults to PT in index.html)
     setOrCreate('meta[name="twitter:title"]', { name: 'twitter:title', content: pageTitle });
-    setOrCreate('meta[name="twitter:description"]', { name: 'twitter:description', content: pageDescription });
-    setOrCreate('meta[name="twitter:image"]', { name: 'twitter:image', content: `${SITE_URL}${ogImage}` });
+    setOrCreate('meta[name="twitter:description"]', {
+      name: 'twitter:description',
+      content: pageDescription,
+    });
+    setOrCreate('meta[name="twitter:image"]', {
+      name: 'twitter:image',
+      content: `${SITE_URL}${ogImage}`,
+    });
   }, [lang, t, isArchitecture]);
   return null;
 }

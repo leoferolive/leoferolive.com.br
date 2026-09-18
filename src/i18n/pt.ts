@@ -19,8 +19,7 @@ export const pt: I18nDictionary = {
     name: 'Leonardo Fernandes Oliveira',
     subtitle: 'Senior Software Engineer · AI-First Engineer',
     tagline: 'Construo sistemas que usam IA, e uso IA pra construir sistemas.',
-    capabilities:
-      'sistemas distribuídos · features de IA em produção · fluxos AI-First',
+    capabilities: 'sistemas distribuídos · features de IA em produção · fluxos AI-First',
     metaLine: 'Curitiba/BR · 10+ anos · @Wiley desde 2024 · aberto a conversas',
     positioning:
       'Útil pra quem precisa de IA aplicada em produção ou backend Java que escala em multi-pod. Para tudo que não couber aqui, o Leobot ali no canto responde.',
@@ -35,8 +34,7 @@ export const pt: I18nDictionary = {
   career: {
     caption: '// career',
     title: 'Trajetória',
-    subtitle:
-      'Dez anos de engenharia: de sustentação em sinistros a entrega de IA em produção.',
+    subtitle: 'Dez anos de engenharia: de sustentação em sinistros a entrega de IA em produção.',
     inProgress: 'in progress',
     yearsBadge: (n) => `${n} anos`,
     expandLabel: 'Expandir detalhes',
@@ -44,8 +42,7 @@ export const pt: I18nDictionary = {
   workflow: {
     caption: '// how-i-work',
     title: 'Engenharia AI-First',
-    subtitle:
-      'Mais que autocomplete: agentes entregam features E2E sob revisão humana.',
+    subtitle: 'Mais que autocomplete: agentes entregam features E2E sob revisão humana.',
     closing:
       'Resultado: ciclo `issue → plano → código → PR → review → merge` com agente fazendo o trabalho braçal e dev senior validando arquitetura e edge cases. Não é magia. É engenharia disciplinada com IA no loop.',
     proof:
@@ -59,8 +56,7 @@ export const pt: I18nDictionary = {
   stack: {
     caption: '// stack',
     title: 'Stack',
-    subtitle:
-      'Categorias por domínio. Curadoria, não enciclopédia — só o que uso no dia a dia.',
+    subtitle: 'Categorias por domínio. Curadoria, não enciclopédia — só o que uso no dia a dia.',
   },
   contact: {
     caption: '// contact',
@@ -96,12 +92,9 @@ export const pt: I18nDictionary = {
     send: 'Enviar mensagem',
     welcome:
       'Oi! Sou o **Leobot** — um assistente de IA que conhece a carreira, projetos e stack do Leonardo. Posso resumir cases, comparar tecnologias ou indicar onde ele atuou. O que você quer saber?',
-    disclaimer:
-      'Respostas geradas por IA. Confira informações importantes antes de citar.',
-    error_network:
-      'Não consegui falar com o servidor agora. Tenta de novo em alguns instantes.',
-    error_rate_limit:
-      'Muitas mensagens em pouco tempo. Aguarda um minutinho e tenta de novo.',
+    disclaimer: 'Respostas geradas por IA. Confira informações importantes antes de citar.',
+    error_network: 'Não consegui falar com o servidor agora. Tenta de novo em alguns instantes.',
+    error_rate_limit: 'Muitas mensagens em pouco tempo. Aguarda um minutinho e tenta de novo.',
     error_cost_gate:
       'O chat atingiu o limite diário de uso. Tenta de novo amanhã ou fala direto comigo pelo email no rodapé.',
     error_session_limit:
@@ -126,16 +119,13 @@ export const pt: I18nDictionary = {
       'Se quiser saber mais sobre o Conselho de IA Wiley Research BR, pergunta pro Leobot →',
     careerCouncilSeed:
       'Me explica o Conselho de IA Wiley Research BR: escopo, número de times envolvidos e o papel do Leonardo.',
-    careerEarlyLabel:
-      'Se quiser detalhes das fases anteriores à Wiley, pergunta pro Leobot →',
+    careerEarlyLabel: 'Se quiser detalhes das fases anteriores à Wiley, pergunta pro Leobot →',
     careerEarlySeed:
       'Conta sobre a trajetória do Leonardo antes da Wiley (City Connect, Lumis, Ebix, Capgemini/Persist): o que ele fez, em qual stack e o que aprendeu.',
-    workflowLabel:
-      'Se quiser ver como o Leonardo aplica isso no dia a dia, pergunta pro Leobot →',
+    workflowLabel: 'Se quiser ver como o Leonardo aplica isso no dia a dia, pergunta pro Leobot →',
     workflowSeed:
       'Como o Leonardo trabalha no dia a dia com IA? Quais ferramentas, skills, comandos customizados e agentes ele usa pra desenvolver.',
-    stackLabel:
-      'Se quiser saber em qual nível ele usa cada uma, pergunta pro Leobot →',
+    stackLabel: 'Se quiser saber em qual nível ele usa cada uma, pergunta pro Leobot →',
     stackSeed:
       'Em qual nível de profundidade o Leonardo usa cada uma das tecnologias do stack? O que é produção e o que é exploração?',
   },

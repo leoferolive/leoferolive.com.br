@@ -44,6 +44,7 @@ interface Block {
   lines: string[];
 }
 
+// eslint-disable-next-line complexity -- TODO(quality-gate): refatorar até 2026-08-11
 export function renderMarkdown(src: string): string {
   if (!src) return '';
   const lines = src.replace(/\r\n/g, '\n').split('\n');

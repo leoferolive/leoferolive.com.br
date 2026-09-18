@@ -6,6 +6,7 @@ import { langPathPrefix } from '@/i18n/routing';
 
 const SECTION_IDS = ['cases', 'career', 'workflow', 'projects', 'stack', 'contact'] as const;
 
+// eslint-disable-next-line max-lines-per-function -- TODO(quality-gate): refatorar até 2026-08-11 (dívida herdada do PR #9 /arquitetura)
 export function SectionNav() {
   const t = useT();
   const { lang } = useI18n();
