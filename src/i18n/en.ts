@@ -81,8 +81,7 @@ export const en: I18nDictionary = {
     copyEmailLabel: 'copy',
     copiedFeedback: 'Copied',
     footerExit: '~ $ exit',
-    footerNote:
-      'built with React + Vite, hosted on a Raspberry Pi.\n2026 · Leonardo Fernandes Oliveira',
+    footerNote: 'built with React + Vite, self-hosted on k3s.\n2026 · Leonardo Fernandes Oliveira',
   },
   chat: {
     fab_open: 'Open chat with Leobot',
@@ -143,7 +142,7 @@ export const en: I18nDictionary = {
   architecture: {
     pageTitle: 'Architecture',
     pageSubtitle:
-      'Everything that keeps this site alive on a single Raspberry Pi 4B. Click a node to see technical details and design decisions.',
+      'Everything that keeps this site alive on a single-node k3s server. Click a node to see technical details and design decisions.',
     backToHome: '← back to home',
     legend: {
       title: 'Legend',

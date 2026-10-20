@@ -21,10 +21,10 @@
 - Imagem Docker multi-stage: builder Node 20 + final `nginx:1.27-alpine`.
 - Tamanho final ≤ 30 MB.
 - Raw K8s YAML em `k8s/{prod,dev}/` (`Deployment` + `Service` + `Ingress` padrão); ingress class traefik com annotation `traefik.ingress.kubernetes.io/router.entrypoints: web`.
-- GitHub Actions self-hosted runner no Pi (ARM64): build → push GHCR → `kubectl apply` local. Tailscale rodando como serviço persistente no Pi para conectividade com kube API.
+- GitHub Actions (runner GitHub-hosted, amd64): build → push GHCR → `kubectl apply` local. Tailscale rodando como serviço persistente no Pi para conectividade com kube API.
 
 ### Infraestrutura
-- Cluster: K3s no Raspberry Pi 4B (8GB).
+- Cluster: K3s num HP EliteDesk (amd64, 6 vCPU, 16GB).
 - Ingress: Traefik (já em uso pelos outros projetos).
 - TLS/CDN: Cloudflare Tunnel para `leoferolive.com.br`.
 - Domínio raiz: apex `leoferolive.com.br` + redirect de `www`.

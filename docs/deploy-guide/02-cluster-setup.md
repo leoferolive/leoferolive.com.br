@@ -1,6 +1,6 @@
 # Cluster Setup
 
-Pré-requisitos no Pi: K3s rodando, namespace `cloudflared` com `cloudflared` Deployment ativo, Traefik como ingress controller.
+Pré-requisitos no servidor: K3s rodando, namespace `cloudflared` com `cloudflared` Deployment ativo, Traefik como ingress controller.
 
 ## Criar namespaces
 

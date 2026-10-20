@@ -13,9 +13,9 @@ Copiar e adicionar como secret `TAILSCALE_AUTHKEY`.
 
 ## KUBECONFIG
 
-No Pi:
+No servidor:
 ```bash
-# Pegar IP Tailscale do Pi
+# Pegar IP Tailscale do servidor
 TAILSCALE_IP=$(tailscale ip -4)
 
 # Substituir 127.0.0.1 pelo IP Tailscale e codificar em base64
