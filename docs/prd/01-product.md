@@ -15,7 +15,7 @@ A tese central — *"Construo sistemas que usam IA, e uso IA pra construir siste
 
 - Posicionamento claro para recrutadores e hiring managers de empresas **AI-First** (não "empresas que usam Copilot", mas empresas onde IA é parte do produto e/ou do fluxo de engenharia).
 - Hub único para LinkedIn, GitHub, e contato direto.
-- Demonstração técnica viva: o site roda **self-hosted no Raspberry Pi**, em K3s, expondo via Cloudflare Tunnel — coerente com a narrativa do candidato.
+- Demonstração técnica viva: o site roda **self-hosted num servidor amd64 (HP EliteDesk)**, em K3s, expondo via Cloudflare Tunnel — coerente com a narrativa do candidato.
 
 ---
 
@@ -62,7 +62,7 @@ Não é blog. Não é capturador de leads. Não tem newsletter. Não tem CMS.
 - Copy em **PT-BR**.
 - Responsivo mobile-first.
 - SEO básico (meta, OG image, sitemap, robots).
-- Deploy estático no K3s do Pi.
+- Deploy estático no K3s do servidor.
 
 ### Fora (v1.1+)
 
@@ -79,7 +79,7 @@ Não é blog. Não é capturador de leads. Não tem newsletter. Não tem CMS.
 
 ### v1.0 — MVP (este PRD)
 
-PT-BR, sem chat IA, sem analytics, sem blog. Deploy no Pi.
+PT-BR, sem chat IA, sem analytics, sem blog. Deploy no servidor.
 
 ### v1.1 — Polimento
 
@@ -90,7 +90,7 @@ PT-BR, sem chat IA, sem analytics, sem blog. Deploy no Pi.
 
 ### v1.2 — Chat IA "Ask Leo"
 
-- Endpoint serverless ou no próprio Pi (Spring Boot AI).
+- Endpoint serverless ou no próprio servidor (Spring Boot AI).
 - RAG do CV + cases + LinkedIn about.
 - Botão flutuante discreto, abre painel lateral.
 
@@ -104,7 +104,7 @@ PT-BR, sem chat IA, sem analytics, sem blog. Deploy no Pi.
 
 | Risco | Mitigação |
 |---|---|
-| Pi cair / domínio fora do ar | Cloudflare cache + página estática mesmo se origem falhar |
+| servidor cair / domínio fora do ar | Cloudflare cache + página estática mesmo se origem falhar |
 | Typewriter prejudica LCP | Fonte self-hosted + texto inicial visível, animação só decora |
 | Tema dark fixo afasta visitantes | Aceitável — público-alvo é técnico, dark é norma |
 | Conteúdo muito específico de IA datar rápido | Manter cases com data implícita ("em produção desde 2025") |

@@ -1,6 +1,6 @@
 # Deploy Guide — Overview
 
-Site `leoferolive.com.br` — deploy K3s no Raspberry Pi 4B com Cloudflare Tunnel.
+Site `leoferolive.com.br` — deploy K3s no HP EliteDesk (amd64) com Cloudflare Tunnel.
 
 ## Arquitetura
 
@@ -19,10 +19,10 @@ User → HTTPS → Cloudflare Edge → Cloudflare Tunnel
 | Container | `Dockerfile` multi-stage Node + nginx (`nginx:1.27-alpine`) |
 | Manifests | `k8s/prod/` e `k8s/dev/` (raw YAML, no Helm) |
 | Registry | GHCR (`ghcr.io/leoferolive/leoferolive-com-br`) |
-| Cluster | K3s no Pi (ARM64) |
+| Cluster | K3s no servidor (amd64) |
 | Ingress | Traefik (já no cluster) |
 | Tunnel | cloudflared Deployment (já no cluster, ns `cloudflared`) |
-| CI/CD | GitHub Actions self-hosted runner no Pi |
+| CI/CD | GitHub Actions (runner GitHub-hosted) |
 
 ## Fluxos de deploy
 
@@ -35,7 +35,7 @@ User → HTTPS → Cloudflare Edge → Cloudflare Tunnel
 ## Setup necessário (one-time)
 
 Ver guias em ordem:
-1. [02-cluster-setup.md](./02-cluster-setup.md) — namespace + pull secret no Pi
+1. [02-cluster-setup.md](./02-cluster-setup.md) — namespace + pull secret no servidor
 2. [03-github-secrets.md](./03-github-secrets.md) — TAILSCALE_AUTHKEY, KUBECONFIG, GHCR_PAT
 3. [04-cloudflare-tunnel.md](./04-cloudflare-tunnel.md) — public hostname pra leoferolive.com.br
 4. [05-first-deploy.md](./05-first-deploy.md) — checklist do primeiro deploy

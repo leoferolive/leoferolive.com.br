@@ -11,7 +11,7 @@
 
 Site pessoal de portfólio para **Leonardo Fernandes Oliveira**, Senior Software Engineer com 10+ anos em sistemas distribuídos e foco em **engenharia AI-First**. Materializa a tese *"Construo sistemas que usam IA, e uso IA pra construir sistemas."*
 
-Single-page, dark, terminal/IDE vibe, **PT-BR**. Self-hosted no Raspberry Pi 4B em K3s, exposto via Cloudflare Tunnel em `leoferolive.com.br`. O próprio canal de hospedagem é parte da narrativa.
+Single-page, dark, terminal/IDE vibe, **PT-BR**. Self-hosted no HP EliteDesk (amd64) em K3s, exposto via Cloudflare Tunnel em `leoferolive.com.br`. O próprio canal de hospedagem é parte da narrativa.
 
 ---
 
@@ -26,7 +26,7 @@ Single-page, dark, terminal/IDE vibe, **PT-BR**. Self-hosted no Raspberry Pi 4B 
 | Animação | CSS + IntersectionObserver (sem framer-motion) |
 | Tipografia | JetBrains Mono em tudo, self-hosted |
 | Ícones | lucide-react (tree-shake) |
-| Deploy | Docker multi-stage → Helm chart → K3s no Pi |
+| Deploy | Docker multi-stage → Helm chart → K3s no servidor |
 | Ingress | Traefik existente + Cloudflare Tunnel |
 | CI/CD | GitHub Actions: lint → build → push GHCR → apply via Tailscale |
 | Sem | analytics, cookies, blog, CMS, backend, chat IA (v1.2) |

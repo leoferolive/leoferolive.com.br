@@ -61,7 +61,7 @@ jobs:
 
   build-and-push:
     needs: prepare
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -70,11 +70,6 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           fetch-depth: 0
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: amd64
 
       - uses: docker/setup-buildx-action@v3
 
@@ -90,7 +85,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           # VITE_CHAT_API_URL is hardcoded per environment so a single deploy
           # workflow never points dev at the prod backend by accident.

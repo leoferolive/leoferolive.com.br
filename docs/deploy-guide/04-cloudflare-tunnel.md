@@ -1,6 +1,6 @@
 # Cloudflare Tunnel — Public Hostname
 
-O Pi já tem `cloudflared` rodando (namespace `cloudflared`) com tunnel ativo. Não precisa criar tunnel novo, só adicionar um public hostname.
+O servidor já tem `cloudflared` rodando (namespace `cloudflared`) com tunnel ativo. Não precisa criar tunnel novo, só adicionar um public hostname.
 
 ## Adicionar hostname
 
@@ -34,4 +34,4 @@ Se quiser dev acessível externamente em `dev.leoferolive.com.br`:
    - URL: `leoferolive-com-br-dev.leoferolive-com-br-dev.svc.cluster.local:80`
 2. Editar `k8s/dev/ingress.yaml` mudando `host: leoferolive-dev.local` para `host: dev.leoferolive.com.br`. Re-aplicar.
 
-Senão, dev fica acessível só via `/etc/hosts` apontando o Pi pra `leoferolive-dev.local` (ou via Tailscale Magic DNS).
+Senão, dev fica acessível só via `/etc/hosts` apontando o servidor pra `leoferolive-dev.local` (ou via Tailscale Magic DNS).

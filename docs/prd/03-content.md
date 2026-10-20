@@ -166,8 +166,8 @@ CI/CD ativo     linters + testes + fitness functions + validação
 #### Infra Self-Hosted
 - **type:** `infra`
 - **name:** `homelab`
-- **description:** `Tudo em um Raspberry Pi 4B (8GB). K3s, Traefik, Cloudflare Tunnel. OpenClaw + Telegram para administração remota — provisiono bancos, faço deploys e troubleshoot direto pelo chat.`
-- **stack:** `Raspberry Pi 4B` `K3s` `Traefik` `Cloudflare Tunnel` `OpenClaw` `Tailscale`
+- **description:** `Tudo em um HP EliteDesk (6 vCPU, 16GB). K3s, Traefik, Cloudflare Tunnel. OpenClaw + Telegram para administração remota — provisiono bancos, faço deploys e troubleshoot direto pelo chat.`
+- **stack:** `HP EliteDesk` `K3s` `Traefik` `Cloudflare Tunnel` `OpenClaw` `Tailscale`
 - **link:** `—` (sem repo público; este site é demo viva)
 
 ---
@@ -239,7 +239,7 @@ location   Curitiba, PR — Brasil
 ```
 ~ $ exit
 
-built with React + Vite, hosted on a Raspberry Pi.
+built with React + Vite, self-hosted on k3s.
 2026 · Leonardo Fernandes Oliveira
 ```
 

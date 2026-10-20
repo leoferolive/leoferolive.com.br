@@ -23,7 +23,7 @@
 
 ## 2. Requisitos Não-Funcionais
 
-### 2.1 Performance (crítico — roda no Pi)
+### 2.1 Performance (crítico — roda no servidor)
 
 - **Bundle inicial JS** ≤ 80 KB gzipped.
 - **CSS inicial** ≤ 15 KB gzipped (Tailwind purgado).
@@ -110,9 +110,9 @@
 
 - [ ] CI verde em `main`.
 - [ ] HTTPS válido via Cloudflare (cert automático).
-- [ ] `leoferolive.com.br` resolvendo e servindo do Pi.
+- [ ] `leoferolive.com.br` resolvendo e servindo do servidor.
 - [ ] Caching headers configurados (assets versionados: `max-age=31536000, immutable`; HTML: `no-cache`).
-- [ ] Página estática cacheada na Cloudflare como fallback se Pi cair.
+- [ ] Página estática cacheada na Cloudflare como fallback se o servidor cair.
 
 ### 3.5 Acessibilidade (validação manual)
 

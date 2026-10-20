@@ -7,11 +7,10 @@ Pré-requisitos completos:
 
 ## Passos
 
-1. **Verificar runner self-hosted ativo:**
+1. **Checar os secrets `TAILSCALE_AUTHKEY` e `KUBECONFIG`:**
    ```bash
-   # No Pi
-   sudo systemctl status actions.runner.leoferolive-leoferolive.com.br.<runner-name>
-   # Active: active (running)
+   gh secret list
+   # TAILSCALE_AUTHKEY e KUBECONFIG devem aparecer na lista
    ```
 
 2. **Push deste plan-2 branch e mergear pra main** (se ainda não foi).
@@ -21,11 +20,11 @@ Pré-requisitos completos:
    gh workflow run deploy-branch-dev.yml -f ref=main
    gh run watch
    ```
-   Esperado: cria RC tag, builda imagem ARM64, push GHCR, kubectl apply, rollout completo.
+   Esperado: cria RC tag, builda imagem amd64, push GHCR, kubectl apply, rollout completo.
 
 4. **Validar dev:**
    ```bash
-   # Se dev tunnel não configurado, via Pi local:
+   # Se dev tunnel não configurado, via servidor local:
    curl -sI http://leoferolive-dev.local/health
    # → HTTP/1.1 200 OK
    ```

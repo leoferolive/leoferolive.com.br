@@ -1,6 +1,6 @@
 # AGENTS.md — leoferolive.com.br
 
-Site pessoal de portfólio. Single-page React + Vite + TS, bilíngue PT/EN, mobile-first, deploy K3s no Raspberry Pi.
+Site pessoal de portfólio. Single-page React + Vite + TS, bilíngue PT/EN, mobile-first, deploy K3s num servidor amd64 (HP EliteDesk).
 
 ## Sempre
 
@@ -57,7 +57,7 @@ Antes de commitar: `npm run lint && npm run typecheck && npm run test:run`.
 
 ## Deploy
 
-- **Runners:** GitHub-hosted (`ubuntu-latest` na maioria, `ubuntu-24.04-arm` no `build-and-push` pra Docker ARM64 nativo). Free pra repos públicos.
+- **Runners:** GitHub-hosted (`ubuntu-latest`, imagem `linux/amd64`). Free pra repos públicos.
 - **Branches:** `main` é estável; trabalho em `impl/<topic>` worktrees.
 - **CI/CD:**
   - `ci.yml` em PRs e pushes pra main (lint+typecheck+test+build)

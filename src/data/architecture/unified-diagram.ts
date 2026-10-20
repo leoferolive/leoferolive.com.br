@@ -4,8 +4,8 @@ export const unifiedDiagram: Diagram = {
   id: 'unified',
   title: { pt: 'Arquitetura — visão geral', en: 'Architecture — overview' },
   caption: {
-    pt: 'Borda Cloudflare → k3s no Pi 4B 8GB com site estático e chat-api (FastAPI + LLM router + RAG via wiki + observabilidade) — tudo em uma vista.',
-    en: 'Cloudflare edge → k3s on a Pi 4B 8GB with the static site and chat-api (FastAPI + LLM router + RAG over the wiki + observability) — everything in one view.',
+    pt: 'Borda Cloudflare → k3s single-node (HP EliteDesk, amd64) com site estático e chat-api (FastAPI + LiteLLM proxy + RAG via wiki + observabilidade) — tudo em uma vista.',
+    en: 'Cloudflare edge → single-node k3s (HP EliteDesk, amd64) with the static site and chat-api (FastAPI + LiteLLM proxy + RAG over the wiki + observability) — everything in one view.',
   },
   nodes: [
     {
@@ -33,7 +33,7 @@ export const unifiedDiagram: Diagram = {
       details: {
         description: {
           pt: 'Eu (Leonardo). Edito o código localmente e dou `git push` no `main` do repositório do site/chat-api — é o que dispara o pipeline.',
-          en: 'Me (Leonardo). I edit the code locally and `git push` to `main` of the site/chat-api repo — that\'s what triggers the pipeline.',
+          en: "Me (Leonardo). I edit the code locally and `git push` to `main` of the site/chat-api repo — that's what triggers the pipeline.",
         },
         technical: { kind: 'External' },
       },
@@ -80,8 +80,8 @@ export const unifiedDiagram: Diagram = {
         },
         decisions: [
           {
-            pt: 'Substitui port-forward + DDNS. Conexão saída-only — o Pi nunca aceita conexões do mundo externo diretamente.',
-            en: 'Replaces port-forward + DDNS. Outbound-only — the Pi never accepts direct inbound connections.',
+            pt: 'Substitui port-forward + DDNS. Conexão saída-only — o servidor nunca aceita conexões do mundo externo diretamente.',
+            en: 'Replaces port-forward + DDNS. Outbound-only — the server never accepts direct inbound connections.',
           },
         ],
       },
@@ -89,7 +89,10 @@ export const unifiedDiagram: Diagram = {
     {
       id: 'traefik',
       label: 'Traefik',
-      sublabel: { pt: 'ingress controller · ns: traefik-system', en: 'ingress controller · ns: traefik-system' },
+      sublabel: {
+        pt: 'ingress controller · ns: traefik-system',
+        en: 'ingress controller · ns: traefik-system',
+      },
       iconSlug: 'traefikproxy',
       col: 4,
       row: 5,
@@ -128,8 +131,8 @@ export const unifiedDiagram: Diagram = {
         },
         decisions: [
           {
-            pt: 'Single replica é suficiente — site estático tem zero estado e o ARM64 do Pi é o gargalo, não a réplica.',
-            en: 'Single replica is enough — the static site is stateless and the ARM64 Pi is the bottleneck, not replicas.',
+            pt: 'Single replica é suficiente — site estático tem zero estado e o gargalo é o hardware do nó, não a réplica.',
+            en: 'Single replica is enough — the static site is stateless and node hardware is the bottleneck, not replicas.',
           },
           {
             pt: 'Sem CDN próprio: a Cloudflare na frente já cacheia agressivamente os assets versionados.',
@@ -148,8 +151,8 @@ export const unifiedDiagram: Diagram = {
       highlight: true,
       details: {
         description: {
-          pt: 'Aplicação FastAPI que serve o stream de chat via SSE. Usa um **LLM router** (`response_format=json_object`) que lê o índice da wiki + as últimas turns e devolve paths validados; em seguida monta prompt PT/EN com persona em terceira pessoa e chama a cadeia de LLMs com fallback.',
-          en: 'FastAPI application that serves the chat stream via SSE. Uses an **LLM router** (`response_format=json_object`) that reads the wiki index plus the last turns and returns validated paths; then builds a PT/EN prompt with a third-person persona and calls the LLM fallback chain.',
+          pt: 'Aplicação FastAPI que serve o stream de chat via SSE. Usa um **LLM router** (`response_format=json_object`) que lê o índice da wiki + as últimas turns e devolve paths validados; em seguida monta prompt PT/EN com persona em terceira pessoa e chama o **LiteLLM proxy** do cluster (alias `company-code`).',
+          en: 'FastAPI application that serves the chat stream via SSE. Uses an **LLM router** (`response_format=json_object`) that reads the wiki index plus the last turns and returns validated paths; then builds a PT/EN prompt with a third-person persona and calls the cluster **LiteLLM proxy** (alias `company-code`).',
         },
         technical: {
           kind: 'Deployment',
@@ -165,35 +168,37 @@ export const unifiedDiagram: Diagram = {
     },
     {
       id: 'llm-router',
-      label: 'LLM Router',
-      sublabel: { pt: 'LiteLLM · fallback em cascata', en: 'LiteLLM · cascade fallback' },
+      label: 'LiteLLM Proxy',
+      sublabel: { pt: 'gateway LLM · ns: ai', en: 'LLM gateway · ns: ai' },
       iconSlug: 'python',
       col: 6,
       row: 5,
       details: {
         description: {
-          pt: 'LiteLLM abstrai os providers e tenta um por um. Falha no "open" ou "early" (antes do 1º token) → tenta o próximo. Falha "mid" → erro pro cliente.',
-          en: 'LiteLLM abstracts providers and tries them in order. "Open" or "early" failure (before the 1st token) → next. "Mid" failure → error to the client.',
+          pt: 'Gateway LiteLLM do cluster. O chat-api (chat e router) usa o alias `company-code`; o judge usa `company-reasoning`. O proxy faz o roteamento/fallback para os providers e centraliza chaves — o chat-api não fala mais direto com OpenRouter/Gemini. Cadeia do `company-code`: ChatGPT (gpt-6-luna) → Claude Haiku 5.5 via OpenRouter → Ollama local (qwen3.5:9b). O custo é estimado no `cost.py` via tabela `LLM_ALIAS_PRICING`.',
+          en: 'Cluster LiteLLM gateway. chat-api (chat and router) uses the `company-code` alias; the judge uses `company-reasoning`. The proxy handles routing/fallback to providers and centralizes keys — chat-api no longer talks to OpenRouter/Gemini directly. `company-code` chain: ChatGPT (gpt-6-luna) → Claude Haiku 5.5 via OpenRouter → local Ollama (qwen3.5:9b). Cost is estimated in `cost.py` from the `LLM_ALIAS_PRICING` table.',
         },
+        technical: { kind: 'Deployment', namespace: 'ai' },
         decisions: [
           {
-            pt: 'Múltiplos providers de baixo custo > um caro. Latência média menor e custo controlado mesmo se um provider degrada.',
-            en: 'Many cheap providers > one premium. Lower median latency and capped cost even when one provider degrades.',
+            pt: 'Um gateway único > SDK com chaves em cada app: troca de modelo sem redeploy do chat-api e visão central de uso.',
+            en: 'A single gateway > per-app SDK keys: swap models without redeploying chat-api, with central usage visibility.',
           },
         ],
       },
     },
     {
       id: 'gemini',
-      label: 'Gemini 2.5 Flash',
-      sublabel: { pt: 'primário · Google', en: 'primary · Google' },
-      iconSlug: 'googlegemini',
+      label: 'ChatGPT (gpt-6-luna)',
+      sublabel: { pt: 'primário · via proxy', en: 'primary · via proxy' },
+      // simple-icons 16.x não tem o logo da OpenAI: cai no ícone genérico.
+      iconSlug: '',
       col: 7,
       row: 5,
       details: {
         description: {
-          pt: 'Provider primário. Boa qualidade para resposta curta, custo baixo, latência aceitável a partir do Brasil.',
-          en: 'Primary provider. Good short-answer quality, low cost, acceptable latency from Brazil.',
+          pt: 'Provider primário do alias `company-code` (chat e router), atrás do **LiteLLM proxy**. O judge (`company-reasoning`) tem o gpt-6-sol como primário, também via proxy. Em falha, o `company-code` cai para Claude Haiku (OpenRouter) e, por último, para o Ollama local.',
+          en: 'Primary provider for the `company-code` alias (chat and router), behind the **LiteLLM proxy**. The judge (`company-reasoning`) uses gpt-6-sol as its primary, also via the proxy. On failure, `company-code` falls back to Claude Haiku (OpenRouter) and, last, to local Ollama.',
         },
         technical: { kind: 'External' },
       },
@@ -201,14 +206,14 @@ export const unifiedDiagram: Diagram = {
     {
       id: 'openrouter',
       label: 'OpenRouter',
-      sublabel: { pt: 'fallback · pool de modelos', en: 'fallback · model pool' },
+      sublabel: { pt: 'fallback · via proxy', en: 'fallback · via proxy' },
       iconSlug: 'openrouter',
       col: 8,
       row: 5,
       details: {
         description: {
-          pt: 'OpenRouter atua como **pool de fallback** — vários modelos configuráveis acionados em cascata se o primário falhar antes do 1º token. A escolha de modelos exatos é tunada por ambiente em variável de ambiente (`LLM_PROVIDERS`), evitando lock-in num modelo específico.',
-          en: 'OpenRouter acts as a **fallback pool** — multiple swappable models triggered in cascade if the primary fails before the 1st token. The exact model lineup is tuned per-environment via the `LLM_PROVIDERS` env var, avoiding lock-in on any single model.',
+          pt: 'Pool de providers atrás do **LiteLLM proxy**. No chat, é o fallback do `company-code` (Claude Haiku 5.5); no judge (`company-reasoning`, gpt-6-sol), o fallback é Gemini via OpenRouter. O chat-api não o acessa diretamente.',
+          en: 'Provider pool behind the **LiteLLM proxy**. In chat, it is the `company-code` fallback (Claude Haiku 5.5); in the judge (`company-reasoning`, gpt-6-sol), the fallback is Gemini via OpenRouter. chat-api never reaches it directly.',
         },
         technical: { kind: 'External' },
       },
@@ -316,13 +321,13 @@ export const unifiedDiagram: Diagram = {
       offsetX: 50,
       details: {
         description: {
-          pt: 'Disparada por push em `main` (ou tag de release). CI roda lint + typecheck + Vitest + build Vite. Quando passa, um job dedicado em runner ARM nativo gera a imagem ARM64 e envia ao GHCR. Deploy em **dev** é automático após CI verde; **prod** exige disparo manual com gate.',
-          en: 'Triggered by push to `main` (or a release tag). CI runs lint + typecheck + Vitest + Vite build. On green, a dedicated job on a native ARM runner produces the ARM64 image and pushes it to GHCR. **Dev** deploys automatically after green CI; **prod** requires a manual dispatch with a gate.',
+          pt: 'Disparada por push em `main` (ou tag de release). CI roda lint + typecheck + Vitest + build Vite. Quando passa, um job de build gera a imagem e envia ao GHCR. Deploy em **dev** é automático após CI verde; **prod** exige disparo manual com gate.',
+          en: 'Triggered by push to `main` (or a release tag). CI runs lint + typecheck + Vitest + Vite build. On green, a build job produces the image and pushes it to GHCR. **Dev** deploys automatically after green CI; **prod** requires a manual dispatch with a gate.',
         },
         decisions: [
           {
-            pt: 'Runner ARM nativo no job de build da imagem evita emulação — build cai de minutos para segundos. CI principal (lint/test) fica em x86, que é mais rápido para Node.',
-            en: 'Native ARM runner on the image-build job skips emulation — the build drops from minutes to seconds. The main CI (lint/test) stays on x86, which is faster for Node.',
+            pt: 'Build nativo amd64 no runner hospedado, sem emulação QEMU, igual à arquitetura do nó.',
+            en: 'Native amd64 build on the hosted runner, no QEMU emulation, same architecture as the node.',
           },
         ],
       },
@@ -362,7 +367,7 @@ export const unifiedDiagram: Diagram = {
     {
       id: 'k3s',
       label: 'k3s',
-      sublabel: { pt: 'cluster · Raspberry Pi ARM64', en: 'cluster · ARM64 Raspberry Pi' },
+      sublabel: { pt: 'cluster · HP EliteDesk amd64', en: 'cluster · HP EliteDesk amd64' },
       iconSlug: 'kubernetes',
       type: 'cluster',
       col: 4,
@@ -373,8 +378,8 @@ export const unifiedDiagram: Diagram = {
       height: 1210,
       details: {
         description: {
-          pt: 'k3s single-node rodando num Raspberry Pi ARM64 com Ubuntu. Hospeda este site, o chat-api, dois apps full-stack (nossagrana, nossalista), Postgres compartilhado e o stack kube-prometheus. Tudo dentro deste retângulo roda no mesmo cluster.',
-          en: 'k3s single-node running on an ARM64 Raspberry Pi with Ubuntu. Hosts this site, chat-api, two full-stack apps (nossagrana, nossalista), shared Postgres and the kube-prometheus stack. Everything inside this rectangle runs on the same cluster.',
+          pt: 'k3s single-node rodando num HP EliteDesk (amd64, 6 vCPU, 16GB) com Ubuntu 24.04. Hospeda este site, o chat-api, o LiteLLM proxy, dois apps full-stack (nossagrana, nossalista), Postgres compartilhado e o stack kube-prometheus. Tudo dentro deste retângulo roda no mesmo cluster.',
+          en: 'k3s single-node running on an HP EliteDesk (amd64, 6 vCPU, 16GB) with Ubuntu 24.04. Hosts this site, chat-api, the LiteLLM proxy, two full-stack apps (nossagrana, nossalista), shared Postgres and the kube-prometheus stack. Everything inside this rectangle runs on the same cluster.',
         },
         decisions: [
           {
@@ -387,7 +392,10 @@ export const unifiedDiagram: Diagram = {
     {
       id: 'prometheus',
       label: 'Prometheus',
-      sublabel: { pt: 'kube-prometheus-stack · ns: monitoring', en: 'kube-prometheus-stack · ns: monitoring' },
+      sublabel: {
+        pt: 'kube-prometheus-stack · ns: monitoring',
+        en: 'kube-prometheus-stack · ns: monitoring',
+      },
       iconSlug: 'prometheus',
       col: 6,
       row: 7,
@@ -412,7 +420,7 @@ export const unifiedDiagram: Diagram = {
       details: {
         description: {
           pt: 'Dashboard `chat-api` dedicado com painéis de chats/min, tokens/dia, gauge de **chamadas LLM hoje vs limite diário** (cost-gate), latências percentílicas, provider mix, falhas por phase (open/early/mid), CPU e memória. Vive em `grafana.leoferolive.com.br`.',
-          en: 'Dedicated `chat-api` dashboard with panels for chats/min, tokens/day, a gauge of **today\'s LLM calls vs daily limit** (cost-gate), percentile latencies, provider mix, failures by phase (open/early/mid), CPU and memory. Lives at `grafana.leoferolive.com.br`.',
+          en: "Dedicated `chat-api` dashboard with panels for chats/min, tokens/day, a gauge of **today's LLM calls vs daily limit** (cost-gate), percentile latencies, provider mix, failures by phase (open/early/mid), CPU and memory. Lives at `grafana.leoferolive.com.br`.",
         },
         technical: { kind: 'Deployment', namespace: 'monitoring' },
       },
@@ -435,34 +443,171 @@ export const unifiedDiagram: Diagram = {
   ],
   edges: [
     // Runtime data path (row 5 horizontal)
-    { source: 'you', target: 'cloudflare-dns', label: { pt: 'HTTPS', en: 'HTTPS' }, animated: true, variant: 'data' },
-    { source: 'cloudflare-dns', target: 'cloudflare-tunnel', label: { pt: 'túnel', en: 'tunnel' }, animated: true, variant: 'data' },
+    {
+      source: 'you',
+      target: 'cloudflare-dns',
+      label: { pt: 'HTTPS', en: 'HTTPS' },
+      animated: true,
+      variant: 'data',
+    },
+    {
+      source: 'cloudflare-dns',
+      target: 'cloudflare-tunnel',
+      label: { pt: 'túnel', en: 'tunnel' },
+      animated: true,
+      variant: 'data',
+    },
     { source: 'cloudflare-tunnel', target: 'traefik', animated: true, variant: 'data' },
-    { source: 'traefik', target: 'site-pod', sourceHandle: 'top', targetHandle: 'bottom', label: { pt: 'host site', en: 'site host' }, animated: true, variant: 'data' },
-    { source: 'traefik', target: 'fastapi', label: { pt: '/chat/stream', en: '/chat/stream' }, animated: true, variant: 'data' },
-    { source: 'fastapi', target: 'llm-router', animated: true, variant: 'data' },
-    { source: 'llm-router', target: 'gemini', label: { pt: 'primário', en: 'primary' }, animated: true, variant: 'data' },
-    { source: 'llm-router', target: 'openrouter', sourceHandle: 'bottom', targetHandle: 'bottom', label: { pt: 'fallback', en: 'fallback' }, animated: true, variant: 'data' },
+    {
+      source: 'traefik',
+      target: 'site-pod',
+      sourceHandle: 'top',
+      targetHandle: 'bottom',
+      label: { pt: 'host site', en: 'site host' },
+      animated: true,
+      variant: 'data',
+    },
+    {
+      source: 'traefik',
+      target: 'fastapi',
+      label: { pt: '/chat/stream', en: '/chat/stream' },
+      animated: true,
+      variant: 'data',
+    },
+    {
+      source: 'fastapi',
+      target: 'llm-router',
+      label: { pt: 'company-code', en: 'company-code' },
+      animated: true,
+      variant: 'data',
+    },
+    {
+      source: 'llm-router',
+      target: 'gemini',
+      label: { pt: 'primário', en: 'primary' },
+      animated: true,
+      variant: 'data',
+    },
+    {
+      source: 'llm-router',
+      target: 'openrouter',
+      sourceHandle: 'bottom',
+      targetHandle: 'bottom',
+      label: { pt: 'fallback', en: 'fallback' },
+      animated: true,
+      variant: 'data',
+    },
 
     // Wiki / RAG
-    { source: 'wiki-prep', target: 'pvc-wiki', sourceHandle: 'bottom', targetHandle: 'top', label: { pt: 'chown', en: 'chown' }, animated: true, variant: 'control' },
-    { source: 'git-sync', target: 'pvc-wiki', sourceHandle: 'left', targetHandle: 'right', label: { pt: 'sync 60s', en: 'sync 60s' }, animated: true, variant: 'data' },
-    { source: 'wiki-repo', target: 'git-sync', sourceHandle: 'left', targetHandle: 'right', label: { pt: 'git pull', en: 'git pull' }, animated: true, variant: 'data' },
-    { source: 'pvc-wiki', target: 'fastapi', sourceHandle: 'right', targetHandle: 'left', label: { pt: 'read-only', en: 'read-only' }, animated: true, variant: 'data' },
+    {
+      source: 'wiki-prep',
+      target: 'pvc-wiki',
+      sourceHandle: 'bottom',
+      targetHandle: 'top',
+      label: { pt: 'chown', en: 'chown' },
+      animated: true,
+      variant: 'control',
+    },
+    {
+      source: 'git-sync',
+      target: 'pvc-wiki',
+      sourceHandle: 'left',
+      targetHandle: 'right',
+      label: { pt: 'sync 60s', en: 'sync 60s' },
+      animated: true,
+      variant: 'data',
+    },
+    {
+      source: 'wiki-repo',
+      target: 'git-sync',
+      sourceHandle: 'left',
+      targetHandle: 'right',
+      label: { pt: 'git pull', en: 'git pull' },
+      animated: true,
+      variant: 'data',
+    },
+    {
+      source: 'pvc-wiki',
+      target: 'fastapi',
+      sourceHandle: 'right',
+      targetHandle: 'left',
+      label: { pt: 'read-only', en: 'read-only' },
+      animated: true,
+      variant: 'data',
+    },
 
     // DB
-    { source: 'fastapi', target: 'pvc-db', sourceHandle: 'bottom', targetHandle: 'top', label: { pt: 'aiosqlite', en: 'aiosqlite' }, animated: true, variant: 'data' },
+    {
+      source: 'fastapi',
+      target: 'pvc-db',
+      sourceHandle: 'bottom',
+      targetHandle: 'top',
+      label: { pt: 'aiosqlite', en: 'aiosqlite' },
+      animated: true,
+      variant: 'data',
+    },
 
     // Build / deploy
-    { source: 'developer', target: 'github-actions', label: { pt: 'git push', en: 'git push' }, animated: true, variant: 'control' },
-    { source: 'github-actions', target: 'ghcr', label: { pt: 'docker push', en: 'docker push' }, animated: true, variant: 'control' },
-    { source: 'ghcr', target: 'k3s', sourceHandle: 'bottom', targetHandle: 'top', label: { pt: 'imagePull', en: 'imagePull' }, animated: true, variant: 'control' },
-    { source: 'github-actions', target: 'tailscale', sourceHandle: 'bottom', targetHandle: 'left', label: { pt: 'VPN up', en: 'VPN up' }, animated: true, variant: 'control' },
-    { source: 'tailscale', target: 'k3s', sourceHandle: 'right', targetHandle: 'left', label: { pt: 'kubectl set image', en: 'kubectl set image' }, animated: true, variant: 'control' },
+    {
+      source: 'developer',
+      target: 'github-actions',
+      label: { pt: 'git push', en: 'git push' },
+      animated: true,
+      variant: 'control',
+    },
+    {
+      source: 'github-actions',
+      target: 'ghcr',
+      label: { pt: 'docker push', en: 'docker push' },
+      animated: true,
+      variant: 'control',
+    },
+    {
+      source: 'ghcr',
+      target: 'k3s',
+      sourceHandle: 'bottom',
+      targetHandle: 'top',
+      label: { pt: 'imagePull', en: 'imagePull' },
+      animated: true,
+      variant: 'control',
+    },
+    {
+      source: 'github-actions',
+      target: 'tailscale',
+      sourceHandle: 'bottom',
+      targetHandle: 'left',
+      label: { pt: 'VPN up', en: 'VPN up' },
+      animated: true,
+      variant: 'control',
+    },
+    {
+      source: 'tailscale',
+      target: 'k3s',
+      sourceHandle: 'right',
+      targetHandle: 'left',
+      label: { pt: 'kubectl set image', en: 'kubectl set image' },
+      animated: true,
+      variant: 'control',
+    },
 
     // Observability
-    { source: 'prometheus', target: 'fastapi', sourceHandle: 'left', targetHandle: 'bottom', label: { pt: '/metrics 30s', en: '/metrics 30s' }, animated: true, variant: 'observability' },
+    {
+      source: 'prometheus',
+      target: 'fastapi',
+      sourceHandle: 'left',
+      targetHandle: 'bottom',
+      label: { pt: '/metrics 30s', en: '/metrics 30s' },
+      animated: true,
+      variant: 'observability',
+    },
     { source: 'prometheus', target: 'grafana', animated: true, variant: 'observability' },
-    { source: 'prometheus', target: 'alertmanager', sourceHandle: 'bottom', targetHandle: 'bottom', animated: true, variant: 'observability' },
+    {
+      source: 'prometheus',
+      target: 'alertmanager',
+      sourceHandle: 'bottom',
+      targetHandle: 'bottom',
+      animated: true,
+      variant: 'observability',
+    },
   ],
 };

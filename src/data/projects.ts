@@ -5,8 +5,8 @@ export type ProjectEntry = {
   description: { pt: string; en: string };
   stack: readonly string[];
   builtWith?: string;
-  link?: string;     // GitHub repo
-  demo?: string;     // Live URL
+  link?: string; // GitHub repo
+  demo?: string; // Live URL
   internalRoute?: { pt: string; en: string };
   internalRouteLabel?: { pt: string; en: string };
 };
@@ -43,10 +43,10 @@ export const projects: readonly ProjectEntry[] = [
     type: 'infra',
     name: 'homelab',
     description: {
-      pt: 'Tudo em um Raspberry Pi 4B (8GB). K3s, Traefik, Cloudflare Tunnel. OpenClaw + Telegram para administração remota — provisiono bancos, faço deploys e troubleshoot direto pelo chat.',
-      en: 'Everything on a Raspberry Pi 4B (8GB). K3s, Traefik, Cloudflare Tunnel. OpenClaw + Telegram for remote admin — I provision databases, deploy, and troubleshoot from chat.',
+      pt: 'Tudo em um servidor HP EliteDesk (6 vCPU, 16GB). K3s, Traefik, Cloudflare Tunnel. OpenClaw + Telegram para administração remota — provisiono bancos, faço deploys e troubleshoot direto pelo chat.',
+      en: 'Everything on an HP EliteDesk server (6 vCPU, 16GB). K3s, Traefik, Cloudflare Tunnel. OpenClaw + Telegram for remote admin — I provision databases, deploy, and troubleshoot from chat.',
     },
-    stack: ['Raspberry Pi 4B', 'K3s', 'Traefik', 'Cloudflare Tunnel', 'OpenClaw', 'Tailscale'],
+    stack: ['HP EliteDesk', 'K3s', 'Traefik', 'Cloudflare Tunnel', 'OpenClaw', 'Tailscale'],
     internalRoute: { pt: '/arquitetura', en: '/en/architecture' },
     internalRouteLabel: { pt: 'ver diagrama interativo', en: 'view interactive diagram' },
   },
