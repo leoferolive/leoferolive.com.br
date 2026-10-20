@@ -21,7 +21,7 @@
 - Imagem Docker multi-stage: builder Node 20 + final `nginx:1.27-alpine`.
 - Tamanho final ≤ 30 MB.
 - Raw K8s YAML em `k8s/{prod,dev}/` (`Deployment` + `Service` + `Ingress` padrão); ingress class traefik com annotation `traefik.ingress.kubernetes.io/router.entrypoints: web`.
-- GitHub Actions (runner GitHub-hosted, amd64): build → push GHCR → `kubectl apply` local. Tailscale rodando como serviço persistente no Pi para conectividade com kube API.
+- GitHub Actions (runner GitHub-hosted, amd64): build → push GHCR → `kubectl apply` via Tailscale (VPN efêmera no runner) até a API do K3s no servidor.
 
 ### Infraestrutura
 - Cluster: K3s num HP EliteDesk (amd64, 6 vCPU, 16GB).

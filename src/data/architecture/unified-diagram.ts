@@ -175,8 +175,8 @@ export const unifiedDiagram: Diagram = {
       row: 5,
       details: {
         description: {
-          pt: 'Gateway LiteLLM do cluster. O chat-api (chat e router) usa o alias `company-code`; o judge usa `company-reasoning`. O proxy faz o roteamento/fallback para os providers e centraliza chaves — o chat-api não fala mais direto com OpenRouter/Gemini. O custo é calculado no `cost.py` via tabela `LLM_ALIAS_PRICING`.',
-          en: 'Cluster LiteLLM gateway. chat-api (chat and router) uses the `company-code` alias; the judge uses `company-reasoning`. The proxy handles routing/fallback to providers and centralizes keys — chat-api no longer talks to OpenRouter/Gemini directly. Cost is computed in `cost.py` from the `LLM_ALIAS_PRICING` table.',
+          pt: 'Gateway LiteLLM do cluster. O chat-api (chat e router) usa o alias `company-code`; o judge usa `company-reasoning`. O proxy faz o roteamento/fallback para os providers e centraliza chaves — o chat-api não fala mais direto com OpenRouter/Gemini. Cadeia do `company-code`: ChatGPT (gpt-6-luna) → Claude Haiku 5.5 via OpenRouter → Ollama local (qwen3.5:9b). O custo é estimado no `cost.py` via tabela `LLM_ALIAS_PRICING`.',
+          en: 'Cluster LiteLLM gateway. chat-api (chat and router) uses the `company-code` alias; the judge uses `company-reasoning`. The proxy handles routing/fallback to providers and centralizes keys — chat-api no longer talks to OpenRouter/Gemini directly. `company-code` chain: ChatGPT (gpt-6-luna) → Claude Haiku 5.5 via OpenRouter → local Ollama (qwen3.5:9b). Cost is estimated in `cost.py` from the `LLM_ALIAS_PRICING` table.',
         },
         technical: { kind: 'Deployment', namespace: 'ai' },
         decisions: [
@@ -189,15 +189,16 @@ export const unifiedDiagram: Diagram = {
     },
     {
       id: 'gemini',
-      label: 'Gemini 2.5 Flash',
-      sublabel: { pt: 'provider · via proxy', en: 'provider · via proxy' },
-      iconSlug: 'googlegemini',
+      label: 'ChatGPT (gpt-6-luna)',
+      sublabel: { pt: 'primário · via proxy', en: 'primary · via proxy' },
+      // simple-icons 16.x não tem o logo da OpenAI: cai no ícone genérico.
+      iconSlug: '',
       col: 7,
       row: 5,
       details: {
         description: {
-          pt: 'Provider atrás do LiteLLM proxy. Boa qualidade para resposta curta, custo baixo, latência aceitável a partir do Brasil.',
-          en: 'Provider behind the LiteLLM proxy. Good short-answer quality, low cost, acceptable latency from Brazil.',
+          pt: 'Provider primário do alias `company-code` (chat e router), atrás do **LiteLLM proxy**. O judge (`company-reasoning`) tem o gpt-6-sol como primário, também via proxy. Em falha, o `company-code` cai para Claude Haiku (OpenRouter) e, por último, para o Ollama local.',
+          en: 'Primary provider for the `company-code` alias (chat and router), behind the **LiteLLM proxy**. The judge (`company-reasoning`) uses gpt-6-sol as its primary, also via the proxy. On failure, `company-code` falls back to Claude Haiku (OpenRouter) and, last, to local Ollama.',
         },
         technical: { kind: 'External' },
       },
@@ -205,14 +206,14 @@ export const unifiedDiagram: Diagram = {
     {
       id: 'openrouter',
       label: 'OpenRouter',
-      sublabel: { pt: 'provider · via proxy', en: 'provider · via proxy' },
+      sublabel: { pt: 'fallback · via proxy', en: 'fallback · via proxy' },
       iconSlug: 'openrouter',
       col: 8,
       row: 5,
       details: {
         description: {
-          pt: 'OpenRouter é um dos providers atrás do **LiteLLM proxy** — pool de modelos configurável no proxy, sem lock-in num modelo específico. O chat-api não o acessa mais diretamente.',
-          en: 'OpenRouter is one of the providers behind the **LiteLLM proxy** — a model pool configured on the proxy, avoiding lock-in on any single model. chat-api no longer reaches it directly.',
+          pt: 'Pool de providers atrás do **LiteLLM proxy**. No chat, é o fallback do `company-code` (Claude Haiku 5.5); no judge (`company-reasoning`, gpt-6-sol), o fallback é Gemini via OpenRouter. O chat-api não o acessa diretamente.',
+          en: 'Provider pool behind the **LiteLLM proxy**. In chat, it is the `company-code` fallback (Claude Haiku 5.5); in the judge (`company-reasoning`, gpt-6-sol), the fallback is Gemini via OpenRouter. chat-api never reaches it directly.',
         },
         technical: { kind: 'External' },
       },
@@ -325,8 +326,8 @@ export const unifiedDiagram: Diagram = {
         },
         decisions: [
           {
-            pt: 'CI principal (lint/test) em x86, que é mais rápido para Node; o nó do cluster também é amd64.',
-            en: 'Main CI (lint/test) runs on x86, which is faster for Node; the cluster node is amd64 as well.',
+            pt: 'Build nativo amd64 no runner hospedado, sem emulação QEMU, igual à arquitetura do nó.',
+            en: 'Native amd64 build on the hosted runner, no QEMU emulation, same architecture as the node.',
           },
         ],
       },
@@ -483,7 +484,7 @@ export const unifiedDiagram: Diagram = {
     {
       source: 'llm-router',
       target: 'gemini',
-      label: { pt: 'roteia', en: 'routes' },
+      label: { pt: 'primário', en: 'primary' },
       animated: true,
       variant: 'data',
     },
@@ -492,7 +493,7 @@ export const unifiedDiagram: Diagram = {
       target: 'openrouter',
       sourceHandle: 'bottom',
       targetHandle: 'bottom',
-      label: { pt: 'roteia', en: 'routes' },
+      label: { pt: 'fallback', en: 'fallback' },
       animated: true,
       variant: 'data',
     },

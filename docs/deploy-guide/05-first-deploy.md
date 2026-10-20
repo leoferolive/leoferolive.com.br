@@ -7,11 +7,10 @@ Pré-requisitos completos:
 
 ## Passos
 
-1. **Verificar runner self-hosted ativo:**
+1. **Checar os secrets `TAILSCALE_AUTHKEY` e `KUBECONFIG`:**
    ```bash
-   # No servidor
-   sudo systemctl status actions.runner.leoferolive-leoferolive.com.br.<runner-name>
-   # Active: active (running)
+   gh secret list
+   # TAILSCALE_AUTHKEY e KUBECONFIG devem aparecer na lista
    ```
 
 2. **Push deste plan-2 branch e mergear pra main** (se ainda não foi).
